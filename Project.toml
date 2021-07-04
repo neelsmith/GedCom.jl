@@ -1,0 +1,4 @@
+name = "GedCom"
+uuid = "f079784c-569d-4aff-9ef7-93565f6c0696"
+authors = ["Neel Smith <dnsmith.neel@gmail.com>"]
+version = "0.1.0"
