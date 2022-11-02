@@ -1,5 +1,6 @@
 module GedCom
 
-greet() = print("Hello World!")
+include("read.jl")
+export gedtriples
 
 end # module
