@@ -12,13 +12,14 @@ end
 
 
 """
-Read GEDRecords from file `f`.
+Read `GEDRecord`s from file `f` where
+`f` is a file following the GEDCOM 5.1.1 standard.
 """
 function gedRecords(f)
-    re = r"([0-9]) (@.+@)? ?([A-Z_]+) ?(.*)"
+    re = r"[ ]*([0-9]) (@.+@)? ?([A-Z_]+) ?(.*)"
     lines = readlines(f)
     @info("Read $(length(lines)) lines.")
-    records = []
+    records = GEDRecord[]
     for ln in filter(l -> ! isempty(l), lines)
         (digits, xrefid, code, content) = match(re, ln).captures
         gedRecord = GEDRecord(parse(Int64, digits), xrefid, code, content)
