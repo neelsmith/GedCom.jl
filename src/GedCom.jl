@@ -4,9 +4,8 @@ include("gedrecords.jl")
 include("family.jl")
 include("individual.jl")
 
-
 export Genealogy, genealogy
-export Individual, individuals
+export Individual, individuals, label
 export FamilyUnit, families
 export GEDRecord
 
