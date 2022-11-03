@@ -2,6 +2,7 @@
 struct Individual
     id::AbstractString
     name::AbstractString
+    unparsed
 end
 
 function individuals(f)
@@ -9,7 +10,20 @@ function individuals(f)
 end
 
 function parseIndividual(id, records)
-    Individual(id, "")
+    
+    namerecords = filter(rec -> rec.code == "NAME", records)
+    isempty(namerecords) ? Individual(id, "") : Individual(id, namerecords[1].message, records)
+
+    #=
+    Things we should should scan for:
+        - sex
+        - birth
+        - death
+        - family relations (FAMS, FAMC)
+        - burial
+        - marriage, divorce
+        - probate
+    =#
 end
 
 
