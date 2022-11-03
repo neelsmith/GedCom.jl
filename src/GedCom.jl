@@ -4,9 +4,12 @@ include("gedrecords.jl")
 include("family.jl")
 include("individual.jl")
 
-export GEDRecord
-export FamilyUnit, families
+
+export Genealogy, genealogy
 export Individual, individuals
+export FamilyUnit, families
+export GEDRecord
+
 
 end # module
 

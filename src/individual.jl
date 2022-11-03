@@ -23,6 +23,9 @@ function parseIndividual(id, records)
         - burial
         - marriage, divorce
         - probate
+        - baptism
+        - residence
+        - occupation
     =#
 end
 

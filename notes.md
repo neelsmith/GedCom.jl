@@ -14,6 +14,8 @@ GEDC
 ADDR
 EMAIL
 REFN
+PHON
+FSID
 
 
 ## Data
@@ -33,7 +35,6 @@ RESI
 EVEN
 BAPM
 SSN
-FSID  ???
 TITL
 _MILT
 PROB(ate)
@@ -48,4 +49,4 @@ CONT
 AUTH
 PUBL
 REPO
-PHON
+

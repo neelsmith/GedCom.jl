@@ -8,4 +8,6 @@ Family units are have IDs only; otherwise, they are composed of relations that a
 
 Individuals are associated with each other in family units.
 
-Tested with data emitted by ancestry.com.
+Beyond that, there are events of various kinds and places.  These need to be knit together in a graph.
+
+An entire gedcom file source should be parsed into a `Genealogy` object.
