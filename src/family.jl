@@ -1,49 +1,45 @@
 
 struct FamilyUnit
+    xrefId::AbstractString
     husband
     wife
     children
 end
 
 
-
-struct Individual
-    id::AbstractString
-    name::AbstractString
+function families(f)
+    gedRecords(f) |> parseFamilies
 end
 
-function parseIndividual(id, records)
-    Individual(id, "")
+function parseFamily(id, records)
+    FamilyUnit(id, "", "", [])
 end
 
-
-function parseIndividuals(records)
-    individuals = Individual[]
+function parseFamilies(records)
+    families = FamilyUnit[]
     level = -1
     id = ""
-    indilines = []
+    datalines = []
     for rec in records
-        if rec.code == "INDI" 
+        if rec.code == "FAM" 
             if ! isempty(id)
                 @info("INDI: $(id)")
-                @info("Data: $(indilines)")
-                indiv = parseIndividual(id, indilines)
-                push!(individuals, indiv)
+                @info("Data: $(datalines)")
+                fam = parseFamily(id, datalines)
+                push!(families, fam)
             end
             level = rec.level
             id = rec.xrefId
-            indilines = []
+            datalines = []
         end
         if level < rec.level
-            push!(indilines, rec)
+            push!(datalines, rec)
             #@info("")
         end
     end
     if ! isnothing(id)
-        indiv = parseIndividual(id, indilines)
-        push!(individuals, indiv)
+        family = parseFamily(id, datalines)
+        push!(families, family)
     end
-    individuals
+    families
 end
-
-

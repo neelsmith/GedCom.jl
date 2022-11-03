@@ -2,9 +2,12 @@ module GedCom
 
 include("gedrecords.jl")
 include("family.jl")
+include("individual.jl")
 
-export GEDRecord, gedRecords
-export FamilyUnit, Individual
+export GEDRecord
+export FamilyUnit, families
+export Individual, individuals
+
 end # module
 
 
