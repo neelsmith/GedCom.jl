@@ -1,6 +1,7 @@
 module GedCom
 
-include("read.jl")
-export gedtriples
+include("gedrecords.jl")
+
+export GEDRecord, gedRecords
 
 end # module
