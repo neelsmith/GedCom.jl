@@ -1,6 +1,6 @@
 # GedCom.jl
 
-Parse GedCom file following GedCom 5.1.1 spec.
+Parse GedCom file following GedCom 5.5.1 spec.
 
 The central units are the individual, the family unit, and the source. (A fourth is the repository: not yet handled.)
 
