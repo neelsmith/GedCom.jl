@@ -1,6 +1,11 @@
+"""A GEDRecord is the content of a single line 
+of a GEDCOM "transmission."
+
+The GEDCOM 5.1.1 spec defines four required and one optional element in each record.
+"""
 struct GEDRecord
     level::Integer
-    xrefId
+    xrefId # Union of AbstractString or Nothing
     code::AbstractString
     message::AbstractString
 end
