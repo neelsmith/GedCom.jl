@@ -14,18 +14,8 @@ function genealogy(f)
 end
 
 
-function label(f::NuclearFamily)
-    hlabel = isnothing(f.husband) ? "unknown" : replace(f.husband.name, "/" => "")
-    wlabel = isnothing(f.wife) ? "unknown" : replace(f.wife.name, "/" => "")
-    string(hlabel, "--",  wlabel)
-end
 
 
-struct NuclearFamily
-    husband
-    wife
-    children::Vector{Individual}
-end
 
 
 """Collect `Individual` objects for each member of a nuclear family.

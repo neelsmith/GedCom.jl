@@ -1,6 +1,3 @@
-# Maybe use just ids for everything in FamilyUnit
-# and store all data in individuals?
-
 struct FamilyUnit
     xrefId::AbstractString
     records
@@ -71,7 +68,6 @@ end
 
 #= Example:
 
-
 0 @F2@ FAM
 1 HUSB @I3@
 1 WIFE @I4@
@@ -85,3 +81,17 @@ end
 4 LATI N33.4418
 4 LONG W94.0377
 =#
+
+
+
+struct NuclearFamily
+    husband
+    wife
+    children::Vector{Individual}
+end
+
+function label(f::NuclearFamily)
+    hlabel = isnothing(f.husband) ? "unknown" : replace(f.husband.name, "/" => "")
+    wlabel = isnothing(f.wife) ? "unknown" : replace(f.wife.name, "/" => "")
+    string(hlabel, "--",  wlabel)
+end

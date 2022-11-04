@@ -1,8 +1,8 @@
 module GedCom
 
 include("gedrecords.jl")
-include("family.jl")
 include("individual.jl")
+include("family.jl")
 include("event.jl")
 include("place.jl")
 include("source.jl")
@@ -20,11 +20,12 @@ end # module
 
 
 #=
-Codes for record types we want to process:
+Codes for main record types we want to process:
 
-INDI
-FAM
+√ INDI
+√ FAM
 SOUR
 REPO    
 
+also events and places
 =#
