@@ -8,8 +8,41 @@ end
 """Build a `Genealogy`` from a GECOM file source.
 """
 function genealogy(f)
-    individuals(f) |> Genealogy
+    folks = individuals(f)
+    fams = families(f)
+    Genealogy(folks, fams)
 end
+
+
+function label(f::NuclearFamily)
+    hlabel = isnothing(f.husband) ? "unknown" : replace(f.husband.name, "/" => "")
+    wlabel = isnothing(f.wife) ? "unknown" : replace(f.wife.name, "/" => "")
+    string(hlabel, "--",  wlabel)
+end
+
+
+struct NuclearFamily
+    husband
+    wife
+    children::Vector{Individual}
+end
+
+
+"""Collect `Individual` objects for each member of a nuclear family.
+Return a triple with husband, wife and children.
+"""
+function nuclearfamily(fam::FamilyUnit, gen::Genealogy )
+    # husband: 
+    hmatches = filter(i -> i.id == husbandid(fam), gen.individuals)
+    h = isempty(hmatches) ? nothing : hmatches[1]
+    wmatches = filter(i -> i.id == wifeid(fam), gen.individuals)
+    w = isempty(wmatches) ? nothing : wmatches[1]
+    kids = map(childrenids(fam)) do kid
+        filter(i -> i.id == kid, gen.individuals)[1]
+    end
+    NuclearFamily(h, w, kids)
+end
+
 
 #"""Construct a (possibly empty) Vector of child `Individual`s for `i`.
 #"""
