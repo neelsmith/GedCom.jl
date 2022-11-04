@@ -10,18 +10,25 @@ struct GEDRecord
     message::AbstractString
 end
 
-
 """
 Read `GEDRecord`s from file `f` where
 `f` is a file following the GEDCOM 5.1.1 standard.
 """
 function gedRecords(f)
-    re = r"[ ]*([0-9]) (@.+@)? ?([A-Z_]+) ?(.*)"
-    lines = readlines(f)
-    @info("Read $(length(lines)) lines.")
+    src = read(f) |> collect |> String
+    @info("Read $(length(src )) characters.")
+    gedRecords(split(src, "\n"))
+end
+
+"""
+Read `GEDRecord`s from a Vector of lines
+following the GEDCOM 5.1.1 standard for a "record".
+"""
+function gedRecords(lns::Vector{T}) where T <: AbstractString
+    gedre = r"[ ]*([0-9]) (@.+@)? ?([A-Z_]+) ?(.*)"
     records = GEDRecord[]
-    for ln in filter(l -> ! isempty(l), lines)
-        (digits, xrefid, code, content) = match(re, ln).captures
+    for ln in filter(l -> ! isempty(l), lns)
+        (digits, xrefid, code, content) = match(gedre, ln).captures
         gedRecord = GEDRecord(parse(Int64, digits), xrefid, code, content)
         push!(records, gedRecord)
     end
