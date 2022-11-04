@@ -1,7 +1,8 @@
 struct Genealogy
     individuals::Vector{Individual}
     families::Vector{FamilyUnit}
-    events::Vector{Event}
+    #events::Vector{Event}
+    #sources::Vector{Source}
 end
 
 """Build a `Genealogy`` from a GECOM file source.
