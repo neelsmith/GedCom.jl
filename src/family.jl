@@ -1,3 +1,5 @@
+# Maybe use just ids for everything in FamilyUnit
+# and store all data in individuals?
 
 struct FamilyUnit
     xrefId::AbstractString
@@ -7,6 +9,7 @@ struct FamilyUnit
 end
 
 
+#=
 function families(f)
     gedRecords(f) |> parseFamilies
 end
@@ -43,3 +46,4 @@ function parseFamilies(records)
     end
     families
 end
+=#

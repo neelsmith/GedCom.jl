@@ -21,10 +21,20 @@ function sex(indi::Individual)
     length(records) == 1 ? records[1].message : "Unrecorded"
 end
 
+
+"""Get parental family identifier for an `Individual`.
+"""
 function parentage(indi::Individual)
+    records = filter(rec -> rec.code == "FAMC", indi.records)
+    length(records) == 1 ? records[1].message : "Unrecorded"
 end
 
-function children(indi::Individual)
+
+"""Get list of spouses of an `Individual`.
+"""
+function spouses(indi::Individual)
+    records = filter(rec -> rec.code == "FAMS", indi.records)
+    map(r -> r.message, records)
 end
 
 """Read file `f` and extract `Individual` objects.
@@ -43,7 +53,6 @@ function yearpart(s)
     else
         yrs.captures[1]
     end
-
 end
 
 
