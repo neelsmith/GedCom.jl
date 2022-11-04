@@ -9,11 +9,13 @@ include("source.jl")
 include("genealogy.jl")
 
 export Genealogy, genealogy
-export Individual, individuals, label
+export Individual, individuals 
 export FamilyUnit, families
+export NuclearFamily
 #export Event, events
 #export Source, sources
-export GEDRecord
+export GEDRecord, gedRecords
+export label
 
 
 end # module
