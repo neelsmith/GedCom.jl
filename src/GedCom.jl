@@ -11,7 +11,7 @@ include("genealogy.jl")
 export Genealogy, genealogy
 export Individual, individuals 
 export FamilyUnit, families
-export NuclearFamily
+export NuclearFamily, nuclearfamily
 #export Event, events
 #export Source, sources
 export GEDRecord, gedRecords
