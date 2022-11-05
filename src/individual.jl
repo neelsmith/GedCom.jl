@@ -6,6 +6,14 @@ struct Individual
     records
 end
 
+# Rely on slash convention
+function lastname(indi::Individual)
+    #eplace(indi.name, "/" => "")
+    re = r".*/(.+)/.*"
+    slashed = match(re, indi.name)
+    isnothing(slashed) ? indi.name : slashed.captures[1]
+end
+
 """Format human-readable label for an `Individual`.
 """
 function label(indi::Individual)
