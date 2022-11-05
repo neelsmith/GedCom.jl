@@ -104,3 +104,7 @@ function parentage(i::Individual, g::Genealogy)
         parents 
     end
 end
+
+function ancestors_mermaid(i::Individual, g::Genealogy)
+    
+end

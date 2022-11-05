@@ -6,7 +6,9 @@ struct Individual
     records
 end
 
-# Rely on slash convention
+"""Extracts any last name mareked by traditional slash convention;
+alternatively, returns unaltered value of name property.
+"""
 function lastname(indi::Individual)
     #eplace(indi.name, "/" => "")
     re = r".*/(.+)/.*"
