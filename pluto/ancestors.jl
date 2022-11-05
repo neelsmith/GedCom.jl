@@ -48,6 +48,9 @@ md"""
 # ╔═╡ 53668273-179a-4596-97fa-24db84556236
 md"""## Ancestry trees"""
 
+# ╔═╡ a4213897-b989-4e4d-8ec2-fc73959af7f7
+
+
 # ╔═╡ 1e7d7661-44aa-468a-af3d-c25864bfd9c1
 html"""<br/><br/><br/><br/><br/>"""
 
@@ -75,12 +78,34 @@ md"""
 """
 
 # ╔═╡ 1e63fe6d-be8c-43b6-847f-0dc73f3d5657
-md"""**Parentage function**:  $(GedCom.parentage(person, gen))
-"""
+begin
+	parentids = GedCom.parents(person,gen)
+	if isnothing(parentids)
+		md"""Parent family not recorded."""
+		
+	else
+		dad = parentids[:father]
+		dadlabel = isnothing(dad) ? "Not recorded" : label(dad)
+		mom = parentids[:mother]
+		momlabel = isnothing(mom) ? "Not recorded" : label(mom)
+		md"""**Parentage of individual $(person.id) $(label(person))**: 
+		
+		- Father: $(dadlabel)
+		- Mother: $(momlabel)
+		
+		"""
+	end
+end
 
 # ╔═╡ ac727aa5-6b4e-4743-9dd5-9cc390a60632
-md"""**Parents function**:  $(GedCom.parents(person, gen))
-"""
+begin
+	rents = GedCom.parents(person, gen)
+	md"""**Parents function**:  $(typeof(rents))
+	"""
+end
+
+# ╔═╡ eca70583-735f-4a83-a304-cd9d63a53834
+prnts = GedCom.parents(person, gen)
 
 # ╔═╡ Cell order:
 # ╟─eb702a7e-6a96-47b9-aeb2-46eac03dc561
@@ -91,10 +116,12 @@ md"""**Parents function**:  $(GedCom.parents(person, gen))
 # ╟─53668273-179a-4596-97fa-24db84556236
 # ╟─d79deaf9-b0e7-4d48-bf8b-4f823848e7d9
 # ╟─1e63fe6d-be8c-43b6-847f-0dc73f3d5657
-# ╟─ac727aa5-6b4e-4743-9dd5-9cc390a60632
+# ╠═ac727aa5-6b4e-4743-9dd5-9cc390a60632
+# ╠═eca70583-735f-4a83-a304-cd9d63a53834
+# ╠═a4213897-b989-4e4d-8ec2-fc73959af7f7
 # ╟─1e7d7661-44aa-468a-af3d-c25864bfd9c1
 # ╟─baa3fdf4-b780-406e-bfd5-e5c7e4dc3552
 # ╟─be67734a-90a6-4220-926c-39c1d0e89030
 # ╟─ca028862-5d01-11ed-0e13-01f6b07abf83
 # ╠═f9aeeb3a-bfc2-4a15-8f8d-3dae415a4f11
-# ╠═ca2f6e6e-094f-4a98-a568-2dc858d3fda0
+# ╟─ca2f6e6e-094f-4a98-a568-2dc858d3fda0
