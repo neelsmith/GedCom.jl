@@ -13,7 +13,7 @@ export Individual, individuals
 export FamilyUnit, families
 export NuclearFamily, nuclearfamily
 #export Event, events
-#export Source, sources
+export Source, sources
 export GEDRecord, gedRecords
 export label
 
