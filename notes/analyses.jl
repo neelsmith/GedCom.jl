@@ -31,3 +31,19 @@ for i in gen.individuals
 end
 
 
+
+
+
+famscores = []
+for i in gen.families
+    currlevel = 1
+    currstack = ["","","",""]
+    for r in i.records
+        if r.level == 1
+            push!(famscores, currstack)
+            currstack = ["","","",""]
+        end
+        id = "$(r.level)-$(r.code)"
+        currstack[r.level] =  id
+    end
+end
