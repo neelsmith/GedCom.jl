@@ -47,3 +47,19 @@ for i in gen.families
         currstack[r.level] =  id
     end
 end
+
+
+
+srcscores = []
+for i in sources(f)
+    currlevel = 1
+    currstack = ["","","",""]
+    for r in i.records
+        if r.level == 1
+            push!(srcscores, currstack)
+            currstack = ["","","",""]
+        end
+        id = "$(r.level)-$(r.code)"
+        currstack[r.level] =  id
+    end
+end
