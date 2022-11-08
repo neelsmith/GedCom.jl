@@ -1,8 +1,7 @@
 struct Genealogy
     individuals::Vector{Individual}
     families::Vector{FamilyUnit}
-    #events::Vector{Event}
-    #sources::Vector{Source}
+    sources::Vector{Source}
 end
 
 """Build a `Genealogy`` from a GECOM file source.
@@ -10,7 +9,8 @@ end
 function genealogy(f)
     folks = individuals(f)
     fams = families(f)
-    Genealogy(folks, fams)
+    srcs = sources(f)
+    Genealogy(folks, fams, srcs)
 end
 
 """Collect `Individual` objects for each member of a nuclear family.
