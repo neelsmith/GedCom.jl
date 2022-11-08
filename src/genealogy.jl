@@ -13,13 +13,9 @@ function genealogy(f)
     Genealogy(folks, fams)
 end
 
-
-
-
-
-
 """Collect `Individual` objects for each member of a nuclear family.
-Return a triple with husband, wife and children.
+Return a triple with `Individual` husband, `Individual` wife and Vector of `Individual`s children.
+
 """
 function nuclearfamily(fam::FamilyUnit, gen::Genealogy )
     # husband: 
@@ -33,6 +29,10 @@ function nuclearfamily(fam::FamilyUnit, gen::Genealogy )
     NuclearFamily(h, w, kids)
 end
 
+
+function label(fam::FamilyUnit, gen::Genealogy)
+    nuclearfamily(fam, gen ) |> label
+end
 
 #"""Construct a (possibly empty) Vector of child `Individual`s for `i`.
 #"""

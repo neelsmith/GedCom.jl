@@ -144,13 +144,13 @@ function parseIndividual(id, records)
         - √ sex
         - √ birth
         - √ death
-        - family relations (FAMS, FAMC)
-        - burial
-        - marriage, divorce
-        - probate
-        - baptism
-        - residence
-        - occupation
+        - √ family relations (FAMS, FAMC)
+        - burial BURI
+        - marriage, divorce MARR, DIV
+        - probate PROB
+        - baptism BAPM
+        - residence RESI
+        - occupation OCCU
     =#
 end
 

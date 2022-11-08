@@ -15,6 +15,7 @@ end
 Vector of `GEDRecord`s.
 """
 function parseFamilies(records)
+    maxdatalines = 0
     families = FamilyUnit[]
     level = -1
     id = ""
@@ -22,8 +23,12 @@ function parseFamilies(records)
     for rec in records
         if rec.code == "FAM" 
             if ! isempty(id)
-                @info("FAM: $(id)")
-                @info("Data: $(datalines)")
+                @debug("FAM: $(id)")
+                @info("Data: $(length(datalines)) lines.")
+                if length(datalines) > maxdatalines
+                    maxdatalines = length(datalines)
+                end
+                @info("Pushing family with $(length(datalines))data lines.")
                 push!(families, FamilyUnit(id, datalines))
             end
             level = rec.level
@@ -37,7 +42,9 @@ function parseFamilies(records)
     if ! isnothing(id)
         family = FamilyUnit(id, datalines)
         push!(families, family)
+        datalines = []
     end
+    @info("Longest data record: $(maxdatalines)")
     families
 end
 
@@ -95,3 +102,33 @@ function label(f::NuclearFamily)
     wlabel = isnothing(f.wife) ? "unknown" : replace(f.wife.name, "/" => "")
     string(hlabel, "--",  wlabel)
 end
+
+
+    #=
+    Things we should should scan for:
+
+Basic family relations
+HUSB
+WIFE
+CHIL
+
+Marital status:
+MARL Marriage license
+MARR Marriage
+DIV Divorce
+
+
+ADDR
+EMAIL
+ 
+ "FILE"
+ "NAME"
+ "NOTE"
+ "PHON"
+ "PUBL"
+ "REPO"
+ "TITL"
+
+ Skip these:
+ EVEN  Weirdly used in pres2020.ged for what should be a note, not an event
+        =#
