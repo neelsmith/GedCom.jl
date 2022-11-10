@@ -39,39 +39,44 @@ function parseSources(records)
     end
     sources
 end
-            #=
-            if ! isempty(id)
-                @debug("SOURCE: $(id)")
-                @debug("Data: $(length(datalines)) lines.")
-                  
-                if length(datalines) > maxdatalines
-                    maxdatalines = length(datalines)
-                end
-                  
-                @info("Pushing source with $(length(datalines))data lines.")
-                push!(sources, Source(id, datalines))
-                
-            end
-            level = rec.level
-            @info("SOUR at level $(level)")
-            @info("ID IS $(rec.xrefId)")
-            if isnothing(rec)
-                @warn("EMPTY REC??", rec)
-            end
-            #
-            #datalines = []
-        
+         
+
+function title(src::Source)
+    data(src.records, "TITL")
+end
+
+function publication(src::Source)
+    data(src.records, "PUBL")
+end
+
+function author(src::Source)
+    data(src.records, "AUTH")
+end
+
+function repo(src::Source)
+    data(src, "REPO")
+end
+
+function title(src::Source)
+    data(src.records, "TITL")
+end
+
+#=
+function data(src::Source, code)
+    intitle = false
+    currlevel = -1
+    datastrings  = []
+    for r in src.records
+        if r.code == code
+            currlevel = r.level
+            push!(datastrings, r.message)
+        elseif intitle && r.code == "CONC"
+            push!(datastrings, r.message)
+            currlevel = r.level
+        elseif r.level >= currlevel
+            intitle = false
         end
-        if level < rec.level
-            push!(datalines, rec)
-        end
-    
     end
-    if ! isnothing(id)
-        src = Source(id, datalines)
-        push!(sources, src)
-        datalines = []
-    end
-    @info("Longest data record: $(maxdatalines)")
-    parseSources
-end=#
+    join(datastrings)
+end
+=#

@@ -34,3 +34,21 @@ function gedRecords(lns::Vector{T}) where T <: AbstractString
     end
     records
 end
+
+function data(v, code)
+    incode = false
+    currlevel = -1
+    datastrings  = []
+    for r in v
+        if r.code == code
+            currlevel = r.level
+            push!(datastrings, r.message)
+        elseif incode && r.code == "CONC"
+            push!(datastrings, r.message)
+            currlevel = r.level
+        elseif r.level >= currlevel
+            incode = false
+        end
+    end
+    join(datastrings)
+end
