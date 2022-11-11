@@ -35,6 +35,11 @@ function gedRecords(lns::Vector{T}) where T <: AbstractString
     records
 end
 
+
+"""Given a Vector of `GEDRecord`s, extract data values for al records of a specific code.
+
+Compare `blocks(v, code)`.
+"""
 function data(v, code)
     incode = false
     currlevel = -1
@@ -51,4 +56,39 @@ function data(v, code)
         end
     end
     join(datastrings)
+end
+
+
+"""Given a Vector of `GEDRecord`s, extract blocks for a given 
+GEDCOM code.  A block is all subsequent GEDCOM records contained
+in that block, as indicated by the level of subordination of the record.
+
+Compare `data(v, code)`.
+"""
+function blocks(v, code)
+    inblock = false
+    blocklevel = -1
+    blocklist = []
+    currentdata = []
+    for r in v
+        @info(" ---> $(r)")
+        if r.code == code 
+            blocklevel = r.level
+            if ! isempty(currentdata) 
+                push!(blocklist, currentdata)
+            end
+            inblock = true
+            @info("Found block $(code): blocklevel $(blocklevel)")
+        elseif r.level <= blocklevel 
+            if  ! isempty(currentdata) 
+                push!(blocklist, currentdata)
+            end
+            inblock = false
+            currentdata = []
+        elseif inblock
+            @info("Should push: $(r)")
+            push!(currentdata, r)
+        end
+    end
+    blocklist
 end

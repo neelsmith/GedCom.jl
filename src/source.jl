@@ -57,9 +57,6 @@ function repo(src::Source)
     data(src, "REPO")
 end
 
-function title(src::Source)
-    data(src.records, "TITL")
-end
 
 #=
 function data(src::Source, code)
