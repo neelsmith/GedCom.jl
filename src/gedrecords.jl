@@ -68,8 +68,8 @@ Compare `data(v, code)`.
 function blocks(v, code)
     inblock = false
     blocklevel = -1
-    blocklist = []
-    currentdata = []
+    blocklist = Vector{GEDRecord}[]
+    currentdata = GEDRecord[]
     for r in v
         @info(" ---> $(r)")
         if r.code == code 
