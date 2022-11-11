@@ -24,11 +24,11 @@ function parseFamilies(records)
         if rec.code == "FAM" 
             if ! isempty(id)
                 @debug("FAM: $(id)")
-                @info("Data: $(length(datalines)) lines.")
+                @debug("Data: $(length(datalines)) lines.")
                 if length(datalines) > maxdatalines
                     maxdatalines = length(datalines)
                 end
-                @info("Pushing family with $(length(datalines))data lines.")
+                @debug("Pushing family with $(length(datalines))data lines.")
                 push!(families, FamilyUnit(id, datalines))
             end
             level = rec.level
@@ -44,7 +44,7 @@ function parseFamilies(records)
         push!(families, family)
         datalines = []
     end
-    @info("Longest data record: $(maxdatalines)")
+    @debug("Longest data record: $(maxdatalines)")
     families
 end
 

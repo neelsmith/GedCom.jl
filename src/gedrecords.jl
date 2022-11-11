@@ -16,7 +16,7 @@ Read `GEDRecord`s from file `f` where
 """
 function gedRecords(f)
     src = read(f) |> collect |> String
-    @info("Read $(length(src )) characters.")
+    @debug("Read $(length(src )) characters.")
     gedRecords(split(src, r"[\n\r]+"))
 end
 
