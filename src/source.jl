@@ -56,24 +56,3 @@ end
 function repo(src::Source)
     data(src, "REPO")
 end
-
-
-#=
-function data(src::Source, code)
-    intitle = false
-    currlevel = -1
-    datastrings  = []
-    for r in src.records
-        if r.code == code
-            currlevel = r.level
-            push!(datastrings, r.message)
-        elseif intitle && r.code == "CONC"
-            push!(datastrings, r.message)
-            currlevel = r.level
-        elseif r.level >= currlevel
-            intitle = false
-        end
-    end
-    join(datastrings)
-end
-=#

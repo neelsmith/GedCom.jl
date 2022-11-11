@@ -36,7 +36,8 @@ function gedRecords(lns::Vector{T}) where T <: AbstractString
 end
 
 
-"""Given a Vector of `GEDRecord`s, extract data values for al records of a specific code.
+"""Given a Vector of `GEDRecord`s, extract data values for al. records of a specific code. In addition to extracting the `message`
+field of the records tagged with `code`, continuation of those records with `CONC` codes is respected.
 
 Compare `blocks(v, code)`.
 """
@@ -59,9 +60,8 @@ function data(v, code)
 end
 
 
-"""Given a Vector of `GEDRecord`s, extract blocks for a given 
-GEDCOM code.  A block is all subsequent GEDCOM records contained
-in that block, as indicated by the level of subordination of the record.
+"""Given a Vector of `GEDRecord`s, extract blocks of `GEDRecord`s
+for a given GEDCOM code.  A "block" is a series of subsequent GEDCOM records contained in that code unit, as indicated by the level of subordination of the record.
 
 Compare `data(v, code)`.
 """
