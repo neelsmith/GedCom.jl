@@ -71,14 +71,14 @@ function blocks(v, code)
     blocklist = Vector{GEDRecord}[]
     currentdata = GEDRecord[]
     for r in v
-        @info(" ---> $(r)")
+        @debug(" ---> $(r)")
         if r.code == code 
             blocklevel = r.level
             if ! isempty(currentdata) 
                 push!(blocklist, currentdata)
             end
             inblock = true
-            @info("Found block $(code): blocklevel $(blocklevel)")
+            @debug("Found block $(code): blocklevel $(blocklevel)")
         elseif r.level <= blocklevel 
             if  ! isempty(currentdata) 
                 push!(blocklist, currentdata)
@@ -86,7 +86,7 @@ function blocks(v, code)
             inblock = false
             currentdata = []
         elseif inblock
-            @info("Should push: $(r)")
+            @debug("Should push: $(r)")
             push!(currentdata, r)
         end
     end

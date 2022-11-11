@@ -16,7 +16,7 @@ Vector of `GEDRecord`s.
 """
 function parseSources(records)
     insource = false
-    @info("Parsing $(length(records)) records")
+    @debug("Parsing $(length(records)) records")
     maxdatalines = 0
     sources = Source[]
     level = -1
