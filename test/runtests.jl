@@ -66,4 +66,5 @@ tjblythe = """0 @I24@ INDI
 
 include("test_gedparse.jl")
 include("test_sources.jl")
+include("test_family.jl")
 

@@ -3,13 +3,11 @@ struct FamilyUnit
     records::Vector{GEDRecord}
 end
 
-
 """Extract `FamilyUnit`s from a GedCom file `f`.
 """
 function families(f)
     gedRecords(f) |> parseFamilies
 end
-
 
 """Parse a Vector of `FamilyUnit`s from a
 Vector of `GEDRecord`s.
@@ -23,7 +21,7 @@ function parseFamilies(records)
     for rec in records
         if rec.code == "FAM" 
             if ! isempty(id)
-                @debug("FAM: $(id)")
+                @info("FAM: $(id)")
                 @debug("Data: $(length(datalines)) lines.")
                 if length(datalines) > maxdatalines
                     maxdatalines = length(datalines)
