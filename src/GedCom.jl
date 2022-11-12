@@ -1,5 +1,7 @@
 module GedCom
 
+import Base: ==
+
 include("gedrecords.jl")
 include("individual.jl")
 include("family.jl")
