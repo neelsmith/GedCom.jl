@@ -49,19 +49,27 @@ function parseSources(records)
     sources
 end
          
-
+"""Get string value for title of `src`.
+"""
 function title(src::Source)
     data(src.records, "TITL")
 end
 
+"""Get string value for publication information of `src`.
+"""
 function publication(src::Source)
     data(src.records, "PUBL")
 end
 
+"""Get string value for author of `src`.
+"""
 function author(src::Source)
     data(src.records, "AUTH")
 end
 
+
+"""Get ID for repository of `src`.
+"""
 function repo(src::Source)
     data(src.records, "REPO")
 end
