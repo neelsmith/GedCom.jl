@@ -10,6 +10,8 @@ struct GEDRecord
     message::AbstractString
 end
 
+"""Override `==` for `GEDRecord` type.
+"""
 function ==(r1::GEDRecord, r2::GEDRecord)
     r1.level == r2.level &&
     r1.xrefId == r2.xrefId &&
@@ -48,7 +50,7 @@ field of the records tagged with `code`, continuation of those records with `CON
 
 Compare `blocks(v, code)`.
 """
-function data(v, code)
+function data(v::Vector{GEDRecord}, code)
     incode = false
     currlevel = -1
     datastrings  = []
@@ -67,13 +69,12 @@ function data(v, code)
     join(datastrings)
 end
 
-
 """Given a Vector of `GEDRecord`s, extract blocks of `GEDRecord`s
 for a given GEDCOM code.  A "block" is a series of subsequent GEDCOM records contained in that code unit, as indicated by the level of subordination of the record.
 
 Compare `data(v, code)`.
 """
-function blocks(v, code)
+function blocks(v::Vector{GEDRecord}, code)
     inblock = false
     blocklevel = -1
     blocklist = Vector{GEDRecord}[]

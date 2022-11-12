@@ -1,6 +1,6 @@
 struct FamilyUnit
     xrefId::AbstractString
-    records
+    records::Vector{GEDRecord}
 end
 
 

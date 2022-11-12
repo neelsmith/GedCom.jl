@@ -3,7 +3,7 @@
 struct Individual
     id::AbstractString
     name::AbstractString
-    records
+    records::Vector{GEDRecord}
 end
 
 """Extracts any last name mareked by traditional slash convention;

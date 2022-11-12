@@ -1,6 +1,6 @@
 struct Source
     sourceId::AbstractString
-    records
+    records::Vector{GEDRecord}
 end
 
 
