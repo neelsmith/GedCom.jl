@@ -57,7 +57,8 @@ function data(v::Vector{GEDRecord}, code)
     for r in v
         if r.code == code
             currlevel = r.level
-            @info("FOUND $(code): pushing $(r)")
+            incode = true
+            @debug("FOUND $(code): pushing $(r)")
             push!(datastrings, r.message)
         elseif incode && r.code == "CONC"
             push!(datastrings, r.message)
@@ -69,12 +70,11 @@ function data(v::Vector{GEDRecord}, code)
     join(datastrings)
 end
 
-"""Given a Vector of `GEDRecord`s, extract blocks of `GEDRecord`s
-for a given GEDCOM code.  A "block" is a series of subsequent GEDCOM records contained in that code unit, as indicated by the level of subordination of the record.
+"""Given a Vector of `GEDRecord`s, extract blocks of `GEDRecord`s for a given GEDCOM code.  A "block" is a series of subsequent GEDCOM records contained in that code unit, as indicated by the level of subordination of the record. 
 
 Compare `data(v, code)`.
 """
-function blocks(v::Vector{GEDRecord}, code)
+function blocks(v::Vector{GEDRecord}, code)::Vector{Vector{GEDRecord}}
     inblock = false
     blocklevel = -1
     blocklist = Vector{GEDRecord}[]
@@ -99,6 +99,9 @@ function blocks(v::Vector{GEDRecord}, code)
             @debug("Should push: $(r)")
             push!(currentdata, r)
         end
+    end
+    if ! isempty(currentdata) 
+        push!(blocklist, currentdata)
     end
     blocklist
 end

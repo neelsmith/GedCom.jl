@@ -91,19 +91,23 @@ end
 
 
 @testset "Test parsing data values for GEDCOM code" begin
-    expected = [GEDRecord(1, nothing, "BURI", ""),
+    expected = [[GEDRecord(1, nothing, "BURI", ""),
     GEDRecord(2, nothing, "PLAC", "Tippah, Mississippi, USA"),
     GEDRecord(3, nothing, "MAP", ""),
     GEDRecord(4, nothing, "LATI", "N34.7701"),
-    GEDRecord(4, nothing, "LONG", "W88.9083") ] 
+    GEDRecord(4, nothing, "LONG", "W88.9083") ] ]
 
     gedlines = split(tjblythe, "\n")
     recc = gedRecords(gedlines)
     v = GedCom.blocks(recc,"BURI")
     @test length(v) == 1
-    #@test expected === GedCom.blocks(v,"BURI")
+    @test expected == GedCom.blocks(v[1],"BURI")
 end
 
-@testset "Test parsing continued values with CONC" begin
-    
+@testset "Test parsing continued data values with CONC" begin
+    expected = "StreetAddress: S Michael Street; Age: 5; AttendedSchool: No; EnumerationDistrict: 24-30; Income: 0; IncomeOtherSources: No; WeeksWorked: 0; MaritalStatus: Single; RelationToHead: Daughter"
+
+    gedlines = split(patricia, "\n")
+    recc = gedRecords(gedlines)
+    @test GedCom.data(recc,"RESI") == expected
 end
