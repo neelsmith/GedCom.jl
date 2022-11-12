@@ -1,5 +1,40 @@
 f = joinpath(pwd(), "data", "pres2020.ged")
-gedsource = """0 @I24@ INDI
+
+patricia = """0 @I127@ INDI
+1 NAME Patricia /Herzing/
+2 SOUR @S73@
+3 PAGE Year: 1940; Census Place: St Marys, Elk, Pennsylvania; Roll: m-t0627-03499; Page: 6A; Enumeration District: 24-30
+3 DATA
+4 TEXT Record for Patricia Herzing
+3 OBJE @M171@
+3 _LINK https://search.ancestry.com/cgi-bin/sse.dll?db=2442&h=22738949&indiv=try
+1 SEX F
+1 RESI StreetAddress: S Michael Street; Age: 5; AttendedSchool: No; Enumerati
+2 CONC onDistrict: 24-30; Income: 0; IncomeOtherSources: No; WeeksWorked: 0
+2 CONC ; MaritalStatus: Single; RelationToHead: Daughter
+2 DATE 1940
+2 PLAC St Marys, Elk, Pennsylvania, USA
+3 MAP
+4 LATI N41.4278
+4 LONG W78.5611
+2 SOUR @S73@
+3 PAGE Year: 1940; Census Place: St Marys, Elk, Pennsylvania; Roll: m-t0627-03499; Page: 6A; Enumeration District: 24-30
+3 DATA
+4 TEXT Record for Patricia Herzing
+3 OBJE @M171@
+3 _LINK https://search.ancestry.com/cgi-bin/sse.dll?db=2442&h=22738949&indiv=try
+1 EVEN White
+2 TYPE Race
+2 SOUR @S73@
+3 PAGE Year: 1940; Census Place: St Marys, Elk, Pennsylvania; Roll: m-t0627-03499; Page: 6A; Enumeration District: 24-30
+3 DATA
+4 TEXT Record for Patricia Herzing
+3 OBJE @M171@
+3 _LINK https://search.ancestry.com/cgi-bin/sse.dll?db=2442&h=22738949&indiv=try
+1 FAMS @F73@
+1 FAMC @F1123@"""
+
+tjblythe = """0 @I24@ INDI
 1 NAME Thomas Jefferson /Blythe/
 1 SEX M
 1 BIRT
@@ -44,7 +79,7 @@ end
 
 
 @testset "Test parsing gedcom from string" begin
-    gedlines = split(gedsource, "\n")
+    gedlines = split(tjblythe, "\n")
     recc = gedRecords(gedlines)
     @test length(recc) == 25
 
@@ -56,6 +91,19 @@ end
 
 
 @testset "Test parsing data values for GEDCOM code" begin
+    expected = [GEDRecord(1, nothing, "BURI", ""),
+    GEDRecord(2, nothing, "PLAC", "Tippah, Mississippi, USA"),
+    GEDRecord(3, nothing, "MAP", ""),
+    GEDRecord(4, nothing, "LATI", "N34.7701"),
+    GEDRecord(4, nothing, "LONG", "W88.9083") ] 
+
+    gedlines = split(tjblythe, "\n")
     recc = gedRecords(gedlines)
+    v = GedCom.blocks(recc,"BURI")
+    @test length(v) == 1
+    @test expected === GedCom.blocks(v,"BURI")
+end
+
+@testset "Test parsing continued values with CONC" begin
     
 end

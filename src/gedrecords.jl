@@ -10,6 +10,13 @@ struct GEDRecord
     message::AbstractString
 end
 
+function ==(r1::GEDRecord, r2::GEDRecord)
+    r1.level == r2.level &&
+    r1.xrefId == r2.xrefId &&
+    r1.code == r2.code &&
+    r1.message == r2.message
+end
+
 """
 Read `GEDRecord`s from file `f` where
 `f` is a file following the GEDCOM 5.1.1 standard.
@@ -48,6 +55,7 @@ function data(v, code)
     for r in v
         if r.code == code
             currlevel = r.level
+            @info("FOUND $(code): pushing $(r)")
             push!(datastrings, r.message)
         elseif incode && r.code == "CONC"
             push!(datastrings, r.message)
@@ -77,6 +85,7 @@ function blocks(v, code)
             if ! isempty(currentdata) 
                 push!(blocklist, currentdata)
             end
+            currentdata = [r]
             inblock = true
             @debug("Found block $(code): blocklevel $(blocklevel)")
         elseif r.level <= blocklevel 
