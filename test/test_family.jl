@@ -14,9 +14,13 @@ famstring = """0 @F6@ FAM
 3 OBJE @M11@
 3 _LINK https://search.ancestry.com/cgi-bin/sse.dll?db=61632&h=1558842&indiv=try"""
 
-@testset "Test parsing `Source` type" begin
+@testset "Test parsing `FamilyUnit` type" begin
     famm = families(presfile)
     @test length(famm) == 1115
 
     fam6 = families(split(famstring,"\n"))[1]
+
+    @test GedCom.husbandid(fam6) == "@I6@"
+    @test GedCom.wifeid(fam6) ==  "@I4@"
+    @test isempty(GedCom.childrenids(fam6))
 end    

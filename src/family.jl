@@ -21,7 +21,7 @@ function parseFamilies(records)
     for rec in records
         if rec.code == "FAM" 
             if ! isempty(id)
-                @info("FAM: $(id)")
+                @debug("FAM: $(id)")
                 @debug("Data: $(length(datalines)) lines.")
                 if length(datalines) > maxdatalines
                     maxdatalines = length(datalines)
@@ -71,6 +71,36 @@ function childrenids(fam::FamilyUnit)
     map(kid -> kid.message, chillun)
 end
 
+function marriagedate(fam::FamilyUnit)
+    blks = GedCom.blocks(fam.records,"MARR")
+    if length(blks) == 1
+        GedCom.data(blks[1], "DATE")
+    else
+        ""
+    end
+end
+
+
+function marriageplace(fam::FamilyUnit)
+    blks = GedCom.blocks(fam.records,"MARR")
+    if length(blks) == 1
+        GedCom.data(blks[1], "PLAC")
+    else
+        ""
+    end
+end
+
+function marriagelonlat(fam::FamilyUnit)
+    blks = GedCom.blocks(fam.records,"MARR")
+    if length(blks) == 1
+        lon = GedCom.data(blks[1], "LONG")
+        lat = GedCom.data(blks[1], "LATI")
+        (lon, lat)
+    else
+        nothing
+    end
+end
+
 #= Example:
 
 0 @F2@ FAM
@@ -100,33 +130,3 @@ function label(f::NuclearFamily)
     wlabel = isnothing(f.wife) ? "unknown" : replace(f.wife.name, "/" => "")
     string(hlabel, "--",  wlabel)
 end
-
-
-    #=
-    Things we should should scan for:
-
-Basic family relations
-HUSB
-WIFE
-CHIL
-
-Marital status:
-MARL Marriage license
-MARR Marriage
-DIV Divorce
-
-
-ADDR
-EMAIL
- 
- "FILE"
- "NAME"
- "NOTE"
- "PHON"
- "PUBL"
- "REPO"
- "TITL"
-
- Skip these:
- EVEN  Weirdly used in pres2020.ged for what should be a note, not an event
-        =#
