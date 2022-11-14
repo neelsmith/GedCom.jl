@@ -90,12 +90,17 @@ function marriageplace(fam::FamilyUnit)
     end
 end
 
+
 function marriagelonlat(fam::FamilyUnit)
     blks = GedCom.blocks(fam.records,"MARR")
     if length(blks) == 1
         lon = GedCom.data(blks[1], "LONG")
         lat = GedCom.data(blks[1], "LATI")
-        (lon, lat)
+        if isempty(lon) || isempty(lat)
+            nothing
+        else
+            (lon, lat)
+        end
     else
         nothing
     end

@@ -23,4 +23,10 @@ famstring = """0 @F6@ FAM
     @test GedCom.husbandid(fam6) == "@I6@"
     @test GedCom.wifeid(fam6) ==  "@I4@"
     @test isempty(GedCom.childrenids(fam6))
+
+
+    mrglonlats = filter(famm) do fml
+        ! isnothing(GedCom.marriagelonlat(fml))
+    end
+    @test length(mrglonlats) == 232
 end    
