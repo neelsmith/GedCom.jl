@@ -1,5 +1,5 @@
 
-"""Label for birth year of an `Individual`.
+"""String value for birth date of an `Individual`.
 """
 function birthdate(indi::Individual)
     birthlines = []
@@ -23,8 +23,7 @@ function birthdate(indi::Individual)
     isempty(datelines) ? "n.d." : datelines[1].message
 end
 
-
-"""Label for death year of an `Individual`.
+"""String value for death date of an `Individual`.
 """
 function deathdate(indi::Individual)
     deathlines = []
@@ -51,4 +50,26 @@ end
 function birthplace(indi::Individual)
 end
 function birthlonlat(indi::Individual)
+end
+
+function deathplace(indi::Individual)
+end
+function deathlonlat(indi::Individual)
+end
+
+function burialplace(indi::Individual)
+end
+function buriallonlat(indi::Individual)
+end
+
+function probate(indi::Individual)
+end
+
+function baptism(indi::Individual)
+end
+
+function residence(indi::Individual)
+end
+
+function occupation(indi::Individual)
 end

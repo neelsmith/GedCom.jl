@@ -55,11 +55,11 @@ end
     @test GedCom.lastname(ayers) == "Ayers"
     @test label(ayers) == "Lou Birchie Ayers (1893-1946)"
     @test GedCom.dateslabel(ayers) == "1893-1946"
-    @test GedCom.birthdate(ayers) == "9 FEB 1893"
-    @test GedCom.deathdate(ayers) == "15 FEB 1946"
+    
 end
 
 @test "Test extracting data for `Individual`s" begin
-    ayers = individuals(split(birchie,"\n"))[1]
     @test GedCom.sex(ayers)  == "F" 
+    @test GedCom.birthdate(ayers) == "9 FEB 1893"
+    @test GedCom.deathdate(ayers) == "15 FEB 1946"
 end
