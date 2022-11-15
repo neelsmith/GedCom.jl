@@ -2,8 +2,9 @@ module GedCom
 
 import Base: ==
 
-include("utils.jl")
+
 include("gedrecords.jl")
+include("utils.jl")
 include("individual.jl")
 include("individual_data.jl")
 include("family.jl")
