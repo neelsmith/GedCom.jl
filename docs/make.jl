@@ -2,9 +2,9 @@
 # 
 #    julia --project=docs/ docs/make.jl
 #
-# Serve docs this repository root to serve:
+# Serve docs from repository root:
 #
-#   julia -e 'using LiveServer; serve(dir="docs/build")'julia -e 'using LiveServer; serve(dir="docs/build")' 
+#   julia -e 'using LiveServer; serve(dir="docs/build")'
 #
 using Pkg
 Pkg.activate(".")
@@ -15,7 +15,8 @@ using Documenter, DocStringExtensions, GedCom
 makedocs(
     sitename = "GedCom.jl Documentation",
     pages = [
-        "Home" => "index.md"
+        "Home" => "index.md",
+        "Extracting data" => "datablocks.md"
     ]
 )
 
