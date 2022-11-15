@@ -53,18 +53,6 @@ function individuals(f)
     gedRecords(f) |> parseIndividuals
 end
 
-"""Extract final four-digit year part of a string value.
-"""
-function yearpart(s)
-    yearre = r".*(\d{4}$)"
-    yrs = match(yearre,s)
-    if isnothing(yrs)
-        ""
-    else
-        yrs.captures[1]
-    end
-end
-
 
 """Label for lifespan of an `Individual`.
 """
@@ -138,20 +126,6 @@ create an `Individual`.
 function parseIndividual(id, records)
     namerecords = filter(rec -> rec.code == "NAME", records)
     isempty(namerecords) ? Individual(id, "", records) : Individual(id, namerecords[1].message,  records)
-
-    #=
-    Things we should should scan for:
-        - √ sex
-        - √ birth
-        - √ death
-        - √ family relations (FAMS, FAMC)
-        - burial BURI
-        - marriage, divorce MARR, DIV
-        - probate PROB
-        - baptism BAPM
-        - residence RESI
-        - occupation OCCU
-    =#
 end
 
 """From a Vector of `GEDRecord`s, create a Vector

@@ -39,13 +39,27 @@ birchie = """
 1 FAMS @F4@
 1 FAMC @F11@
 """
+ayers = individuals(split(birchie,"\n"))[1]
 
 
 @testset "Test parsing `Individual` type" begin
     folks = individuals(presfile)
     @test length(folks) == 2322
+end
 
-
-    ayers = individuals(split(birchie,"\n"))[1]
+@testset "Test family structure and labelling for `Individual` type" begin
     @test ayers.id == "@I10@"
+    @test GedCom.parentage(ayers) == "@F11@"
+    @test GedCom.spouses(ayers) == ["@F4@"]
+
+    @test GedCom.lastname(ayers) == "Ayers"
+    @test label(ayers) == "Lou Birchie Ayers (1893-1946)"
+    @test GedCom.dateslabel(ayers) == "1893-1946"
+    @test GedCom.birthlabel(ayers) == "9 FEB 1893"
+    @test GedCom.deathlabel(ayers) == "15 FEB 1946"
+end
+
+@test "Test extracting data for `Individual`s" begin
+    ayers = individuals(split(birchie,"\n"))[1]
+    @test GedCom.sex(ayers)  == "F" 
 end

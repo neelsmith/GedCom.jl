@@ -63,3 +63,29 @@ for i in sources(f)
         currstack[r.level] =  id
     end
 end
+
+
+#=
+Codes for main record types we want to process:
+
+√ INDI
+√ FAM
+SOUR
+REPO    
+
+also events and places
+=#
+
+#=
+Things we should should scan for in idnividual:
+    - √ sex
+    - √ birth
+    - √ death
+    - √ family relations (FAMS, FAMC)
+    - burial BURI
+    - marriage, divorce MARR, DIV
+    - probate PROB
+    - baptism BAPM
+    - residence RESI
+    - occupation OCCU
+=#

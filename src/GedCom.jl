@@ -2,6 +2,7 @@ module GedCom
 
 import Base: ==
 
+include("utils.jl")
 include("gedrecords.jl")
 include("individual.jl")
 include("individual_data.jl")
@@ -21,17 +22,5 @@ export Source, sources
 export GEDRecord, gedRecords
 export label
 
-
 end # module
 
-
-#=
-Codes for main record types we want to process:
-
-√ INDI
-√ FAM
-SOUR
-REPO    
-
-also events and places
-=#
