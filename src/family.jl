@@ -1,3 +1,5 @@
+"""Identifier and ordered list of `GEDRecord`s for a single family unit.
+"""
 struct FamilyUnit
     xrefId::AbstractString
     records::Vector{GEDRecord}
@@ -9,8 +11,7 @@ function families(f)
     gedRecords(f) |> parseFamilies
 end
 
-"""Parse a Vector of `FamilyUnit`s from a
-Vector of `GEDRecord`s.
+"""Parse a Vector of `FamilyUnit`s from a Vector of `GEDRecord`s.
 """
 function parseFamilies(records)
     maxdatalines = 0
@@ -71,6 +72,9 @@ function childrenids(fam::FamilyUnit)
     map(kid -> kid.message, chillun)
 end
 
+"""Find marriage date for `fam`.
+The result is a human-readable string, or, if no date is recorded, an empty string.
+"""
 function marriagedate(fam::FamilyUnit)
     blks = GedCom.blocks(fam.records,"MARR")
     if length(blks) == 1
@@ -80,7 +84,10 @@ function marriagedate(fam::FamilyUnit)
     end
 end
 
-
+"""Find name of place where marriage
+took place for `fam`.  
+The result is a human-readable name for a place or, if no date is recorded, an empty string.
+"""
 function marriageplace(fam::FamilyUnit)
     blks = GedCom.blocks(fam.records,"MARR")
     if length(blks) == 1
@@ -90,7 +97,9 @@ function marriageplace(fam::FamilyUnit)
     end
 end
 
-
+"""Find longitude, latitude pair
+for location where marriage took place for `fam`.  The result is a named tuple, or, if no result is found, `nothing`.
+"""
 function marriagelonlat(fam::FamilyUnit)
     blks = GedCom.blocks(fam.records,"MARR")
     if length(blks) == 1
@@ -99,7 +108,7 @@ function marriagelonlat(fam::FamilyUnit)
         if isempty(lon) || isempty(lat)
             nothing
         else
-            (lon, lat)
+            (lon = lon, lat = lat)
         end
     else
         nothing
@@ -121,17 +130,3 @@ end
 4 LATI N33.4418
 4 LONG W94.0377
 =#
-
-
-
-struct NuclearFamily
-    husband
-    wife
-    children::Vector{Individual}
-end
-
-function label(f::NuclearFamily)
-    hlabel = isnothing(f.husband) ? "unknown" : replace(f.husband.name, "/" => "")
-    wlabel = isnothing(f.wife) ? "unknown" : replace(f.wife.name, "/" => "")
-    string(hlabel, "--",  wlabel)
-end

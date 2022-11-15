@@ -23,8 +23,9 @@ famstring = """0 @F6@ FAM
     @test GedCom.husbandid(fam6) == "@I6@"
     @test GedCom.wifeid(fam6) ==  "@I4@"
     @test isempty(GedCom.childrenids(fam6))
-
-
+    @test GedCom.marriagelonlat(fam6)  == (lon = "W78.8784", lat = "N42.8864")
+    @test GedCom.marriagedate(fam6) == "7 OCT 1950"
+    @test GedCom.marriageplace(fam6) == "Buffalo, Erie, New York, USA"
     mrglonlats = filter(famm) do fml
         ! isnothing(GedCom.marriagelonlat(fml))
     end
