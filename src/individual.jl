@@ -47,13 +47,6 @@ function spouses(indi::Individual)
     map(r -> r.message, records)
 end
 
-"""Read file `f` and extract `Individual` objects.
-"""
-function individuals(f)
-    gedRecords(f) |> parseIndividuals
-end
-
-
 """Label for lifespan of an `Individual`.
 """
 function dateslabel(indi::Individual)
@@ -70,6 +63,12 @@ function dateslabel(indi::Individual)
 end
 
 
+
+"""Read file `f` and extract `Individual` objects.
+"""
+function individuals(f)
+    gedRecords(f) |> parseIndividuals
+end
 
 
 """Given an ID number and its GEDCOM records,
