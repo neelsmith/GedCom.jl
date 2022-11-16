@@ -46,7 +46,7 @@ end
 
 
 """Given a Vector of `GEDRecord`s, extract data values for al. records of a specific code. In addition to extracting the `message`
-field of the records tagged with `code`, continuation of those records with `CONC` codes is respected.
+field of the records tagged with `code`, continuation of those records with `CONC` or `CONT` codes is respected.
 
 Compare `blocks(v, code)`.
 """
@@ -60,7 +60,8 @@ function data(v::Vector{GEDRecord}, code)
             incode = true
             @debug("FOUND $(code): pushing $(r)")
             push!(datastrings, r.message)
-        elseif incode && r.code == "CONC"
+        elseif incode && 
+            (r.code == "CONC" || r.code == "CONT")
             push!(datastrings, r.message)
             currlevel = r.level
         elseif r.level >= currlevel
