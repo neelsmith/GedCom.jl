@@ -16,6 +16,11 @@ makedocs(
     sitename = "GedCom.jl Documentation",
     pages = [
         "Home" => "index.md",
+        "Individuals" => "individuals.md",
+        "Families" => "families.md",
+        "Sources" => "sources.md",
+        "Locations" => "locations.md",
+        
         "Extracting data" => "datablocks.md"
     ]
 )
