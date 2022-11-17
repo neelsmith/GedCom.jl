@@ -7,6 +7,8 @@ f = joinpath(root, "test", "data", "pres2020.ged")
 
 > *Parse genealogical data following the Lineage-Linked Grammar of the GedCom 5.5.1 specification.*
 
+> **NB: Examples use a test data set with genealogical data about US Presidents**
+
 
 ## The GEDCOM standard
 
@@ -29,7 +31,7 @@ The structure of the `GEDRecord` directly mimics the components of a record in t
 Here's what a few records look like:
 
 ```@example home
-records[101:120]
+records[101:115]
 ```
 
 

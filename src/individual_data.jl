@@ -1,67 +1,159 @@
 
-"""String value for birth date of an `Individual`.
+"""String value for birth date of an `Individual`,
+or "n.d." if unknown.
 """
 function birthdate(indi::Individual)
-    birthlines = []
-    inblock = false
-    birthlevel = -1
-    # get BIRT block
-    for rec in indi.records
-        if inblock
-            if rec.level > birthlevel
-                push!(birthlines, rec)
-            else
-                inblock = false
-            end
-        elseif rec.code == "BIRT"
-            inblock = true
-            birthlevel = rec.level
-            @debug("Birth record at level $(birthlevel)")
-        end
+    birthdata = GedCom.blocks(indi.records, "BIRT")
+    if isempty(birthdata)
+        "n.d."
+    else
+        datestr = GedCom.data(birthdata[1], "DATE")
+        isempty(datestr) ? "n.d." : datestr
     end
-    datelines = filter(rec -> rec.code == "DATE", birthlines)
-    isempty(datelines) ? "n.d." : datelines[1].message
+end
+
+"""`Location` object for birth site of `indi`,
+or `nothing` if none found.
+"""
+function birthlocation(indi::Individual)
+   lbl = birthplace(indi)
+   ll = birthlonlat(indi)
+   if isempty(lbl)
+    nothing
+   else
+    if isnothing(ll)
+        Location(lbl, nothing, nothing)
+    else
+        Location(lbl, ll[:lon], ll[:lat])
+    end
+   end
+end
+
+"""String value for birth site of an `Individual`,
+or empty string if unknown.
+"""
+function birthplace(indi::Individual)
+    recc = GedCom.blocks(indi.records, "BIRT")
+    if isempty(recc)
+        ""
+    else
+        GedCom.data(recc[1], "PLAC")
+    end
+end
+
+"""Lon/lat pair for birth site of an `Individual`,
+or `nothing` if unknown.
+"""
+function birthlonlat(indi::Individual)
+    birthdata = GedCom.blocks(indi.records, "BIRT")
+    if isempty(birthdata)
+        nothing
+    else
+        GedCom.lonlat(birthdata[1])
+    end
 end
 
 """String value for death date of an `Individual`.
 """
 function deathdate(indi::Individual)
-    deathlines = []
-    inblock = false
-    deathlevel = -1
-    # get BIRT block
-    for rec in indi.records
-        if inblock
-            if rec.level > deathlevel
-                push!(deathlines, rec)
-            else
-                inblock = false
-            end
-        elseif rec.code == "DEAT"
-            inblock = true
-            deathlevel = rec.level
-            @debug("Death record at level $(deathlevel)")
-        end
+    deathdata = GedCom.blocks(indi.records, "DEAT")
+    if isempty(deathdata)
+        "n.d."
+    else
+        datestr = GedCom.data(deathdata[1], "DATE")
+        isempty(datestr) ? "n.d." : datestr
+    end  
+end
+
+
+"""`Location` object for death site of `indi`,
+or `nothing` if none found.
+"""
+function deathlocation(indi::Individual)
+   lbl = deathplace(indi)
+   ll = deathlonlat(indi)
+   if isempty(lbl)
+    nothing
+   else
+    if isnothing(ll)
+        Location(lbl, nothing, nothing)
+    else
+        Location(lbl, ll[:lon], ll[:lat])
     end
-    datelines = filter(rec -> rec.code == "DATE", deathlines)
-    isempty(datelines) ? "" : datelines[1].message
+   end
 end
 
-function birthplace(indi::Individual)
-end
-function birthlonlat(indi::Individual)
-end
-
+"""String value for death site of an `Individual`,
+or empty string if unknown.
+"""
 function deathplace(indi::Individual)
+    recc = GedCom.blocks(indi.records, "BIRT")
+    if isempty(recc)
+        ""
+    else
+        GedCom.data(recc[1], "PLAC")
+    end
 end
+
+"""Lon/lat pair for death site of an `Individual`,
+or `nothing` if unknown.
+"""
 function deathlonlat(indi::Individual)
+    recc = GedCom.blocks(indi.records, "BIRT")
+    if isempty(recc)
+        nothing
+    else
+        GedCom.lonlat(recc[1])
+    end
 end
 
+"""`Location` object for burial site of `indi`,
+or `nothing` if none found.
+"""
+function buriallocation(indi::Individual)
+    lbl = burialplace(indi)
+    ll = buriallonlat(indi)
+    if isempty(lbl)
+        nothing
+    else
+        if isnothing(ll)
+            Location(lbl, nothing, nothing)
+        else
+            Location(lbl, ll[:lon], ll[:lat])
+        end
+   end
+end
+
+"""String value for burial site of an `Individual`,
+or empty string if unknown.
+"""
 function burialplace(indi::Individual)
-end
-function buriallonlat(indi::Individual)
+    recc = GedCom.blocks(indi.records, "BURI")
+    if isempty(recc)
+        ""
+    else
+        GedCom.data(recc[1], "PLAC")
+    end
 end
 
+"""Lon/lat pair for burial site of an `Individual`,
+or `nothing` if unknown.
+"""
+function buriallonlat(indi::Individual)
+    recc = GedCom.blocks(indi.records, "BURI")
+    if isempty(recc)
+        nothing
+    else
+        GedCom.lonlat(recc[1])
+    end
+end
+
+
+
+
+
+
+###  TBD ########################################
 function probate(indi::Individual)
 end
 

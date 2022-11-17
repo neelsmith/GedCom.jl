@@ -20,6 +20,7 @@ export FamilyUnit, families
 export NuclearFamily, nuclearfamily
 #export Event, events
 export Source, sources
+export Location, location
 export GEDRecord, gedRecords
 export label
 

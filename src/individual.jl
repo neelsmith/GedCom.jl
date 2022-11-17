@@ -50,7 +50,7 @@ end
 """Label for lifespan of an `Individual`.
 """
 function dateslabel(indi::Individual)
-    death = deathlabel(indi) |> yearpart
+    death = deathdate(indi) |> yearpart
     birth = birthdate(indi)  |> yearpart
     @debug("BIRTH PART $(birth)")
     if isempty(death) && birthdate(indi) == "n.d." 
