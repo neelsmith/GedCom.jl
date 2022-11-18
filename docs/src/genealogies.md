@@ -22,10 +22,13 @@ GedCom.parents(lincoln, gen)
 ```@example gen
 GedCom.parentage(lincoln, gen)
 ```
-```@example gen
-GedCom.nuclearfamily(lincoln, gen)
-```
+
 ```@example gen
 GedCom.ancestors_mermaid(lincoln, gen)
 ```
 
+
+
+```@example gen
+GedCom.nuclearfamily(fam, gen)
+```

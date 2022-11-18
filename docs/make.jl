@@ -15,14 +15,14 @@ using Documenter, DocStringExtensions, GedCom
 makedocs(
     sitename = "GedCom.jl Documentation",
     pages = [
-        "GEDCOM and GedCom.jl" => "index.md",
+        "Home" => "index.md",
         "Genealogies" => "genealogies.md",
         "Individuals" => "individuals.md",
         "Families" => "families.md",
         "Sources" => "sources.md",
         "Locations" => "locations.md",
         
-        "Extracting data" => "datablocks.md"
+        "Working directly with GEDCOM records" => "datablocks.md"
     ]
 )
 

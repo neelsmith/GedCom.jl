@@ -5,16 +5,14 @@ f = joinpath(root, "test", "data", "pres2020.ged")
 
 ```
 
+
+
 # Extracting data directly from Vectors of `GEDRecord`s
 
-You can extract named content directly from vectors of `GEDRecords`.
+You can extract named content directly from vectors of `GEDRecords`, such as the records associated with each `Individual`, `FamilyUnit` or `Source`.
 
+You can also use the `gedRecords` function to parse a file in GEDCOM format directly into a sequence of `GEDRecord` objects.  
 
-## Reading a GEDCOM source
-
-First, let's collect a lot of `GEDRecord`s by reading a file. (In this example, `f` is the file `pres2020.ged` in the `test/data` directory of this repository.)
-
-The `gedRecords` function creates a Vector of `GEDRecord`s.
 
 ```@example datawork
 using GedCom
@@ -22,11 +20,21 @@ records = gedRecords(f)
 typeof(records)
 ```
 
-There are a lot of them in this file.
+## The GEDCOM standard
+
+The [specification for version 5.5.1 of the GEDCOM standard](https://gedcom.io/specifications/ged551.pdf) describes a GEDCOM database like this:
+
+
+> "A GEDCOM transmission represents a database in the form of a sequential stream of related records. A record is represented as a sequence of tagged, variable-length lines, arranged in a hierarchy."
+
+The structure of the `GEDRecord` directly mimics the components of a record in the GEDCOM specification.  Each record has a hierarchical level (and integer) and a tag (a four-character string), plus either an identifier (called an "xrefID") or a text value.  Pointers are either `nothing` or a string value beginning and ending with `@`; the text value is just a (possibly empty) string.  For some GEDCOM 5.5.1 tags, the text value is the identifier for another record; this is how GEDCOM the lineage-linked grammar relates different content items.
+
+Here's what a few records look like:
 
 ```@example datawork
-length(records)
+records[101:115]
 ```
+
 
 ## Extracting blocks of data
 
