@@ -87,7 +87,7 @@ end
 or empty string if unknown.
 """
 function deathplace(indi::Individual)
-    recc = GedCom.blocks(indi.records, "BIRT")
+    recc = GedCom.blocks(indi.records, "DEAT")
     if isempty(recc)
         ""
     else
@@ -99,7 +99,7 @@ end
 or `nothing` if unknown.
 """
 function deathlonlat(indi::Individual)
-    recc = GedCom.blocks(indi.records, "BIRT")
+    recc = GedCom.blocks(indi.records, "DEAT")
     if isempty(recc)
         nothing
     else

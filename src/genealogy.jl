@@ -4,7 +4,7 @@ struct Genealogy
     sources::Vector{Source}
 end
 
-"""Build a `Genealogy`` from a GECOM file source.
+"""Build a `Genealogy` from a GECOM file source.
 """
 function genealogy(f)
     folks = individuals(f)

@@ -15,7 +15,8 @@ using Documenter, DocStringExtensions, GedCom
 makedocs(
     sitename = "GedCom.jl Documentation",
     pages = [
-        "Home" => "index.md",
+        "GEDCOM and GedCom.jl" => "index.md",
+        "Genealogies" => "genealogies.md",
         "Individuals" => "individuals.md",
         "Families" => "families.md",
         "Sources" => "sources.md",

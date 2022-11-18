@@ -7,8 +7,6 @@ f = joinpath(root, "test", "data", "pres2020.ged")
 
 > *Parse genealogical data following the Lineage-Linked Grammar of the GedCom 5.5.1 specification.*
 
-> **NB: Examples use a test data set with genealogical data about US Presidents**
-
 
 ## The GEDCOM standard
 
@@ -17,7 +15,8 @@ The [specification for version 5.5.1 of the GEDCOM standard](https://gedcom.io/s
 
 > "A GEDCOM transmission represents a database in the form of a sequential stream of related records. A record is represented as a sequence of tagged, variable-length lines, arranged in a hierarchy."
 
-You can use the `gedRecords` function to parse a file in GEDCOM format into a sequence of `GEDRecord` objects.  In this example, `f` is a file with more than 49,000 GEDCOM records. 
+You can use the `gedRecords` function to parse a file in GEDCOM format into a sequence of `GEDRecord` objects.  In this example, `f` is a file with more than 49,000 GEDCOM "records" documenting the genealogy of U.S. Presidents.
+
 
 
 ```@example home
@@ -26,7 +25,12 @@ records = gedRecords(f)
 typeof(records)
 ```
 
-The structure of the `GEDRecord` directly mimics the components of a record in the GEDCOM specification.  Each record has a hierarchical level and a tag, plus either a "pointer" (also called an "xrefID") or a line value.
+> This widely circulated GEDCOM data set was downloaded from [https://webtreeprint.com/tp_famous_gedcoms.php](https://webtreeprint.com/tp_famous_gedcoms.php).
+
+
+
+
+The structure of the `GEDRecord` directly mimics the components of a record in the GEDCOM specification.  Each record has a hierarchical level (and integer) and a tag (a four-character string), plus either an identifier (called an "xrefID") or a text value.  Pointers are either `nothing` or a string value beginning and ending with `@`; the text value is just a (possibly empty) string.  For some GEDCOM 5.5.1 tags, the text value is the identifier for another record; this is how GEDCOM the lineage-linked grammar relates different content items.
 
 Here's what a few records look like:
 
