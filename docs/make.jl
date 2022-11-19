@@ -8,6 +8,7 @@
 #
 using Pkg
 Pkg.activate(".")
+Pkg.resolve()
 Pkg.instantiate()
 
 using Documenter, DocStringExtensions, GedCom
