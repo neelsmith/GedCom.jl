@@ -2,8 +2,8 @@
 using GedCom
 root = pwd() |> dirname |> dirname
 f = joinpath(root, "test", "data", "pres2020.ged")
-folks = individuals(f)
-abe = filter(i -> i.id == "@I317@", folks)[1]
+gen = genealogy(f)
+abe = GedCom.individual("@I317@", gen)
 ```
 
 # Individuals
@@ -56,7 +56,7 @@ The `spouses` function returns a (possibly empty) vector of all family units in 
 GedCom.spouses(abe)
 ```
 
-
+> **TBA**: `children(abe)`
 
 ## Locations
 

@@ -154,14 +154,19 @@ end
 
 
 ###  TBD ########################################
+# Vector?
 function probate(indi::Individual)
 end
 
+# Vector?
 function baptism(indi::Individual)
 end
 
+
+# Vector
 function residence(indi::Individual)
 end
 
+# Vector
 function occupation(indi::Individual)
 end
