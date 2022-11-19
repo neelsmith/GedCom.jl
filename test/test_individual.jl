@@ -58,7 +58,7 @@ end
     
 end
 
-@test "Test extracting data for `Individual`s" begin
+@testset "Test extracting data for `Individual`s" begin
     @test GedCom.sex(ayers)  == "F" 
     @test GedCom.birthdate(ayers) == "9 FEB 1893"
     @test GedCom.deathdate(ayers) == "15 FEB 1946"

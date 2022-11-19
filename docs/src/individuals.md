@@ -8,7 +8,7 @@ abe = filter(i -> i.id == "@I317@", folks)[1]
 
 # Individuals
 
-In the following examples, `abe` is an `Individual` object containing the genealogical data for Abraham Lincoln in the test data set introduced on the home page.
+Most of the data in GEDCOM source is organized in the records for an individual.  In the following examples, `abe` is an `Individual` object containing the genealogical data for Abraham Lincoln in the test data set of presidential genealogies.
 
 
 
@@ -43,14 +43,14 @@ GedCom.birthdate(abe)
 
 ## Identifiers for family relations
 
-GEDCOM's lineage-linked grammar models the relation of individuals to two biological parents.  The `parentage` function finds the identifier for the family unit that an individual was born into.
+GEDCOM's lineage-linked grammar models the relation of individuals to two biological parents.  The `parentage` function finds the identifier ("pointer") for the family unit that an individual was born into.
 
 ```@example indis
 GedCom.parentage(abe)
 ```
 
 
-The `spouses` function returns a (possibly empty) vector of all family units in which an individual appears as a "spouse."  In addition to pairs of biological parents, the GEDCOM practice also treates married pairs of spouses as family units (whether or not they have biological children).
+The `spouses` function returns a (possibly empty) vector of all family units in which an individual appears as a "spouse."  In addition to pairs of biological parents, the GEDCOM practice also treates married couples as family units (whether or not they have biological children).
 
 ```@example indis
 GedCom.spouses(abe)

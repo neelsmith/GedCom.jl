@@ -13,6 +13,26 @@ function genealogy(f)
     Genealogy(folks, fams, srcs)
 end
 
+
+
+"""Look up an individual in a genealogy by ID.
+Returns an `Individual` or `nothing`.
+"""
+function individual(id::S, gen::Genealogy ) where S <: AbstractString
+    matches = filter(i -> i.id == id, gen.individuals)
+    length(matches) == 1 ? matches[1] : nothing  
+end
+
+
+"""Look up a family unit in a genealogy by ID.
+Returns an `FamilyUnit` or `nothing`.
+"""
+function familyunit(id::S, gen::Genealogy ) where S <: AbstractString
+    matches = filter(f -> f.xrefId == id, gen.families)
+    length(matches) == 1 ? matches[1] : nothing  
+end
+
+
 """Collect `Individual` objects for each member of a nuclear family.
 Return a triple with `Individual` husband, `Individual` wife and Vector of `Individual`s children.
 
@@ -26,7 +46,7 @@ function nuclearfamily(fam::FamilyUnit, gen::Genealogy )
     kids = map(childrenids(fam)) do kid
         filter(i -> i.id == kid, gen.individuals)[1]
     end
-    NuclearFamily(h, w, kids)
+    NuclearFamily(fam.xrefId, h, w, kids)
 end
 
 

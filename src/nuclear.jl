@@ -3,6 +3,7 @@
 """Structure associating `Individual`s as a biological family comprising husband, wife and possibly empty list of children.
 """
 struct NuclearFamily
+    id
     husband
     wife
     children::Vector{Individual}
