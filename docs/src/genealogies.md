@@ -9,19 +9,30 @@ lincoln = filter(i -> i.id == "@I317@", gen.individuals)[1]
 
 # Genealogies
 
+Later pages document many things you can do with `Individual` and `FamilyUnit` objects by themselves. To find relations among them, you can use a `Genealogy`.
 
 
 
 ## Families in a genealogy
+
+Label the `FamilyUnit` with the exported `label` function:
+
 ```@example gen
 label(fam, gen)
 ```
+
+Find parents for an individual. The result is a named tuple of `Individual`s.
+
 ```@example gen
-GedCom.parents(lincoln, gen)
+abeparents = GedCom.parents(lincoln, gen)
+abeparents[:mother]
 ```
 ```@example gen
-GedCom.parentage(lincoln, gen)
+abeparents[:father]
 ```
+
+
+Diagram an ancestor tree for an individual in the genealogy.  The result is the text of a [Mermaid diagram](https://mermaid-js.github.io/mermaid/#/).
 
 ```@example gen
 GedCom.ancestors_mermaid(lincoln, gen)

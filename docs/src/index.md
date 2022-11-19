@@ -15,7 +15,7 @@ In the examples throughout these pages, `f` is a file with more than 49,000 GEDC
 > This widely circulated GEDCOM data set was downloaded from [https://webtreeprint.com/tp_famous_gedcoms.php](https://webtreeprint.com/tp_famous_gedcoms.php).
 
 
-Read a file in GEDCOM format: 
+Create a `Genealogy` from a file in GEDCOM format: 
 
 
 ```@example home
