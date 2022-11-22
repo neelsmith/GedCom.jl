@@ -2,6 +2,7 @@ module GedCom
 
 import Base: ==
 using Graphs
+using SimpleValueGraphs
 
 include("gedrecords.jl")
 include("utils.jl")
@@ -13,7 +14,8 @@ include("place.jl")
 include("source.jl")
 include("genealogy.jl")
 include("nuclear.jl")
-include("graphs.jl")
+#include("graphs.jl")
+include("valuegraph.jl")
 
 export Genealogy, genealogy
 export Individual, individuals 
@@ -25,7 +27,7 @@ export Location, location
 export GEDRecord, gedRecords
 export label
 
-export GenealogyGraph, genealogyGraph
+#export GenealogyGraph, genealogyGraph
 
 end # module
 
