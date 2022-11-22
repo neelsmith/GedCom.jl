@@ -50,17 +50,19 @@ end
 """Find individual ID for husband of a `FamilyUnit`.
 """
 function husbandid(fam::FamilyUnit)
-    filter(fam.records) do r
+    husbandrecord = filter(fam.records) do r
         r.code == "HUSB"
-    end[1].message
+    end
+    isempty(husbandrecord) ? "" :    husbandrecord[1].message
 end
 
 """Find individual ID for husband of a `FamilyUnit`.
 """
 function wifeid(fam::FamilyUnit)
-    filter(fam.records) do r
+    wiferecord = filter(fam.records) do r
         r.code == "WIFE"
-    end[1].message
+    end
+    isempty(wiferecord) ? "" : wiferecord[1].message
 end
 
 """Find individual IDs for children of a `FamilyUnit`.
