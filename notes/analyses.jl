@@ -1,8 +1,10 @@
 using GedCom
 
 f = joinpath(pwd(),"test","data","pres2020.ged")
-recc = GedCom.gedRecords(f)
 gen = genealogy(f)
+
+recc = GedCom.gedRecords(f)
+
 
 indilevel1s = []
 

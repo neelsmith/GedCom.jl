@@ -6,8 +6,7 @@ function idindex(id, people)
     findfirst(p -> p[:id] == id, people)
 end
 
-
-"""Create a value graph for `gen`.
+"""Create a directed value graph for `gen`.
 Nodes have the ID and label for individuals,
 edges have a string with one of three relationship types:
 "husband", "wife" or "child".
@@ -16,7 +15,7 @@ function genealogyGraph(gen::Genealogy)
     folks = map(gen.individuals) do i
         (id = i.id, name = label(i))
     end
-    g = ValGraph(length(folks);
+    g = ValDiGraph(length(folks);
     vertexval_types=(id = String, name = String),
     vertexval_init=v -> folks[v],
     edgeval_types=(relation=String,)
@@ -37,7 +36,8 @@ function genealogyGraph(gen::Genealogy)
         else
             h_index = idindex(h, folks)
             w_index = idindex(w, folks)
-            add_edge!(g, h_index, w_index, (relation="Husband",))       
+            add_edge!(g, h_index, w_index, (relation="Husband",))   
+            add_edge!(g, w_index, h_index, (relation="Wife",))     
         end
         
         for c in childrenids(f)

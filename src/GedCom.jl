@@ -26,7 +26,7 @@ export Source, sources
 export Location, location
 export GEDRecord, gedRecords
 export label
-
+export genealogyGraph
 #export GenealogyGraph, genealogyGraph
 
 end # module
