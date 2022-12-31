@@ -3,3 +3,4 @@ Manifest.toml
 docs/build/
 .github/
 private/
+settings.json
