@@ -11,7 +11,7 @@ Pkg.activate(".")
 Pkg.resolve()
 Pkg.instantiate()
 
-using Documenter, DocStringExtensions, GedCom
+using Documenter, DocStringExtensions, DocumenterMermaid, GedCom
 
 makedocs(
     sitename = "GedCom.jl Documentation",

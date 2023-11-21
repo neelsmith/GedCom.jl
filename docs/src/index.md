@@ -20,6 +20,7 @@ Create a `Genealogy` from a file in GEDCOM format:
 
 ```@example home
 using GedCom
+# `f` is a GedCom file
 gen = genealogy(f)
 typeof(gen)
 ```
