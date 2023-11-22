@@ -12,8 +12,13 @@ PlutoTeachingTools = "661c6b06-c737-4d37-b85c-46df65de6f69"
 PlutoUI = "7f904dfe-b85e-4ff6-b463-dae2292396a8"
 SimpleValueGraphs = "b43c691f-cac2-5415-8122-396fe16a49fc"
 Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+TestSetExtensions = "98d24dd4-01ad-11ea-1b02-c9a08f80db04"
 
 [compat]
 DocStringExtensions = "0.9"
 Documenter = "1"
+DocumenterMermaid = "0.1"
+Graphs = "1"
+SimpleValueGraphs = "0.4"
+TestSetExtensions = "2"
 julia = "1.8"

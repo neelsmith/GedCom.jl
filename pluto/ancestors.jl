@@ -57,6 +57,12 @@ end
 # ╔═╡ 53668273-179a-4596-97fa-24db84556236
 md"""## Ancestors"""
 
+# ╔═╡ b90dd261-5ba5-4fcc-b83f-8babdca51ff4
+md"""`GedCom.parents` returns a named tuple with mother and father:"""
+
+# ╔═╡ da785287-0cac-41f3-be70-9385eb7956ab
+
+
 # ╔═╡ 46004ab9-ac76-4817-a4af-54c63c404626
 md"""## Descendants"""
 
@@ -80,7 +86,10 @@ else
 end
 
 # ╔═╡ f9aeeb3a-bfc2-4a15-8f8d-3dae415a4f11
-sortedpeople = isnothing(gen) ? [] : sort(gen.individuals, by = i -> GedCom.lastname(i))
+sortedpeople = isnothing(gen) ? [] : sort(gen.individuals, by = i -> GedCom.lastname(i) * label(i))
+
+# ╔═╡ 83cc665c-3a85-4116-90c4-525780382f2d
+sortedpeople[100] |> label
 
 # ╔═╡ ca2f6e6e-094f-4a98-a568-2dc858d3fda0
 namelist = isnothing(gen) ? ["--No file selected--"] : map(sortedpeople) do i	
@@ -117,7 +126,11 @@ else
 end
 
 # ╔═╡ eca70583-735f-4a83-a304-cd9d63a53834
-prnts = isnothing(gen) ? [] : GedCom.parents(person, gen)
+prnts = isnothing(gen) ? nothing : GedCom.parents(person, gen)
+
+# ╔═╡ ebf86867-168e-45d6-b219-96dfea9b932e
+GedCom.spouses(person)
+
 
 # ╔═╡ Cell order:
 # ╟─bd080239-bf0e-4cfd-8126-aec87a29b908
@@ -127,11 +140,15 @@ prnts = isnothing(gen) ? [] : GedCom.parents(person, gen)
 # ╟─ca028862-5d01-11ed-0e13-01f6b07abf83
 # ╟─53668273-179a-4596-97fa-24db84556236
 # ╟─d79deaf9-b0e7-4d48-bf8b-4f823848e7d9
-# ╟─1e63fe6d-be8c-43b6-847f-0dc73f3d5657
+# ╟─b90dd261-5ba5-4fcc-b83f-8babdca51ff4
+# ╠═1e63fe6d-be8c-43b6-847f-0dc73f3d5657
 # ╠═eca70583-735f-4a83-a304-cd9d63a53834
+# ╠═da785287-0cac-41f3-be70-9385eb7956ab
 # ╟─46004ab9-ac76-4817-a4af-54c63c404626
+# ╠═ebf86867-168e-45d6-b219-96dfea9b932e
 # ╟─1e7d7661-44aa-468a-af3d-c25864bfd9c1
 # ╟─baa3fdf4-b780-406e-bfd5-e5c7e4dc3552
 # ╟─be67734a-90a6-4220-926c-39c1d0e89030
-# ╟─f9aeeb3a-bfc2-4a15-8f8d-3dae415a4f11
-# ╟─ca2f6e6e-094f-4a98-a568-2dc858d3fda0
+# ╠═f9aeeb3a-bfc2-4a15-8f8d-3dae415a4f11
+# ╠═83cc665c-3a85-4116-90c4-525780382f2d
+# ╠═ca2f6e6e-094f-4a98-a568-2dc858d3fda0

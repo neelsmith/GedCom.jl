@@ -34,7 +34,7 @@ end
 
 """Get parental family identifier for an `Individual`.
 """
-function parentage(indi::Individual)
+function parent_ids(indi::Individual)
     records = filter(rec -> rec.code == "FAMC", indi.records)
     length(records) == 1 ? records[1].message : "Unrecorded"
 end
@@ -42,7 +42,7 @@ end
 
 """Get list of spouses of an `Individual`.
 """
-function spouses(indi::Individual)
+function spouse_ids(indi::Individual)
     records = filter(rec -> rec.code == "FAMS", indi.records)
     map(r -> r.message, records)
 end
