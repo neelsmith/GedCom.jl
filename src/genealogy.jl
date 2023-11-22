@@ -4,13 +4,21 @@ struct Genealogy
     sources::Vector{Source}
 end
 
-"""Build a `Genealogy` from a GECOM file source.
+"""Build a `Genealogy` from a GEDCOM file source.
 """
 function genealogy(f)
     folks = individuals(f)
     fams = families(f)
     srcs = sources(f)
     Genealogy(folks, fams, srcs)
+end
+
+"""Build a `Genealogy`from a string of GEDCOM data.
+"""
+function fromgedcom(s)
+    grecords = gedRecords(f)
+
+    Genealogy(parseIndividuals(grecords), parseFamilies(grecords), parseSources(grecords))
 end
 
 
