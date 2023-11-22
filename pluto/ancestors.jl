@@ -60,11 +60,23 @@ md"""## Ancestors"""
 # ╔═╡ b90dd261-5ba5-4fcc-b83f-8babdca51ff4
 md"""`GedCom.parents` returns a named tuple with mother and father:"""
 
-# ╔═╡ da785287-0cac-41f3-be70-9385eb7956ab
+# ╔═╡ 39605055-dfea-48ef-863b-3eb83160451a
+md"""`FAMC` records:"""
 
+# ╔═╡ dde8e5b0-ce00-4d61-8cb2-8dd27fbc8980
+md"""Others in the `FAMC`:"""
+
+# ╔═╡ ecfcad00-ba52-4898-a54f-6cf336ab26d5
+md"""`FAMS` records:"""
+
+# ╔═╡ 8bb05b6d-ea18-4aad-b82f-8d4c5cd65869
+md"""Others in the `FAMS`:"""
 
 # ╔═╡ 46004ab9-ac76-4817-a4af-54c63c404626
 md"""## Descendants"""
+
+# ╔═╡ 8a8ed0d2-a1e7-4541-8c01-a9df63e326e5
+md"""Hmmm. This is returning a family id: should be an individual id"""
 
 # ╔═╡ 1e7d7661-44aa-468a-af3d-c25864bfd9c1
 html"""<br/><br/><br/><br/><br/>"""
@@ -128,6 +140,28 @@ end
 # ╔═╡ eca70583-735f-4a83-a304-cd9d63a53834
 prnts = isnothing(gen) ? nothing : GedCom.parents(person, gen)
 
+# ╔═╡ da785287-0cac-41f3-be70-9385eb7956ab
+isnothing(gen) ? nothing : GedCom.data(person.records, "FAMC")
+
+# ╔═╡ bfb21b40-dc87-4ad6-9f77-e7e42f4514a1
+famsrecc = isnothing(gen) ? nothing : GedCom.data(person.records, "FAMS")
+
+# ╔═╡ e48b20d4-89ed-4e2b-9193-cceca766a04d
+if isnothing(gen)
+else
+	filter(gen.individuals) do ind
+		GedCom.data(ind.records, "FAMC") == famsrecc
+	end
+end
+
+# ╔═╡ c6b1d35f-12ca-4d2e-81de-517011663b19
+if isnothing(gen)
+else
+	filter(gen.individuals) do ind
+		GedCom.data(ind.records, "FAMS") == famsrecc
+	end
+end
+
 # ╔═╡ ebf86867-168e-45d6-b219-96dfea9b932e
 GedCom.spouses(person)
 
@@ -143,8 +177,16 @@ GedCom.spouses(person)
 # ╟─b90dd261-5ba5-4fcc-b83f-8babdca51ff4
 # ╠═1e63fe6d-be8c-43b6-847f-0dc73f3d5657
 # ╠═eca70583-735f-4a83-a304-cd9d63a53834
+# ╟─39605055-dfea-48ef-863b-3eb83160451a
 # ╠═da785287-0cac-41f3-be70-9385eb7956ab
+# ╟─dde8e5b0-ce00-4d61-8cb2-8dd27fbc8980
+# ╠═e48b20d4-89ed-4e2b-9193-cceca766a04d
+# ╟─ecfcad00-ba52-4898-a54f-6cf336ab26d5
+# ╠═bfb21b40-dc87-4ad6-9f77-e7e42f4514a1
+# ╟─8bb05b6d-ea18-4aad-b82f-8d4c5cd65869
+# ╠═c6b1d35f-12ca-4d2e-81de-517011663b19
 # ╟─46004ab9-ac76-4817-a4af-54c63c404626
+# ╟─8a8ed0d2-a1e7-4541-8c01-a9df63e326e5
 # ╠═ebf86867-168e-45d6-b219-96dfea9b932e
 # ╟─1e7d7661-44aa-468a-af3d-c25864bfd9c1
 # ╟─baa3fdf4-b780-406e-bfd5-e5c7e4dc3552
