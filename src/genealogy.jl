@@ -1,3 +1,6 @@
+"""A `Genealogy` is composed of individuals, related in families,
+and documented by source statements.
+"""
 struct Genealogy
     individuals::Vector{Individual}
     families::Vector{FamilyUnit}
@@ -26,7 +29,7 @@ end
 """Look up an individual in a genealogy by ID.
 Returns an `Individual` or `nothing`.
 """
-function individual(id::S, gen::Genealogy ) where S <: AbstractString
+function individual(id::S, gen::Genealogy )::Union{Individual, Nothing} where S <: AbstractString
     matches = filter(i -> i.id == id, gen.individuals)
     length(matches) == 1 ? matches[1] : nothing  
 end
@@ -35,17 +38,15 @@ end
 """Look up a family unit in a genealogy by ID.
 Returns an `FamilyUnit` or `nothing`.
 """
-function familyunit(id::S, gen::Genealogy ) where S <: AbstractString
+function familyunit(id::S, gen::Genealogy )::Union{FamilyUnit, Nothing} where S <: AbstractString
     matches = filter(f -> f.xrefId == id, gen.families)
     length(matches) == 1 ? matches[1] : nothing  
 end
 
-
 """Collect `Individual` objects for each member of a nuclear family.
-Return a triple with `Individual` husband, `Individual` wife and Vector of `Individual`s children.
-
+Return a triple with `Individual` husband, `Individual` wife and Vector of `Individual` children.
 """
-function nuclearfamily(fam::FamilyUnit, gen::Genealogy )
+function nuclearfamily(fam::FamilyUnit, gen::Genealogy)
     # husband: 
     hmatches = filter(i -> i.id == husbandid(fam), gen.individuals)
     h = isempty(hmatches) ? nothing : hmatches[1]
@@ -57,9 +58,16 @@ function nuclearfamily(fam::FamilyUnit, gen::Genealogy )
     NuclearFamily(fam.xrefId, h, w, kids)
 end
 
-
+"""Compose a label for a `FamilyUnit`.
+"""
 function label(fam::FamilyUnit, gen::Genealogy)
     nuclearfamily(fam, gen ) |> label
+end
+
+"""Construct a (possibly empty) Vector of child `Individual`s for `i`.
+"""
+function children(p1::Individual, g::Genealogy)
+
 end
 
 #"""Construct a (possibly empty) Vector of child `Individual`s for `i`.
@@ -94,7 +102,7 @@ an `Individual`.  Tuple subelement is `nothing` if mother
 or father is missing.
 """
 function parents(i::Individual, g::Genealogy)
-    individuals = parentage(i,g)
+    individuals = parent_ids(i)
     @debug(individuals)
     if length(individuals) == 2
         if sex(individuals[1]) == "M"

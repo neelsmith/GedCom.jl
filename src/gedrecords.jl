@@ -5,7 +5,7 @@ The GEDCOM 5.1.1 spec defines four required and one optional element in each rec
 """
 struct GEDRecord
     level::Integer
-    xrefId # Union of AbstractString or Nothing
+    xrefId::Union{AbstractString, Nothing} # Union of AbstractString or Nothing
     code::AbstractString
     message::AbstractString
 end
@@ -45,7 +45,7 @@ function gedRecords(lns::Vector{T}) where T <: AbstractString
 end
 
 
-"""Given a Vector of `GEDRecord`s, extract data values for al. records of a specific code. In addition to extracting the `message`
+"""Given a Vector of `GEDRecord`s, extract data values for all records of a specific code. In addition to extracting the `message`
 field of the records tagged with `code`, continuation of those records with `CONC` or `CONT` codes is respected.
 
 Compare `blocks(v, code)`.
