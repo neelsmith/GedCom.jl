@@ -1,5 +1,4 @@
 
-
 """Structure associating `Individual`s as a biological family comprising husband, wife and possibly empty list of children.
 """
 struct NuclearFamily
@@ -57,3 +56,10 @@ function nuclearfamily(fam::FamilyUnit, gen::Genealogy)
     NuclearFamily(fam.xrefId, h, w, kids)
 end
 
+"""Construct nuclear family where `person` is a child.
+"""
+function nuclearfamily(person::Individual, gen::Genealogy)
+    famid = family_id_child(person)
+    fam = familyunit(famid, gen)
+    nuclearfamily(fam, gen)
+end
