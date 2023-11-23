@@ -163,7 +163,7 @@ else
 end
 
 # ╔═╡ ebf86867-168e-45d6-b219-96dfea9b932e
-GedCom.spouses(person)
+GedCom.spouse_ids(person)
 
 
 # ╔═╡ Cell order:
