@@ -1,9 +1,11 @@
+"""A tree of biological descent linking parents to children.
+"""
 struct GenealogyGraph
     nodes
-    edges
+    edges::Vector{RelationTriple}
 end
 
-
+"""Node-edge-node relation of two individuals in a `GeneaologyGraph`."""
 struct RelationTriple
     p1 # ID string
     p2 # ID string
@@ -11,8 +13,10 @@ struct RelationTriple
 end
 
 
-
-function genealogyGraph(gen::Genealogy)
+"""Extract a `GenealogyGraph` from a `Genealogy`.
+Currently includes only individuals with two known parents.
+"""
+function genealogyGraph(gen::Genealogy)::GenealogyGraph
     nodelist = map(i -> i.id, gen.individuals)
     edgelist = RelationTriple[]
     for f in gen.families
