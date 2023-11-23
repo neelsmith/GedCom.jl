@@ -82,11 +82,23 @@ each of which has an ID, a husband (`Individual`), wife (`Individual`) and (poss
 # ╔═╡ 65147a4b-8201-41b4-8d7b-8c13dff99614
 md"""### Sources"""
 
-# ╔═╡ 505be37b-fbc0-4c9c-929e-f2279459feb8
-
-
 # ╔═╡ 5d595ed3-2739-4bf8-8a4a-9b880b218a9a
 md"""### Awesome graph stuff"""
+
+# ╔═╡ 8bdaf8ed-34b7-4481-834f-a7ca18102762
+function childtree_md(indi::Individual, gen::Genealogy, cumulation = [], level = 0)
+	lines = cumulation
+	push!(lines, string("- ", indi.name))
+	
+	for kid in GedCom.children(indi, gen)
+		push!(lines, childtree_md(kid, gen, lines, level + 1))
+	end
+	return lines
+end
+
+
+# ╔═╡ eedb9128-4719-4213-9c91-81871494a0de
+
 
 # ╔═╡ 1e7d7661-44aa-468a-af3d-c25864bfd9c1
 html"""<br/><br/><br/><br/><br/>"""
@@ -164,6 +176,12 @@ end
 # ╔═╡ 7308f7aa-f1bf-4b9e-906c-8d5701ea968a
 kids = GedCom.children(person, gen)
 
+# ╔═╡ 505be37b-fbc0-4c9c-929e-f2279459feb8
+person
+
+# ╔═╡ e9cc00c9-c058-43a7-988b-4d17e976aae0
+childtree_md(person, gen)
+
 # ╔═╡ Cell order:
 # ╟─bd080239-bf0e-4cfd-8126-aec87a29b908
 # ╟─eb702a7e-6a96-47b9-aeb2-46eac03dc561
@@ -186,6 +204,9 @@ kids = GedCom.children(person, gen)
 # ╠═505be37b-fbc0-4c9c-929e-f2279459feb8
 # ╟─5d595ed3-2739-4bf8-8a4a-9b880b218a9a
 # ╠═5de204f4-a217-4d7d-9a25-aff55e27fc3d
+# ╠═8bdaf8ed-34b7-4481-834f-a7ca18102762
+# ╠═eedb9128-4719-4213-9c91-81871494a0de
+# ╠═e9cc00c9-c058-43a7-988b-4d17e976aae0
 # ╟─1e7d7661-44aa-468a-af3d-c25864bfd9c1
 # ╟─baa3fdf4-b780-406e-bfd5-e5c7e4dc3552
 # ╟─be67734a-90a6-4220-926c-39c1d0e89030

@@ -1,9 +1,3 @@
-"""A tree of biological descent linking parents to children.
-"""
-struct GenealogyGraph
-    nodes
-    edges::Vector{RelationTriple}
-end
 
 """Node-edge-node relation of two individuals in a `GeneaologyGraph`."""
 struct RelationTriple
@@ -12,6 +6,12 @@ struct RelationTriple
     relation # one of "husband", "wife", "child"
 end
 
+"""A tree of biological descent linking parents to children.
+"""
+struct GenealogyGraph
+    nodes
+    edges::Vector{RelationTriple}
+end
 
 """Extract a `GenealogyGraph` from a `Genealogy`.
 Currently includes only individuals with two known parents.
@@ -57,4 +57,14 @@ function graph(gr::GenealogyGraph)
         add_edge!(g, node1, node2)
     end
     g
+end
+
+function childtree_md(indi::Individual, gen::Genealogy, cumulation = [], level = 0)
+	lines = cumulation
+	push!(lines, string("- ", indi.name))
+	
+	for kid in GedCom.children(indi, gen)
+		push!(lines, childtree_md(kid, gen, lines, level + 1))
+	end
+	return lines
 end

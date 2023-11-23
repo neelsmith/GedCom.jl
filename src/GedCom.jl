@@ -21,9 +21,9 @@ include("utils.jl")
 include("relations.jl")
 include("nuclear.jl")
 
-#include("graphs.jl")
-include("valuegraph.jl")
-include("graphplots.jl")
+include("graphs/graphs.jl")
+include("graphs/valuegraph.jl")
+include("graphs/graphplots.jl")
 
 export Genealogy, genealogy
 export Individual, individuals 
