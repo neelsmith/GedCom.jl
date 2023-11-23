@@ -42,32 +42,43 @@ GedCom.birthdate(abe)
 
 
 
-## Parent, child and sibling relations
+## Family relations
 
-GEDCOM's lineage-linked grammar models the relation of individuals to two biological parents.  `GedCom.jl` includes functions to find either identifiers or fully instantiated `Individual` objects for parent, child and sibling relationships.
+GEDCOM's lineage-linked grammar models the relation of individuals to two biological parents.  
 
-You can find ID values for parents from an individual:
 
+
+### Family IDs
+
+From a single `Individual` object, you can find family identifiers for families an individual belongs to as a child or as a spouse.
 
 
 ```@example indis
 GedCom.family_id_child(abe)
 ```
 
-## Spouses and nuclear families
-
-Spouses are 
-
-
-The `parentage` function finds the identifier ("pointer") for the family unit that an individual was born into.
 
 ```@example indis
-#GedCom.parentage(abe, gen)
+GedCom.family_ids_spouse(abe)
+```
+
+### Structures with `Individual`s
+
+Other functions let you find fully instantiated `Individual` objects for a person in a genealogy. `GedCom.parents` returns a named tuple:
+
+```@example indis
+abe_parents = GedCom.parents(abe, gen)
+abe_parents[:father]
+```
+```@example indis
+abe_parents[:mother]
 ```
 
 
-The `spouses` function returns a (possibly empty) vector of all family units in which an individual appears as a "spouse."  In addition to pairs of biological parents, the GEDCOM practice also treates married couples as family units (whether or not they have biological children).
+`GedCom.siblings` returns a list:
 
 ```@example indis
-GedCom.spouse_family_ids(abe)
+sibs = GedCom.siblings(abe, gen)
 ```
+
+

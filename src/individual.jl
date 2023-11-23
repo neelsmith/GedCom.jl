@@ -42,7 +42,7 @@ end
 
 """Get list of identifiers for family units in which an individual is a spouse.
 """
-function spouse_family_ids(indi::Individual)
+function family_ids_spouse(indi::Individual)
     records = filter(rec -> rec.code == "FAMS", indi.records)
     map(r -> r.message, records)
 end

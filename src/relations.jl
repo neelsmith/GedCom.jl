@@ -4,7 +4,7 @@ family where `pers` was a parent.
 """
 function children(pers::Individual, g::Genealogy)
     childgroups = Dict()
-    for fam in spouse_family_ids(pers)
+    for fam in family_ids_spouse(pers)
         familykids = filter(g.individuals) do ind
             GedCom.data(ind.records, "FAMC") == fam
         end
@@ -27,8 +27,9 @@ an `Individual`.  Tuple subelement is `nothing` if mother
 or father is missing.
 """
 function parents(i::Individual, g::Genealogy)
-    individuals = family_id_child(i)
-    @debug(individuals)
+    familyid = family_id_child(i)
+    individuals = parent_ids(familyid, g)
+    @info(individuals, length(individuals))
     if length(individuals) == 2
         if sex(individuals[1]) == "M"
             (father = individuals[1], mother = individuals[2])
@@ -46,37 +47,33 @@ function parents(i::Individual, g::Genealogy)
     end
 end
 
-#=
-"""Look for individuals in a `Genealogy` identified
-as parents of `i`.
-"""
-function parentage(i::Individual, g::Genealogy)
-    familyid = parentage(i, gen)
-    @debug("Parent family of $(label(i)) is $(familyid)")
 
-    if familyid == "Unrecorded"
-        []
-    else
-        parents = filter(g.individuals) do candidate
-            kidmatch = filter(candidate.records) do r
-                r.code == "FAMS" && r.message == familyid
-            end
-            !isempty(kidmatch)
+"""Find IDs for parents in a family unit."""
+function parent_ids(familyid::S, g::Genealogy) where S <: AbstractString
+    parents = filter(g.individuals) do candidate
+        kidmatch = filter(candidate.records) do r
+            r.code == "FAMS" && r.message == familyid
         end
-        parents 
+        !isempty(kidmatch)
     end
 end
-=#
 
 
-function siblings()
+
+function siblings(i::Individual, g::Genealogy)
     []
 end
 
-function parentof()::Bool
+
+function childof(p1, p2, gen)::Bool
     false
 end
 
-function siblingof()::Bool
+
+function parentof(p1, p2, gen)::Bool
+    false
+end
+
+function siblingof(p1,p2,gen)::Bool
     false
 end

@@ -50,7 +50,7 @@ end
 @testset "Test family structure and labelling for `Individual` type" begin
     @test ayers.id == "@I10@"
     @test GedCom.family_id_child(ayers) == "@F11@"
-    @test GedCom.spouse_family_ids(ayers) == ["@F4@"]
+    @test GedCom.family_ids_spouse(ayers) == ["@F4@"]
 
     @test GedCom.lastname(ayers) == "Ayers"
     @test label(ayers) == "Lou Birchie Ayers (1893-1946)"
