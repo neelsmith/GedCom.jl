@@ -5,7 +5,6 @@ using Graphs
 using SimpleValueGraphs
 
 include("gedrecords.jl")
-include("utils.jl")
 
 include("individual.jl")
 include("individual_data.jl")
@@ -18,7 +17,7 @@ include("source.jl")
 
 include("genealogy.jl")
 
-include("family_utils.jl")
+include("utils.jl")
 include("relations.jl")
 include("nuclear.jl")
 

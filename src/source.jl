@@ -1,7 +1,10 @@
+"""In GEDCOM 5, a source is a hierarchical set of GEDCOM records."""
 struct Source
     sourceId::AbstractString
     records::Vector{GEDRecord}
 end
+
+
 
 """Extract `Source`s from a GedCom file `f`.
 """
@@ -48,7 +51,8 @@ function parseSources(records)
     end
     sources
 end
-         
+    
+
 """Get string value for title of `src`.
 """
 function title(src::Source)

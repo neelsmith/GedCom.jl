@@ -1,45 +1,4 @@
-```@setup indis
-using GedCom
-root = pwd() |> dirname |> dirname
-f = joinpath(root, "test", "data", "pres2020.ged")
-gen = genealogy(f)
-abe = GedCom.individual("@I317@", gen)
-```
 
-# Individuals
-
-Most of the data in GEDCOM source is organized in the records for an individual.  In the following examples, `abe` is an `Individual` object containing the genealogical data for Abraham Lincoln in the test data set of presidential genealogies.
-
-
-
-## Basic information (Strings)
-
-`GedCom.jl` includes many functions for extracting different categories of information about an individual as string values.
-
-The `label` function is exported:
-
-```@example indis
-label(abe)
-```
-
-Other functions must be qualified with the package name.
-
-
-```@example indis
-GedCom.lastname(abe)
-```
-```@example indis
-GedCom.dateslabel(abe)
-```
-```@example indis
-GedCom.sex(abe)
-```
-```@example indis
-GedCom.deathdate(abe)
-```
-```@example indis
-GedCom.birthdate(abe)
-```
 
 ## Identifiers for family relations
 

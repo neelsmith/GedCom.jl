@@ -79,6 +79,9 @@ md"""### Descendants"""
 md"""`GedCom.nuclearfamily` returns a list of `NuclearFamily` objects,]
 each of which has an ID, a husband (`Individual`), wife (`Individual`) and (possibly empty) list of chilren (`Individual`s)."""
 
+# ╔═╡ 65147a4b-8201-41b4-8d7b-8c13dff99614
+md"""### Sources"""
+
 # ╔═╡ 5d595ed3-2739-4bf8-8a4a-9b880b218a9a
 md"""### Awesome graph stuff"""
 
@@ -155,6 +158,9 @@ nuclearfamilies = map(mrrgs) do mrg
 	GedCom.nuclearfamily(mrg, gen)
 end
 
+# ╔═╡ 505be37b-fbc0-4c9c-929e-f2279459feb8
+person
+
 # ╔═╡ Cell order:
 # ╟─bd080239-bf0e-4cfd-8126-aec87a29b908
 # ╟─eb702a7e-6a96-47b9-aeb2-46eac03dc561
@@ -172,6 +178,8 @@ end
 # ╠═b7f5f9ec-99a8-4e22-adeb-cc67f73cd9bf
 # ╟─4980e677-ca5e-44a3-87b9-0521e63bffdb
 # ╠═37e7d07e-c955-49c0-a50f-b93819d35a9d
+# ╟─65147a4b-8201-41b4-8d7b-8c13dff99614
+# ╠═505be37b-fbc0-4c9c-929e-f2279459feb8
 # ╟─5d595ed3-2739-4bf8-8a4a-9b880b218a9a
 # ╠═5de204f4-a217-4d7d-9a25-aff55e27fc3d
 # ╟─1e7d7661-44aa-468a-af3d-c25864bfd9c1

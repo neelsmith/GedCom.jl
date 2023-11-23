@@ -1,4 +1,35 @@
 
+
+
+"""Look up a family unit in a genealogy by ID.
+Returns an `FamilyUnit` or `nothing`.
+"""
+function familyunit(id::S, gen::Genealogy)::Union{FamilyUnit, Nothing} where S <: AbstractString
+    matches = filter(f -> f.xrefId == id, gen.families)
+    length(matches) == 1 ? matches[1] : nothing  
+end
+
+
+"""Compose a label for a `FamilyUnit`.
+"""
+function label(fam::FamilyUnit, gen::Genealogy)
+    nuclearfamily(fam, gen ) |> label
+end
+
+"""Extract an identified `Source` from a `Genealogy`."""
+function source(id, gen::Genealogy)
+    srcmatches  = filter(src -> src.sourceId == id, gen.sources)
+    if length(srcmatches) == 1
+        srcmatches[1]
+    elseif length(srcmatches > 1)
+        @warn("Found more than one source with ID $(id)")
+        []
+    else
+        []
+    end
+end
+
+
 """Extract final four-digit year part of a string value.
 """
 function yearpart(s)
