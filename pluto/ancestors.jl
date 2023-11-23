@@ -49,6 +49,10 @@ tip(md"""
 
 """)
 
+# ╔═╡ 83eea2e4-9437-4cc4-acd1-25b4ea335036
+md"""## Data set
+"""
+
 # ╔═╡ 0d6ac6de-cfee-4b25-ac2f-9ae06ce4ecd6
 md"*Use demo file of Presidents?* $(@bind usedemo CheckBox(default=true))"
 
@@ -60,28 +64,20 @@ else
 end
 
 # ╔═╡ 53668273-179a-4596-97fa-24db84556236
-md"""## Ancestors"""
+md"""## Individual"""
+
+# ╔═╡ 87ae5c59-cd8e-42d0-8956-6a29efd7678f
+md"""### Ancestors"""
 
 # ╔═╡ b90dd261-5ba5-4fcc-b83f-8babdca51ff4
 md"""`GedCom.parents` returns a named tuple with mother and father:"""
 
-# ╔═╡ 39605055-dfea-48ef-863b-3eb83160451a
-md"""`FAMC` records:"""
-
-# ╔═╡ dde8e5b0-ce00-4d61-8cb2-8dd27fbc8980
-md"""Others in the `FAMC`:"""
-
-# ╔═╡ ecfcad00-ba52-4898-a54f-6cf336ab26d5
-md"""`FAMS` records:"""
-
-# ╔═╡ 8bb05b6d-ea18-4aad-b82f-8d4c5cd65869
-md"""Others in the `FAMS`:"""
-
 # ╔═╡ 46004ab9-ac76-4817-a4af-54c63c404626
-md"""## Descendants"""
+md"""### Descendants"""
 
-# ╔═╡ 5892876a-6ba4-4e2a-9c14-d19aae09f863
-md"""A child of an ID has the FAMC family ID that parent has FAMS for."""
+# ╔═╡ 4980e677-ca5e-44a3-87b9-0521e63bffdb
+md"""`GedCom.nuclearfamily` returns a list of `NuclearFamily` objects,]
+each of which has an ID, a husband (`Individual`), wife (`Individual`) and (possibly empty) list of chilren (`Individual`s)."""
 
 # ╔═╡ 1e7d7661-44aa-468a-af3d-c25864bfd9c1
 html"""<br/><br/><br/><br/><br/>"""
@@ -145,69 +141,30 @@ end
 # ╔═╡ eca70583-735f-4a83-a304-cd9d63a53834
 prnts = isnothing(gen) ? nothing : GedCom.parents(person, gen)
 
-# ╔═╡ da785287-0cac-41f3-be70-9385eb7956ab
-isnothing(gen) ? nothing : GedCom.data(person.records, "FAMC")
-
-# ╔═╡ bfb21b40-dc87-4ad6-9f77-e7e42f4514a1
-famsrecc = isnothing(gen) ? nothing : GedCom.data(person.records, "FAMS")
-
-# ╔═╡ e48b20d4-89ed-4e2b-9193-cceca766a04d
-if isnothing(gen)
-else
-	filter(gen.individuals) do ind
-		GedCom.data(ind.records, "FAMC") == famsrecc
-	end
-end
-
-# ╔═╡ c6b1d35f-12ca-4d2e-81de-517011663b19
-if isnothing(gen)
-else
-	filter(gen.individuals) do ind
-		GedCom.data(ind.records, "FAMS") == famsrecc
-	end
-end
-
-# ╔═╡ ebf86867-168e-45d6-b219-96dfea9b932e
+# ╔═╡ b7f5f9ec-99a8-4e22-adeb-cc67f73cd9bf
 mrrgs = GedCom.spouse_families(person)
-
-
-# ╔═╡ 5b8bb7f6-2b73-467a-ae09-56d9bb1b5ff7
-filter(gen.individuals) do ind
-	GedCom.data(ind.records, "FAMC") == mrrgs[1]
-end
 
 # ╔═╡ 37e7d07e-c955-49c0-a50f-b93819d35a9d
 nuclearfamilies = map(mrrgs) do mrg
 	GedCom.nuclearfamily(mrg, gen)
 end
 
-# ╔═╡ e95f0abd-157a-4180-be8f-c822e0f21fc6
-GedCom.children(person, gen)
-
 # ╔═╡ Cell order:
 # ╟─bd080239-bf0e-4cfd-8126-aec87a29b908
 # ╟─eb702a7e-6a96-47b9-aeb2-46eac03dc561
 # ╟─bde8a9a3-71b1-4d0e-8e54-c0616fbe7c3e
+# ╟─83eea2e4-9437-4cc4-acd1-25b4ea335036
 # ╟─0d6ac6de-cfee-4b25-ac2f-9ae06ce4ecd6
 # ╟─ca028862-5d01-11ed-0e13-01f6b07abf83
 # ╟─53668273-179a-4596-97fa-24db84556236
 # ╟─d79deaf9-b0e7-4d48-bf8b-4f823848e7d9
+# ╟─87ae5c59-cd8e-42d0-8956-6a29efd7678f
 # ╟─b90dd261-5ba5-4fcc-b83f-8babdca51ff4
 # ╠═1e63fe6d-be8c-43b6-847f-0dc73f3d5657
 # ╠═eca70583-735f-4a83-a304-cd9d63a53834
-# ╟─39605055-dfea-48ef-863b-3eb83160451a
-# ╠═da785287-0cac-41f3-be70-9385eb7956ab
-# ╟─dde8e5b0-ce00-4d61-8cb2-8dd27fbc8980
-# ╠═e48b20d4-89ed-4e2b-9193-cceca766a04d
-# ╟─ecfcad00-ba52-4898-a54f-6cf336ab26d5
-# ╠═bfb21b40-dc87-4ad6-9f77-e7e42f4514a1
-# ╟─8bb05b6d-ea18-4aad-b82f-8d4c5cd65869
-# ╠═c6b1d35f-12ca-4d2e-81de-517011663b19
 # ╟─46004ab9-ac76-4817-a4af-54c63c404626
-# ╠═ebf86867-168e-45d6-b219-96dfea9b932e
-# ╟─5892876a-6ba4-4e2a-9c14-d19aae09f863
-# ╠═5b8bb7f6-2b73-467a-ae09-56d9bb1b5ff7
-# ╠═e95f0abd-157a-4180-be8f-c822e0f21fc6
+# ╠═b7f5f9ec-99a8-4e22-adeb-cc67f73cd9bf
+# ╟─4980e677-ca5e-44a3-87b9-0521e63bffdb
 # ╠═37e7d07e-c955-49c0-a50f-b93819d35a9d
 # ╟─1e7d7661-44aa-468a-af3d-c25864bfd9c1
 # ╟─baa3fdf4-b780-406e-bfd5-e5c7e4dc3552

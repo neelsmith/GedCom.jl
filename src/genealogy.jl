@@ -44,6 +44,21 @@ function familyunit(id::S, gen::Genealogy)::Union{FamilyUnit, Nothing} where S <
 end
 
 
+"""Get all instances of `NuclearFamily` where the person identifed by `id` 
+is a parent.
+"""
+function nuclearfamilies(id::S, gen::Genealogy)  where S <: AbstractString
+    pers = individual(id, gen)
+    isnothing(pers) ? [] :  nuclearfamilies(pers, gen)
+end
+
+function nuclearfamilies(pers::Individual, gen::Genealogy) 
+    map(spouse_families(pers)) do famid
+        @info("Check $(famid)")
+        nuclearfamily(famid, gen)
+    end
+end
+
 """Collect `Individual` objects for each member of the nuclear family
 idenfied by `id`. Return a triple with `Individual` husband, `Individual` wife and Vector of `Individual` children.
 """
