@@ -17,3 +17,43 @@ function label(f::NuclearFamily)
     wlabel = isnothing(f.wife) ? "unknown" : replace(f.wife.name, "/" => "")
     string(hlabel, "--",  wlabel)
 end
+
+
+
+"""Get all instances of `NuclearFamily` where the person identifed by `id` 
+is a parent.
+"""
+function nuclearfamilies(id::S, gen::Genealogy)  where S <: AbstractString
+    pers = individual(id, gen)
+    isnothing(pers) ? [] :  nuclearfamilies(pers, gen)
+end
+
+function nuclearfamilies(pers::Individual, gen::Genealogy) 
+    map(spouse_families(pers)) do famid
+        @info("Check $(famid)")
+        nuclearfamily(famid, gen)
+    end
+end
+
+"""Collect `Individual` objects for each member of the nuclear family
+idenfied by `id`. Return a triple with `Individual` husband, `Individual` wife and Vector of `Individual` children.
+"""
+function nuclearfamily(id::S, gen::Genealogy)  where S <: AbstractString
+    nuclearfamily(familyunit(id,gen), gen)
+end
+
+"""Collect `Individual` objects for each member of a nuclear family.
+Return a triple with `Individual` husband, `Individual` wife and Vector of `Individual` children.
+"""
+function nuclearfamily(fam::FamilyUnit, gen::Genealogy)
+    # husband: 
+    hmatches = filter(i -> i.id == husbandid(fam), gen.individuals)
+    h = isempty(hmatches) ? nothing : hmatches[1]
+    wmatches = filter(i -> i.id == wifeid(fam), gen.individuals)
+    w = isempty(wmatches) ? nothing : wmatches[1]
+    kids = map(childrenids(fam)) do kid
+        filter(i -> i.id == kid, gen.individuals)[1]
+    end
+    NuclearFamily(fam.xrefId, h, w, kids)
+end
+

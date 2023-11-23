@@ -12,8 +12,9 @@ f = joinpath(root, "test", "data", "pres2020.ged")
 
 In the examples throughout these pages, `f` is a file with more than 49,000 GEDCOM "records" documenting the genealogy of U.S. Presidents.
 
-> This widely circulated GEDCOM data set was downloaded from [https://webtreeprint.com/tp_famous_gedcoms.php](https://webtreeprint.com/tp_famous_gedcoms.php).
+> This widely circulated GEDCOM data set was downloaded from [this URL](https://webtreeprint.com/tp_famous_gedcoms.php).
 
+https://webtreeprint.com/tp\_famous\_gedcoms.php
 
 Create a `Genealogy` from a file in GEDCOM format: 
 
