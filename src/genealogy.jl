@@ -38,9 +38,17 @@ end
 """Look up a family unit in a genealogy by ID.
 Returns an `FamilyUnit` or `nothing`.
 """
-function familyunit(id::S, gen::Genealogy )::Union{FamilyUnit, Nothing} where S <: AbstractString
+function familyunit(id::S, gen::Genealogy)::Union{FamilyUnit, Nothing} where S <: AbstractString
     matches = filter(f -> f.xrefId == id, gen.families)
     length(matches) == 1 ? matches[1] : nothing  
+end
+
+
+"""Collect `Individual` objects for each member of the nuclear family
+idenfied by `id`. Return a triple with `Individual` husband, `Individual` wife and Vector of `Individual` children.
+"""
+function nuclearfamily(id::S, gen::Genealogy)  where S <: AbstractString
+    nuclearfamily(familyunit(id,gen), gen)
 end
 
 """Collect `Individual` objects for each member of a nuclear family.
@@ -64,38 +72,28 @@ function label(fam::FamilyUnit, gen::Genealogy)
     nuclearfamily(fam, gen ) |> label
 end
 
-"""Construct a (possibly empty) Vector of child `Individual`s for `i`.
+"""Construct a dictionary of child `Individual`s for each
+family where `pers` was a parent.
 """
-function children(p1::Individual, g::Genealogy)
+function children(pers::Individual, g::Genealogy)
+    childgroups = Dict()
 
-end
-
-#"""Construct a (possibly empty) Vector of child `Individual`s for `i`.
-#"""
-#=
-we need a structure that has spouse + children: the `FamilyUnit`
-
-function children(p1::Individual, g::Genealogy)
-    spouselist = spouses(p1)
-    
-    for sp in spouselist
-        husband = GedCom.sex(p1) == "M" ? p1 : sp
-        wife = GedCom.sex(p1) == "F" ? p1 : sp
-
-
-    end
-    =#
-#=
-    children = filter(g.individuals) do kid
-        filter(candidate.records) do r
-            r.code == "FAMC" && r.message == familyid
+    for fam in spouse_families(pers)
+        familykids = filter(g.individuals) do ind
+            GedCom.data(ind.records, "FAMC") == fam
         end
-        !isempty(kidmatch)
+        childgroups[fam] = familykids
     end
-    children
-   
+    childgroups
 end
- =#
+
+"""Construct a dictionary of child `Individual`s for each
+family where one parent was identified with ID `persID`.
+"""
+function children(persID::T, g::Genealogy) where T <: AbstractString
+    children(individual(persID, g), g)
+end
+
 
 """Construct a named tuple with mother and father for
 an `Individual`.  Tuple subelement is `nothing` if mother 

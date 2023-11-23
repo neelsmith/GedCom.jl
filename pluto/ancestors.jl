@@ -80,6 +80,9 @@ md"""Others in the `FAMS`:"""
 # ╔═╡ 46004ab9-ac76-4817-a4af-54c63c404626
 md"""## Descendants"""
 
+# ╔═╡ 5892876a-6ba4-4e2a-9c14-d19aae09f863
+md"""A child of an ID has the FAMC family ID that parent has FAMS for."""
+
 # ╔═╡ 1e7d7661-44aa-468a-af3d-c25864bfd9c1
 html"""<br/><br/><br/><br/><br/>"""
 
@@ -165,8 +168,21 @@ else
 end
 
 # ╔═╡ ebf86867-168e-45d6-b219-96dfea9b932e
-GedCom.spouse_families(person)
+mrrgs = GedCom.spouse_families(person)
 
+
+# ╔═╡ 5b8bb7f6-2b73-467a-ae09-56d9bb1b5ff7
+filter(gen.individuals) do ind
+	GedCom.data(ind.records, "FAMC") == mrrgs[1]
+end
+
+# ╔═╡ 37e7d07e-c955-49c0-a50f-b93819d35a9d
+nuclearfamilies = map(mrrgs) do mrg
+	GedCom.nuclearfamily(mrg, gen)
+end
+
+# ╔═╡ e95f0abd-157a-4180-be8f-c822e0f21fc6
+GedCom.children(person, gen)
 
 # ╔═╡ Cell order:
 # ╟─bd080239-bf0e-4cfd-8126-aec87a29b908
@@ -189,6 +205,10 @@ GedCom.spouse_families(person)
 # ╠═c6b1d35f-12ca-4d2e-81de-517011663b19
 # ╟─46004ab9-ac76-4817-a4af-54c63c404626
 # ╠═ebf86867-168e-45d6-b219-96dfea9b932e
+# ╟─5892876a-6ba4-4e2a-9c14-d19aae09f863
+# ╠═5b8bb7f6-2b73-467a-ae09-56d9bb1b5ff7
+# ╠═e95f0abd-157a-4180-be8f-c822e0f21fc6
+# ╠═37e7d07e-c955-49c0-a50f-b93819d35a9d
 # ╟─1e7d7661-44aa-468a-af3d-c25864bfd9c1
 # ╟─baa3fdf4-b780-406e-bfd5-e5c7e4dc3552
 # ╟─be67734a-90a6-4220-926c-39c1d0e89030
