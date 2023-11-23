@@ -72,36 +72,8 @@ md"""### Ancestors"""
 # ╔═╡ b90dd261-5ba5-4fcc-b83f-8babdca51ff4
 md"""`GedCom.parents` returns a named tuple with mother and father:"""
 
-# ╔═╡ 67705656-aeb0-4785-9e2d-b5067b3be12c
-
-
 # ╔═╡ 46004ab9-ac76-4817-a4af-54c63c404626
 md"""### Descendants"""
-
-# ╔═╡ 4980e677-ca5e-44a3-87b9-0521e63bffdb
-md"""`GedCom.nuclearfamily` returns a list of `NuclearFamily` objects,]
-each of which has an ID, a husband (`Individual`), wife (`Individual`) and (possibly empty) list of chilren (`Individual`s)."""
-
-# ╔═╡ 65147a4b-8201-41b4-8d7b-8c13dff99614
-md"""### Sources"""
-
-# ╔═╡ 5d595ed3-2739-4bf8-8a4a-9b880b218a9a
-md"""### Awesome graph stuff"""
-
-# ╔═╡ 8bdaf8ed-34b7-4481-834f-a7ca18102762
-function childtree_md(indi::Individual, gen::Genealogy, cumulation = [], level = 0)
-	lines = cumulation
-	push!(lines, string("- ", indi.name))
-	
-	for kid in GedCom.children(indi, gen)
-		push!(lines, childtree_md(kid, gen, lines, level + 1))
-	end
-	return lines
-end
-
-
-# ╔═╡ eedb9128-4719-4213-9c91-81871494a0de
-md"""Descendant tree formattred as a markdown table:"""
 
 # ╔═╡ 1e7d7661-44aa-468a-af3d-c25864bfd9c1
 html"""<br/><br/><br/><br/><br/>"""
@@ -122,9 +94,6 @@ else
 	genealogy(f)
 end
 
-# ╔═╡ 5de204f4-a217-4d7d-9a25-aff55e27fc3d
-gengraph = GedCom.genealogyGraph(gen)
-
 # ╔═╡ f9aeeb3a-bfc2-4a15-8f8d-3dae415a4f11
 sortedpeople = isnothing(gen) ? [] : sort(gen.individuals, by = i -> GedCom.lastname(i) * label(i))
 
@@ -142,6 +111,9 @@ md"""
 """
 
 
+# ╔═╡ 4b91b668-e568-4c23-ac2b-049812851e1a
+GedCom.nuclearfamilies(person, gen)
+
 # ╔═╡ 1e63fe6d-be8c-43b6-847f-0dc73f3d5657
 if isnothing(gen)
 	md""
@@ -156,7 +128,7 @@ else
 		dadlabel = isnothing(dad) ? "Not recorded" : label(dad)
 		mom = parentids[:mother]
 		momlabel = isnothing(mom) ? "Not recorded" : label(mom)
-		md"""**Parentage of individual $(person.id) $(label(person))**: 
+		md"""**Parents of individual $(person.id) $(label(person))**: 
 		
 		- Father: $(dadlabel)
 		- Mother: $(momlabel)
@@ -165,25 +137,14 @@ else
 	end
 end
 
-# ╔═╡ eca70583-735f-4a83-a304-cd9d63a53834
-prnts = isnothing(gen) ? nothing : GedCom.parents(person, gen)
-
-# ╔═╡ b7f5f9ec-99a8-4e22-adeb-cc67f73cd9bf
-mrrgs = GedCom.family_ids_spouse(person)
-
-# ╔═╡ 37e7d07e-c955-49c0-a50f-b93819d35a9d
-nuclearfamilies = map(mrrgs) do mrg
-	GedCom.nuclearfamily(mrg, gen)
-end
-
-# ╔═╡ 7308f7aa-f1bf-4b9e-906c-8d5701ea968a
-kids = GedCom.children(person, gen)
-
-# ╔═╡ 505be37b-fbc0-4c9c-929e-f2279459feb8
-person
+# ╔═╡ 1f999199-70c6-4922-a231-0a260d6cc672
+md"""**Ancestor tree** for *$(person.name)*"""
 
 # ╔═╡ 49ab89e8-a10f-432a-88b5-d4f8b3b3a1d4
 GedCom.ancestor_tree_md(person, gen) |> Markdown.parse
+
+# ╔═╡ eedb9128-4719-4213-9c91-81871494a0de
+md"""**Descendant tree** for *$(person.name)*"""
 
 # ╔═╡ e9cc00c9-c058-43a7-988b-4d17e976aae0
 GedCom.descendant_tree_md(person, gen) |> Markdown.parse
@@ -197,24 +158,15 @@ GedCom.descendant_tree_md(person, gen) |> Markdown.parse
 # ╟─ca028862-5d01-11ed-0e13-01f6b07abf83
 # ╟─53668273-179a-4596-97fa-24db84556236
 # ╟─d79deaf9-b0e7-4d48-bf8b-4f823848e7d9
+# ╟─4b91b668-e568-4c23-ac2b-049812851e1a
 # ╟─87ae5c59-cd8e-42d0-8956-6a29efd7678f
 # ╟─b90dd261-5ba5-4fcc-b83f-8babdca51ff4
-# ╠═1e63fe6d-be8c-43b6-847f-0dc73f3d5657
-# ╠═eca70583-735f-4a83-a304-cd9d63a53834
-# ╠═67705656-aeb0-4785-9e2d-b5067b3be12c
+# ╟─1e63fe6d-be8c-43b6-847f-0dc73f3d5657
+# ╟─1f999199-70c6-4922-a231-0a260d6cc672
+# ╟─49ab89e8-a10f-432a-88b5-d4f8b3b3a1d4
 # ╟─46004ab9-ac76-4817-a4af-54c63c404626
-# ╠═b7f5f9ec-99a8-4e22-adeb-cc67f73cd9bf
-# ╠═7308f7aa-f1bf-4b9e-906c-8d5701ea968a
-# ╟─4980e677-ca5e-44a3-87b9-0521e63bffdb
-# ╠═37e7d07e-c955-49c0-a50f-b93819d35a9d
-# ╟─65147a4b-8201-41b4-8d7b-8c13dff99614
-# ╠═505be37b-fbc0-4c9c-929e-f2279459feb8
-# ╟─5d595ed3-2739-4bf8-8a4a-9b880b218a9a
-# ╠═5de204f4-a217-4d7d-9a25-aff55e27fc3d
-# ╠═8bdaf8ed-34b7-4481-834f-a7ca18102762
-# ╠═49ab89e8-a10f-432a-88b5-d4f8b3b3a1d4
 # ╟─eedb9128-4719-4213-9c91-81871494a0de
-# ╠═e9cc00c9-c058-43a7-988b-4d17e976aae0
+# ╟─e9cc00c9-c058-43a7-988b-4d17e976aae0
 # ╟─1e7d7661-44aa-468a-af3d-c25864bfd9c1
 # ╟─baa3fdf4-b780-406e-bfd5-e5c7e4dc3552
 # ╟─be67734a-90a6-4220-926c-39c1d0e89030
