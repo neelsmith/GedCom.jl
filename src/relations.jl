@@ -29,7 +29,7 @@ or father is missing.
 function parents(i::Individual, g::Genealogy)
     familyid = family_id_child(i)
     individuals = parent_ids(familyid, g)
-    @info(individuals, length(individuals))
+    @debug(individuals, length(individuals))
     if length(individuals) == 2
         if sex(individuals[1]) == "M"
             (father = individuals[1], mother = individuals[2])

@@ -29,7 +29,7 @@ end
 
 function nuclearfamilies(pers::Individual, gen::Genealogy) 
     map(family_ids_spouse(pers)) do famid
-        @info("Check $(famid)")
+        @debug("Check $(famid)")
         nuclearfamily(famid, gen)
     end
 end

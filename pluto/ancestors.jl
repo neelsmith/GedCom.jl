@@ -72,6 +72,9 @@ md"""### Ancestors"""
 # ╔═╡ b90dd261-5ba5-4fcc-b83f-8babdca51ff4
 md"""`GedCom.parents` returns a named tuple with mother and father:"""
 
+# ╔═╡ 67705656-aeb0-4785-9e2d-b5067b3be12c
+
+
 # ╔═╡ 46004ab9-ac76-4817-a4af-54c63c404626
 md"""### Descendants"""
 
@@ -98,7 +101,7 @@ end
 
 
 # ╔═╡ eedb9128-4719-4213-9c91-81871494a0de
-
+md"""Descendant tree formattred as a markdown table:"""
 
 # ╔═╡ 1e7d7661-44aa-468a-af3d-c25864bfd9c1
 html"""<br/><br/><br/><br/><br/>"""
@@ -179,8 +182,11 @@ kids = GedCom.children(person, gen)
 # ╔═╡ 505be37b-fbc0-4c9c-929e-f2279459feb8
 person
 
+# ╔═╡ 49ab89e8-a10f-432a-88b5-d4f8b3b3a1d4
+GedCom.ancestor_tree_md(person, gen) |> Markdown.parse
+
 # ╔═╡ e9cc00c9-c058-43a7-988b-4d17e976aae0
-childtree_md(person, gen)
+GedCom.descendant_tree_md(person, gen) |> Markdown.parse
 
 # ╔═╡ Cell order:
 # ╟─bd080239-bf0e-4cfd-8126-aec87a29b908
@@ -195,6 +201,7 @@ childtree_md(person, gen)
 # ╟─b90dd261-5ba5-4fcc-b83f-8babdca51ff4
 # ╠═1e63fe6d-be8c-43b6-847f-0dc73f3d5657
 # ╠═eca70583-735f-4a83-a304-cd9d63a53834
+# ╠═67705656-aeb0-4785-9e2d-b5067b3be12c
 # ╟─46004ab9-ac76-4817-a4af-54c63c404626
 # ╠═b7f5f9ec-99a8-4e22-adeb-cc67f73cd9bf
 # ╠═7308f7aa-f1bf-4b9e-906c-8d5701ea968a
@@ -205,7 +212,8 @@ childtree_md(person, gen)
 # ╟─5d595ed3-2739-4bf8-8a4a-9b880b218a9a
 # ╠═5de204f4-a217-4d7d-9a25-aff55e27fc3d
 # ╠═8bdaf8ed-34b7-4481-834f-a7ca18102762
-# ╠═eedb9128-4719-4213-9c91-81871494a0de
+# ╠═49ab89e8-a10f-432a-88b5-d4f8b3b3a1d4
+# ╟─eedb9128-4719-4213-9c91-81871494a0de
 # ╠═e9cc00c9-c058-43a7-988b-4d17e976aae0
 # ╟─1e7d7661-44aa-468a-af3d-c25864bfd9c1
 # ╟─baa3fdf4-b780-406e-bfd5-e5c7e4dc3552

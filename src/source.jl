@@ -23,7 +23,7 @@ Vector of `GEDRecord`s.
 """
 function parseSources(records; rootlevel = 0)
     insource = false
-    @info("Parsing $(length(records)) records for sources")
+    @debug("Parsing $(length(records)) records for sources")
     maxdatalines = 0
     sources = Source[]
     level = rootlevel - 1
@@ -32,7 +32,7 @@ function parseSources(records; rootlevel = 0)
     for rec in records
         currlevel = rec.level
         if rec.code == "SOUR"
-            @info("SOURCE code $(rec.code) at level $(level)")
+            @debug("SOURCE code $(rec.code) at level $(level)")
         end
         if rec.code == "SOUR" && currlevel == rootlevel
             if ! isempty(id)
@@ -40,7 +40,7 @@ function parseSources(records; rootlevel = 0)
             end
             id = rec.xrefId
             level = rootlevel
-            @info("NEW SOURCE: $(id)")
+            @debug("NEW SOURCE: $(id)")
             datalines = []
             insource = true
         elseif currlevel == rootlevel

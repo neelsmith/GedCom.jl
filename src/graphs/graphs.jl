@@ -59,12 +59,68 @@ function graph(gr::GenealogyGraph)
     g
 end
 
-function childtree_md(indi::Individual, gen::Genealogy, cumulation = [], level = 0)
+function descendant_tree_md(indi::Individual, gen::Genealogy)
+    mdlines = descendant_tree_mdlines(indi, gen) 
+    data = filter(ln -> !isempty(ln), mdlines)
+    join(data, "\n")
+end
+
+
+
+"""Format a descendant tree as Markdown embedded lists."""
+function descendant_tree_mdlines(indi::Individual, gen::Genealogy, cumulation = [], level = 0)
+    indent = repeat(" ", 4)
+    spacing = repeat(indent, level)
 	lines = cumulation
-	push!(lines, string("- ", indi.name))
-	
-	for kid in GedCom.children(indi, gen)
-		push!(lines, childtree_md(kid, gen, lines, level + 1))
+    
+    familydict = GedCom.children(indi, gen)
+    @debug("Pushed $(indi.name) ($(indi.id)) with $(length(keys(familydict))) family units at level $(level)")
+    push!(lines, string(spacing, "- ", indi.name))
+    @debug("""Lines now $(join(lines, "++"))""")
+	for famid in keys(familydict)
+        @debug("Look at $(famid)")
+        for kid in familydict[famid]
+           descendant_tree_mdlines(kid, gen, cumulation, level + 1)
+        end
 	end
+
+    @debug("""Returning lines now $(join(lines, "++"))""")
+	return lines
+end
+
+function ancestor_tree_md(indi::Individual, gen::Genealogy)
+    mdlines = ancestor_tree_mdlines(indi, gen) 
+    data = filter(ln -> !isempty(ln), mdlines)
+    join(data, "\n")
+end
+
+function ancestor_tree_mdlines(indi::Individual, gen::Genealogy, cumulation = [], level = 0)
+    indent = repeat(" ", 4)
+    spacing = repeat(indent, level)
+	lines = cumulation
+    
+    rents = GedCom.parents(indi, gen)
+    if ! isnothing(rents[:father])
+        push!(lines, string(spacing, "- ", rents[:father].name))
+        ancestor_tree_mdlines(rents[:father], gen, cumulation, level + 1)
+    end
+
+    if ! isnothing(rents[:mother])
+        push!(lines, string(spacing, "- ", rents[:mother].name))
+        ancestor_tree_mdlines(rents[:mother], gen, cumulation, level + 1)
+    end
+    @debug("Pushed $(indi.name) ($(indi.id)) with $(length(keys(familydict))) family units at level $(level)")
+    @debug("""Lines now $(join(lines, "++"))""")
+
+
+    #=
+	for famid in keys(familydict)
+        @debug("Look at $(famid)")
+        for kid in familydict[famid]
+           descendant_tree_mdlines(kid, gen, cumulation, level + 1)
+        end
+	end
+=#
+    @debug("""Returning lines now $(join(lines, "++"))""")
 	return lines
 end
