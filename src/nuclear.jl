@@ -29,7 +29,7 @@ function nuclearfamilies(id::S, gen::Genealogy)  where S <: AbstractString
 end
 
 function nuclearfamilies(pers::Individual, gen::Genealogy) 
-    map(spouse_families(pers)) do famid
+    map(spouse_family_ids(pers)) do famid
         @info("Check $(famid)")
         nuclearfamily(famid, gen)
     end

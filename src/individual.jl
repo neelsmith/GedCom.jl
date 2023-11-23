@@ -32,17 +32,17 @@ function sex(indi::Individual)
 end
 
 
-"""Get parental family identifier for an `Individual`.
+"""Get family identifier for the family in which individual is a child.
 """
-function parent_ids(indi::Individual)
+function family_id_child(indi::Individual)
     records = filter(rec -> rec.code == "FAMC", indi.records)
     length(records) == 1 ? records[1].message : "Unrecorded"
 end
 
 
-"""Get list of spouses of an `Individual`.
+"""Get list of identifiers for family units in which an individual is a spouse.
 """
-function spouse_families(indi::Individual)
+function spouse_family_ids(indi::Individual)
     records = filter(rec -> rec.code == "FAMS", indi.records)
     map(r -> r.message, records)
 end

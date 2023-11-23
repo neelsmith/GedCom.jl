@@ -4,7 +4,7 @@ family where `pers` was a parent.
 """
 function children(pers::Individual, g::Genealogy)
     childgroups = Dict()
-    for fam in spouse_families(pers)
+    for fam in spouse_family_ids(pers)
         familykids = filter(g.individuals) do ind
             GedCom.data(ind.records, "FAMC") == fam
         end
@@ -27,7 +27,7 @@ an `Individual`.  Tuple subelement is `nothing` if mother
 or father is missing.
 """
 function parents(i::Individual, g::Genealogy)
-    individuals = parent_ids(i)
+    individuals = family_id_child(i)
     @debug(individuals)
     if length(individuals) == 2
         if sex(individuals[1]) == "M"
@@ -46,6 +46,7 @@ function parents(i::Individual, g::Genealogy)
     end
 end
 
+#=
 """Look for individuals in a `Genealogy` identified
 as parents of `i`.
 """
@@ -65,7 +66,7 @@ function parentage(i::Individual, g::Genealogy)
         parents 
     end
 end
-
+=#
 
 
 function siblings()

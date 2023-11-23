@@ -151,7 +151,7 @@ end
 prnts = isnothing(gen) ? nothing : GedCom.parents(person, gen)
 
 # ╔═╡ b7f5f9ec-99a8-4e22-adeb-cc67f73cd9bf
-mrrgs = GedCom.spouse_families(person)
+mrrgs = GedCom.spouse_family_ids(person)
 
 # ╔═╡ 37e7d07e-c955-49c0-a50f-b93819d35a9d
 nuclearfamilies = map(mrrgs) do mrg
