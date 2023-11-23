@@ -58,22 +58,26 @@ function parent_ids(familyid::S, g::Genealogy) where S <: AbstractString
     end
 end
 
-
-
 function siblings(i::Individual, g::Genealogy)
     []
 end
 
+function half_siblings(i::Individual, g::Genealogy)
+    []
+end
 
 function childof(p1, p2, gen)::Bool
     false
 end
-
 
 function parentof(p1, p2, gen)::Bool
     false
 end
 
 function siblingof(p1,p2,gen)::Bool
+    false
+end
+
+function half_siblingof(p1,p2,gen)::Bool
     false
 end

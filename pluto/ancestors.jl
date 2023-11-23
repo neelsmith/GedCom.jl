@@ -158,6 +158,9 @@ nuclearfamilies = map(mrrgs) do mrg
 	GedCom.nuclearfamily(mrg, gen)
 end
 
+# ╔═╡ 7308f7aa-f1bf-4b9e-906c-8d5701ea968a
+kids = GedCom.children(person, gen)
+
 # ╔═╡ 505be37b-fbc0-4c9c-929e-f2279459feb8
 person
 
@@ -176,6 +179,7 @@ person
 # ╠═eca70583-735f-4a83-a304-cd9d63a53834
 # ╟─46004ab9-ac76-4817-a4af-54c63c404626
 # ╠═b7f5f9ec-99a8-4e22-adeb-cc67f73cd9bf
+# ╠═7308f7aa-f1bf-4b9e-906c-8d5701ea968a
 # ╟─4980e677-ca5e-44a3-87b9-0521e63bffdb
 # ╠═37e7d07e-c955-49c0-a50f-b93819d35a9d
 # ╟─65147a4b-8201-41b4-8d7b-8c13dff99614
