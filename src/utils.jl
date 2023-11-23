@@ -9,7 +9,6 @@ function familyunit(id::S, gen::Genealogy)::Union{FamilyUnit, Nothing} where S <
     length(matches) == 1 ? matches[1] : nothing  
 end
 
-
 """Compose a label for a `FamilyUnit`.
 """
 function label(fam::FamilyUnit, gen::Genealogy)
@@ -27,6 +26,12 @@ function source(id, gen::Genealogy)
     else
         []
     end
+end
+
+
+"""Extract all `Source`s for an individual."""
+function sources(indi::Individual)
+  parseSources(indi.records)
 end
 
 

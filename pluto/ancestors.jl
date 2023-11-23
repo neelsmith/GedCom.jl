@@ -82,6 +82,9 @@ each of which has an ID, a husband (`Individual`), wife (`Individual`) and (poss
 # ╔═╡ 65147a4b-8201-41b4-8d7b-8c13dff99614
 md"""### Sources"""
 
+# ╔═╡ 505be37b-fbc0-4c9c-929e-f2279459feb8
+
+
 # ╔═╡ 5d595ed3-2739-4bf8-8a4a-9b880b218a9a
 md"""### Awesome graph stuff"""
 
@@ -160,9 +163,6 @@ end
 
 # ╔═╡ 7308f7aa-f1bf-4b9e-906c-8d5701ea968a
 kids = GedCom.children(person, gen)
-
-# ╔═╡ 505be37b-fbc0-4c9c-929e-f2279459feb8
-person
 
 # ╔═╡ Cell order:
 # ╟─bd080239-bf0e-4cfd-8126-aec87a29b908

@@ -21,26 +21,29 @@ end
 """Parse a Vector of `Source`s from a
 Vector of `GEDRecord`s.
 """
-function parseSources(records)
+function parseSources(records; rootlevel = 0)
     insource = false
-    @debug("Parsing $(length(records)) records for sources")
+    @info("Parsing $(length(records)) records for sources")
     maxdatalines = 0
     sources = Source[]
-    level = -1
+    level = rootlevel - 1
     id = ""
     datalines = []
     for rec in records
         currlevel = rec.level
-        if rec.code == "SOUR" && currlevel == 0
+        if rec.code == "SOUR"
+            @info("SOURCE code $(rec.code) at level $(level)")
+        end
+        if rec.code == "SOUR" && currlevel == rootlevel
             if ! isempty(id)
                 push!(sources, Source(id, datalines))
             end
             id = rec.xrefId
-            level = 0
-            @debug("NEW SOURCE: $(id)")
+            level = rootlevel
+            @info("NEW SOURCE: $(id)")
             datalines = []
             insource = true
-        elseif currlevel == 0
+        elseif currlevel == rootlevel
             insource = false
         elseif insource
             push!(datalines, rec) 
