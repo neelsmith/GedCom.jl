@@ -42,7 +42,7 @@ end
 
 """Get list of spouses of an `Individual`.
 """
-function spouse_ids(indi::Individual)
+function spouse_families(indi::Individual)
     records = filter(rec -> rec.code == "FAMS", indi.records)
     map(r -> r.message, records)
 end

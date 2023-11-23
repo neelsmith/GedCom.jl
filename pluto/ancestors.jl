@@ -18,10 +18,15 @@ end
 # ╠═╡ show_logs = false
 begin
 	using Pkg
+	Pkg.add("Revise")
+	using Revise
 	Pkg.activate(dirname(pwd()))
 	using GedCom
+	#Pkg.develop("GedCom")
+	
 	Pkg.add("PlutoUI")
 	using PlutoUI
+	
 	Pkg.add("PlutoTeachingTools")
 	using PlutoTeachingTools
 
@@ -74,9 +79,6 @@ md"""Others in the `FAMS`:"""
 
 # ╔═╡ 46004ab9-ac76-4817-a4af-54c63c404626
 md"""## Descendants"""
-
-# ╔═╡ 8a8ed0d2-a1e7-4541-8c01-a9df63e326e5
-md"""Hmmm. This is returning a family id: should be an individual id"""
 
 # ╔═╡ 1e7d7661-44aa-468a-af3d-c25864bfd9c1
 html"""<br/><br/><br/><br/><br/>"""
@@ -163,7 +165,7 @@ else
 end
 
 # ╔═╡ ebf86867-168e-45d6-b219-96dfea9b932e
-GedCom.spouse_ids(person)
+GedCom.spouse_families(person)
 
 
 # ╔═╡ Cell order:
@@ -186,7 +188,6 @@ GedCom.spouse_ids(person)
 # ╟─8bb05b6d-ea18-4aad-b82f-8d4c5cd65869
 # ╠═c6b1d35f-12ca-4d2e-81de-517011663b19
 # ╟─46004ab9-ac76-4817-a4af-54c63c404626
-# ╟─8a8ed0d2-a1e7-4541-8c01-a9df63e326e5
 # ╠═ebf86867-168e-45d6-b219-96dfea9b932e
 # ╟─1e7d7661-44aa-468a-af3d-c25864bfd9c1
 # ╟─baa3fdf4-b780-406e-bfd5-e5c7e4dc3552
