@@ -19,13 +19,12 @@ function genealogyGraph(gen::Genealogy)
         h = husbandid(f)
         w = wifeid(f)
         if isempty(h) || isempty(w)
+            # for now, omit from graph unless both parents found
         else
             hrelation = RelationTriple(h, w, "husband")
             push!(edgelist, hrelation)
             wrelation = RelationTriple(w, h, "wife")
             push!(edgelist, wrelation)
-
-            
         end
         for c in childrenids(f)
            if isempty(h)     
