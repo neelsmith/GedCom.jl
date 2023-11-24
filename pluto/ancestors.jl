@@ -141,13 +141,13 @@ else
 end
 
 # ╔═╡ 1f999199-70c6-4922-a231-0a260d6cc672
-isnothing(gen) ? md"" : md"""**Ancestor tree** for *$(person.name)*"""
+isnothing(gen) ? md"" : md"""**Ancestor tree** for *$(GedCom.label(person))*"""
 
 # ╔═╡ 49ab89e8-a10f-432a-88b5-d4f8b3b3a1d4
 isnothing(gen) ? md"" : GedCom.ancestor_tree_md(person, gen) |> Markdown.parse
 
 # ╔═╡ eedb9128-4719-4213-9c91-81871494a0de
-isnothing(gen) ? md"" : md"""**Descendant tree** for *$(person.name)*"""
+isnothing(gen) ? md"" : md"""**Descendant tree** for *$(GedCom.label(person))*"""
 
 # ╔═╡ e9cc00c9-c058-43a7-988b-4d17e976aae0
 isnothing(gen) ? md"" : GedCom.descendant_tree_md(person, gen) |> Markdown.parse

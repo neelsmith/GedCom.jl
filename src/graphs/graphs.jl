@@ -75,7 +75,7 @@ function descendant_tree_mdlines(indi::Individual, gen::Genealogy, cumulation = 
     
     familydict = GedCom.children(indi, gen)
     @debug("Pushed $(indi.name) ($(indi.id)) with $(length(keys(familydict))) family units at level $(level)")
-    push!(lines, string(spacing, "- ", indi.name))
+    push!(lines, string(spacing, "- ", label(indi)))
     @debug("""Lines now $(join(lines, "++"))""")
 	for famid in keys(familydict)
         @debug("Look at $(famid)")
@@ -101,12 +101,12 @@ function ancestor_tree_mdlines(indi::Individual, gen::Genealogy, cumulation = []
     
     rents = GedCom.parents(indi, gen)
     if ! isnothing(rents[:father])
-        push!(lines, string(spacing, "- $(level + 1) father: ", rents[:father].name))
+        push!(lines, string(spacing, "- $(level + 1) father: ", label(rents[:father])))
         ancestor_tree_mdlines(rents[:father], gen, cumulation, level + 1)
     end
 
     if ! isnothing(rents[:mother])
-        push!(lines, string(spacing, "- $(level + 1) mother: ", rents[:mother].name))
+        push!(lines, string(spacing, "- $(level + 1) mother: ", label(rents[:mother])))
         ancestor_tree_mdlines(rents[:mother], gen, cumulation, level + 1)
     end
  
