@@ -21,7 +21,7 @@ end
 function label(indi::Individual)
     fordates = dateslabel(indi)
     @debug("For dates; $(fordates) ")
-    strippedname = replace(indi.name, "/" => "")
+    strippedname = replace(indi.name, "/" => " ")
     isempty(fordates) ? strippedname  : string(strippedname,  " (", fordates, ")")
 end
 
