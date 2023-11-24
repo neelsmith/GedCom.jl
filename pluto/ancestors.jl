@@ -97,8 +97,11 @@ end
 # ╔═╡ f9aeeb3a-bfc2-4a15-8f8d-3dae415a4f11
 sortedpeople = isnothing(gen) ? [] : sort(gen.individuals, by = i -> GedCom.lastname(i) * label(i))
 
-# ╔═╡ 83cc665c-3a85-4116-90c4-525780382f2d
-sortedpeople[100] |> label
+# ╔═╡ 2272b18a-c033-4779-a1fa-1920a48cf9b9
+md"""*Data set with* **$(length(sortedpeople)) individuals**"""
+
+# ╔═╡ 189a2e33-c58b-49d3-8442-4dcb29c963c3
+
 
 # ╔═╡ ca2f6e6e-094f-4a98-a568-2dc858d3fda0
 namelist = isnothing(gen) ? ["--No file selected--"] : map(sortedpeople) do i	
@@ -112,7 +115,7 @@ md"""
 
 
 # ╔═╡ 4b91b668-e568-4c23-ac2b-049812851e1a
-GedCom.nuclearfamilies(person, gen)
+isnothing(gen) ? nothing : GedCom.nuclearfamilies(person, gen)
 
 # ╔═╡ 1e63fe6d-be8c-43b6-847f-0dc73f3d5657
 if isnothing(gen)
@@ -138,16 +141,16 @@ else
 end
 
 # ╔═╡ 1f999199-70c6-4922-a231-0a260d6cc672
-md"""**Ancestor tree** for *$(person.name)*"""
+isnothing(gen) ? md"" : md"""**Ancestor tree** for *$(person.name)*"""
 
 # ╔═╡ 49ab89e8-a10f-432a-88b5-d4f8b3b3a1d4
-GedCom.ancestor_tree_md(person, gen) |> Markdown.parse
+isnothing(gen) ? md"" : GedCom.ancestor_tree_md(person, gen) |> Markdown.parse
 
 # ╔═╡ eedb9128-4719-4213-9c91-81871494a0de
-md"""**Descendant tree** for *$(person.name)*"""
+isnothing(gen) ? md"" : md"""**Descendant tree** for *$(person.name)*"""
 
 # ╔═╡ e9cc00c9-c058-43a7-988b-4d17e976aae0
-GedCom.descendant_tree_md(person, gen) |> Markdown.parse
+isnothing(gen) ? md"" : GedCom.descendant_tree_md(person, gen) |> Markdown.parse
 
 # ╔═╡ Cell order:
 # ╟─bd080239-bf0e-4cfd-8126-aec87a29b908
@@ -156,6 +159,7 @@ GedCom.descendant_tree_md(person, gen) |> Markdown.parse
 # ╟─83eea2e4-9437-4cc4-acd1-25b4ea335036
 # ╟─0d6ac6de-cfee-4b25-ac2f-9ae06ce4ecd6
 # ╟─ca028862-5d01-11ed-0e13-01f6b07abf83
+# ╟─2272b18a-c033-4779-a1fa-1920a48cf9b9
 # ╟─53668273-179a-4596-97fa-24db84556236
 # ╟─d79deaf9-b0e7-4d48-bf8b-4f823848e7d9
 # ╟─4b91b668-e568-4c23-ac2b-049812851e1a
@@ -171,5 +175,5 @@ GedCom.descendant_tree_md(person, gen) |> Markdown.parse
 # ╟─baa3fdf4-b780-406e-bfd5-e5c7e4dc3552
 # ╟─be67734a-90a6-4220-926c-39c1d0e89030
 # ╠═f9aeeb3a-bfc2-4a15-8f8d-3dae415a4f11
-# ╠═83cc665c-3a85-4116-90c4-525780382f2d
+# ╠═189a2e33-c58b-49d3-8442-4dcb29c963c3
 # ╠═ca2f6e6e-094f-4a98-a568-2dc858d3fda0
