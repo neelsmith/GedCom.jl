@@ -66,6 +66,9 @@ end
 # ╔═╡ 53668273-179a-4596-97fa-24db84556236
 md"""## Individual"""
 
+# ╔═╡ cef20de7-3e9c-4683-b925-73a56c5e7b09
+md"""### Marriages"""
+
 # ╔═╡ 87ae5c59-cd8e-42d0-8956-6a29efd7678f
 md"""### Ancestors"""
 
@@ -115,7 +118,12 @@ md"""
 
 
 # ╔═╡ 4b91b668-e568-4c23-ac2b-049812851e1a
-isnothing(gen) ? nothing : GedCom.nuclearfamilies(person, gen)
+if isnothing(gen) 
+	md""
+else
+	items = map(mrg -> string("- ", label(mrg)), GedCom.nuclearfamilies(person, gen)) 
+	join(items,"\n") |> Markdown.parse
+end
 
 # ╔═╡ 1e63fe6d-be8c-43b6-847f-0dc73f3d5657
 if isnothing(gen)
@@ -162,6 +170,7 @@ isnothing(gen) ? md"" : GedCom.descendant_tree_md(person, gen) |> Markdown.parse
 # ╟─2272b18a-c033-4779-a1fa-1920a48cf9b9
 # ╟─53668273-179a-4596-97fa-24db84556236
 # ╟─d79deaf9-b0e7-4d48-bf8b-4f823848e7d9
+# ╟─cef20de7-3e9c-4683-b925-73a56c5e7b09
 # ╟─4b91b668-e568-4c23-ac2b-049812851e1a
 # ╟─87ae5c59-cd8e-42d0-8956-6a29efd7678f
 # ╟─b90dd261-5ba5-4fcc-b83f-8babdca51ff4
