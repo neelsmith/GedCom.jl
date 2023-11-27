@@ -63,20 +63,8 @@ end
 # ╔═╡ 53668273-179a-4596-97fa-24db84556236
 md"""## Individual"""
 
-# ╔═╡ de23d83f-dd35-4d23-9f2c-850f8c7837b8
-
-
-# ╔═╡ 7769e9c5-481e-4bdf-aa80-0086cf31f8d4
-
-
-# ╔═╡ 06c0b49f-6ca3-4a5e-811f-0e23ed57fe07
-
-
 # ╔═╡ d770b92c-bcf6-4e2f-9b7a-80cbfcd03544
 md"""## Nuclear family"""
-
-# ╔═╡ 3f2a0adf-2ae0-4c60-803a-3f085f9dbd2f
-md"""**Siblings**"""
 
 # ╔═╡ 87ae5c59-cd8e-42d0-8956-6a29efd7678f
 md"""### Ancestors"""
@@ -135,6 +123,9 @@ else
 	genealogy(f)
 end
 
+# ╔═╡ 3f2a0adf-2ae0-4c60-803a-3f085f9dbd2f
+isnothing(gen) ? md"" : md"""**Siblings**"""
+
 # ╔═╡ f9aeeb3a-bfc2-4a15-8f8d-3dae415a4f11
 sortedpeople = isnothing(gen) ? [] : sort(gen.individuals, by = i -> GedCom.lastname(i) * label(i))
 
@@ -153,7 +144,7 @@ md"""
 
 
 # ╔═╡ 5dafdd7a-419d-44dd-866d-c3df8b74cf72
-md"**ID: $(person.id)**"
+isnothing(gen) ? nothing : md"ID: **$(person.id)**"
 
 # ╔═╡ 1e63fe6d-be8c-43b6-847f-0dc73f3d5657
 if isnothing(gen)
@@ -232,14 +223,11 @@ end
 # ╟─2272b18a-c033-4779-a1fa-1920a48cf9b9
 # ╟─53668273-179a-4596-97fa-24db84556236
 # ╟─d79deaf9-b0e7-4d48-bf8b-4f823848e7d9
-# ╠═de23d83f-dd35-4d23-9f2c-850f8c7837b8
-# ╠═7769e9c5-481e-4bdf-aa80-0086cf31f8d4
-# ╠═06c0b49f-6ca3-4a5e-811f-0e23ed57fe07
-# ╠═5dafdd7a-419d-44dd-866d-c3df8b74cf72
+# ╟─5dafdd7a-419d-44dd-866d-c3df8b74cf72
 # ╟─d770b92c-bcf6-4e2f-9b7a-80cbfcd03544
 # ╟─1e63fe6d-be8c-43b6-847f-0dc73f3d5657
 # ╟─3f2a0adf-2ae0-4c60-803a-3f085f9dbd2f
-# ╠═c281779b-1576-43cd-9610-bd0aac85f3dc
+# ╟─c281779b-1576-43cd-9610-bd0aac85f3dc
 # ╟─87ae5c59-cd8e-42d0-8956-6a29efd7678f
 # ╟─1f999199-70c6-4922-a231-0a260d6cc672
 # ╟─6ea487fe-dc46-4d52-93a9-43cae36ace53
@@ -254,7 +242,7 @@ end
 # ╟─1e7d7661-44aa-468a-af3d-c25864bfd9c1
 # ╟─9a92cea1-e704-4b66-b633-ab24df893881
 # ╟─598a6d08-b0a3-42a2-b915-0d7054f4d582
-# ╠═ee309bd4-22e7-420f-8cfb-b283b2facbfc
+# ╟─ee309bd4-22e7-420f-8cfb-b283b2facbfc
 # ╟─47e70316-05b9-42c2-a865-bdef21899116
 # ╟─6fe93cfa-747a-4142-9891-6b75ee0d2db2
 # ╟─479bca88-a413-43b3-b552-edbea4b1c40b
