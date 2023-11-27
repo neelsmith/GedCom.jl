@@ -103,9 +103,6 @@ else
 	genealogy(f)
 end
 
-# ╔═╡ 4416e0cc-918b-4f44-824f-272565cf0ce2
-isnothing(gen) ? nothing : mermaid"""$(GedCom.ancestors_mermaid(person, gen))"""
-
 # ╔═╡ f9aeeb3a-bfc2-4a15-8f8d-3dae415a4f11
 sortedpeople = isnothing(gen) ? [] : sort(gen.individuals, by = i -> GedCom.lastname(i) * label(i))
 
@@ -157,6 +154,9 @@ isnothing(gen) ? md"" : md"""**Ancestor tree** for *$(GedCom.label(person))*"""
 
 # ╔═╡ 49ab89e8-a10f-432a-88b5-d4f8b3b3a1d4
 isnothing(gen) ? md"" : GedCom.ancestor_tree_md(person, gen) |> Markdown.parse
+
+# ╔═╡ 4416e0cc-918b-4f44-824f-272565cf0ce2
+isnothing(gen) ? nothing : mermaid"""$(GedCom.ancestors_mermaid(person, gen))"""
 
 # ╔═╡ 4b91b668-e568-4c23-ac2b-049812851e1a
 if isnothing(gen) 
