@@ -30,24 +30,30 @@ begin
 	Pkg.add("PlutoTeachingTools")
 	using PlutoTeachingTools
 
+	Pkg.add("Kroki")
+	using Kroki
+
 
 	danger(md"""
-The organization of this notebook's environment in this cell is  a hack until `GedCom.jl` is  published on juliahub.
+The organization of this notebook's environment in this cell is a hack until `GedCom.jl` is  published on juliahub.
 """)
 end
 
-# ╔═╡ eb702a7e-6a96-47b9-aeb2-46eac03dc561
-md"""
-# Explore GEDCOM data with `GedCom.jl`
-"""
-
 # ╔═╡ bde8a9a3-71b1-4d0e-8e54-c0616fbe7c3e
 tip(md"""
-## TBD
+**TBD**
 
 - add type-ahead filtering of names
 
 """)
+
+# ╔═╡ d5a79c00-1d0b-4df0-98c2-fa0c4d385475
+md"""# GED tree"""
+
+# ╔═╡ eb702a7e-6a96-47b9-aeb2-46eac03dc561
+md"""
+> Explore GEDCOM data with `GedCom.jl`
+"""
 
 # ╔═╡ 83eea2e4-9437-4cc4-acd1-25b4ea335036
 md"""## Data set
@@ -96,6 +102,9 @@ elseif isa(f, Dict)
 else
 	genealogy(f)
 end
+
+# ╔═╡ 4416e0cc-918b-4f44-824f-272565cf0ce2
+isnothing(gen) ? nothing : mermaid"""$(GedCom.ancestors_mermaid(person, gen))"""
 
 # ╔═╡ f9aeeb3a-bfc2-4a15-8f8d-3dae415a4f11
 sortedpeople = isnothing(gen) ? [] : sort(gen.individuals, by = i -> GedCom.lastname(i) * label(i))
@@ -164,9 +173,10 @@ isnothing(gen) ? md"" : md"""**Descendant tree** for *$(GedCom.label(person))*""
 isnothing(gen) ? md"" : GedCom.descendant_tree_md(person, gen) |> Markdown.parse
 
 # ╔═╡ Cell order:
-# ╟─bd080239-bf0e-4cfd-8126-aec87a29b908
-# ╟─eb702a7e-6a96-47b9-aeb2-46eac03dc561
 # ╟─bde8a9a3-71b1-4d0e-8e54-c0616fbe7c3e
+# ╟─bd080239-bf0e-4cfd-8126-aec87a29b908
+# ╟─d5a79c00-1d0b-4df0-98c2-fa0c4d385475
+# ╟─eb702a7e-6a96-47b9-aeb2-46eac03dc561
 # ╟─83eea2e4-9437-4cc4-acd1-25b4ea335036
 # ╟─0d6ac6de-cfee-4b25-ac2f-9ae06ce4ecd6
 # ╟─ca028862-5d01-11ed-0e13-01f6b07abf83
@@ -179,6 +189,7 @@ isnothing(gen) ? md"" : GedCom.descendant_tree_md(person, gen) |> Markdown.parse
 # ╠═c281779b-1576-43cd-9610-bd0aac85f3dc
 # ╟─1f999199-70c6-4922-a231-0a260d6cc672
 # ╟─49ab89e8-a10f-432a-88b5-d4f8b3b3a1d4
+# ╠═4416e0cc-918b-4f44-824f-272565cf0ce2
 # ╟─cef20de7-3e9c-4683-b925-73a56c5e7b09
 # ╟─4b91b668-e568-4c23-ac2b-049812851e1a
 # ╟─46004ab9-ac76-4817-a4af-54c63c404626
