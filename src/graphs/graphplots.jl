@@ -10,18 +10,18 @@ diagram data starting from individual `indi`.
 For an ancestor tree, we plot directly from child -> parent (no intermediate family unit).
 """
 function ancestors_mermaid(indi::Individual, g::Genealogy, lines)
-    #indiid = replace(indi.id, "@" => "")
+    indiid = replace(indi.id, "@" => "")
     rents = parents(indi,g)
     if isnothing(rents[:father])
     else
         dadid = replace(rents[:father].id, "@" => "")
-        push!(lines, string(label(indi), " --> ", dadid, "(\"", label(rents[:father]), "\")"))
+        push!(lines, string(indiid, "(\"", label(indi), "\") --> ", dadid, "(\"", label(rents[:father]), "\")"))
         ancestors_mermaid(rents[:father], g, lines)
     end
     if isnothing(rents[:mother])
     else
         momid = replace(rents[:mother].id, "@" => "")
-        push!(lines, string(label(indi), " --> ", momid, "(\"", label(rents[:mother]), "\")"))
+        push!(lines, string(indiid, "(\"", label(indi), "\") --> ", momid, "(\"", label(rents[:mother]), "\")"))
         ancestors_mermaid(rents[:mother], g, lines)
     end
     join(lines,"\n")
