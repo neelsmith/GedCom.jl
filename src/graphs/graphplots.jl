@@ -1,5 +1,5 @@
 
-
+"""Supported flow directions for mermaid trees."""
 mermaid_flows = [
     "TB", "BT", "RL", "LR"
 ]
@@ -40,13 +40,35 @@ end
 """Create a Mermaid plot of a descendant tree for individual `indi`.
 Default orientation is top-to-bottom.
 """
-function descendants_mermaid(indi::Individual, g::Genealogy; flow = "BT")
-    graph_flow = in(uppercase(flow), mermaid_flows) ? uppercase(flow)  : "BT"
-    lines = ancestors_mermaid(indi, g, [])
-   "graph $(graph_flow)\n" * lines
+function descendants_mermaid(indi::Individual, g::Genealogy; flow = "TB")
+    graph_flow = in(uppercase(flow), mermaid_flows) ? uppercase(flow)  : "TB"
+
+    mermlines = descendants_mermaid(indi, g, [])
+    merm = "graph $(graph_flow)\n" * mermlines
+    #@info(merm)
+    merm
 end
 
-function descendants_mermaid(indi::Individual, g::Genealogy; flow = :tb)
+function descendants_mermaid(indi::Individual, g::Genealogy, lines = [])
+    indiid = replace(indi.id, "@" => "")
+    kidgroups = children(indi, g)
+    # Find spouse for this indi...
+
+  
+    for familykey in family_ids_spouse(indi)
+        famid = replace(familykey, "@" => "")
+        push!(lines, string(indiid,"(\" ", label(indi), "\") --> ", famid, "( )"))
+        
+        for kid in kidgroups[familykey]
+            kidid = replace(kid.id, "@" => "")
+            push!(lines, string(famid, "( ) --> ", kidid, "(\" ", label(kid), "\")" ))
+        end
+        
+    end
+    
+    join(lines, "\n")
+
+end
     #=
 
 """Recursively add to a Vector of lines with Mermaid
@@ -60,6 +82,7 @@ function ancestors_mermaid(indi::Individual, g::Genealogy, lines)
         replace(family_ids_spouse(indi)[1], "@" => "")
     end
     indiid = replace(indi.id, "@" => "")
+
     #renparnts = parents(indi,g)
     rents = parents(indi,g)
     push!(lines, string(indiid, "(\"", label(indi), "\") --> ", famid, "( )"))
@@ -80,6 +103,4 @@ function ancestors_mermaid(indi::Individual, g::Genealogy, lines)
     join(lines,"\n")
 end
 
-
     =#
-end

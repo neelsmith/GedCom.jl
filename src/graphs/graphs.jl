@@ -13,6 +13,7 @@ struct GenealogyGraph
     edges::Vector{RelationTriple}
 end
 
+#=
 """Extract a `GenealogyGraph` from a `Genealogy`.
 Currently includes only individuals with two known parents.
 """
@@ -43,7 +44,7 @@ function genealogyGraph(gen::Genealogy)::GenealogyGraph
     end
     GenealogyGraph(nodelist, edgelist)
 end
-
+=#
 function personindex(id, people)
     findfirst(p -> p == id, people)
 end
