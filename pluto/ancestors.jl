@@ -152,9 +152,6 @@ isnothing(gen) ? nothing : GedCom.siblings(person, gen)
 # ╔═╡ 1f999199-70c6-4922-a231-0a260d6cc672
 isnothing(gen) ? md"" : md"""**Ancestor tree** for *$(GedCom.label(person))*"""
 
-# ╔═╡ 49ab89e8-a10f-432a-88b5-d4f8b3b3a1d4
-isnothing(gen) ? md"" : GedCom.ancestor_tree_md(person, gen) |> Markdown.parse
-
 # ╔═╡ 4416e0cc-918b-4f44-824f-272565cf0ce2
 isnothing(gen) ? nothing : mermaid"""$(GedCom.ancestors_mermaid(person, gen))"""
 
@@ -188,8 +185,7 @@ isnothing(gen) ? md"" : GedCom.descendant_tree_md(person, gen) |> Markdown.parse
 # ╟─1e63fe6d-be8c-43b6-847f-0dc73f3d5657
 # ╠═c281779b-1576-43cd-9610-bd0aac85f3dc
 # ╟─1f999199-70c6-4922-a231-0a260d6cc672
-# ╟─49ab89e8-a10f-432a-88b5-d4f8b3b3a1d4
-# ╠═4416e0cc-918b-4f44-824f-272565cf0ce2
+# ╟─4416e0cc-918b-4f44-824f-272565cf0ce2
 # ╟─cef20de7-3e9c-4683-b925-73a56c5e7b09
 # ╟─4b91b668-e568-4c23-ac2b-049812851e1a
 # ╟─46004ab9-ac76-4817-a4af-54c63c404626
