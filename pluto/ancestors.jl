@@ -73,7 +73,7 @@ md"""### Ancestors"""
 md"""### Descendants"""
 
 # ╔═╡ a4b61f2a-4cb0-4f04-bf56-98a79cb1df70
-md"""Marriages:"""
+md"""**Marriages**:"""
 
 # ╔═╡ 1e7d7661-44aa-468a-af3d-c25864bfd9c1
 html"""<br/><br/><br/><br/><br/>"""
@@ -123,9 +123,6 @@ else
 	genealogy(f)
 end
 
-# ╔═╡ 3f2a0adf-2ae0-4c60-803a-3f085f9dbd2f
-isnothing(gen) ? md"" : md"""**Siblings**"""
-
 # ╔═╡ f9aeeb3a-bfc2-4a15-8f8d-3dae415a4f11
 sortedpeople = isnothing(gen) ? [] : sort(gen.individuals, by = i -> GedCom.lastname(i) * label(i))
 
@@ -170,7 +167,15 @@ else
 end
 
 # ╔═╡ c281779b-1576-43cd-9610-bd0aac85f3dc
-isnothing(gen) ? nothing : GedCom.siblings(person, gen)
+if isnothing(gen)  
+	nothing
+else
+	mdlist = ["""**Siblings**"""]
+	for s in GedCom.siblings(person, gen)
+		push!(mdlist, "- " * GedCom.mermaid_tidy(label(s)))
+	end
+	join(mdlist, "\n") |> Markdown.parse
+end
 
 # ╔═╡ 1f999199-70c6-4922-a231-0a260d6cc672
 isnothing(gen) ? md"" : md"""**Ancestor tree** for *$(GedCom.label(person))*"""
@@ -226,7 +231,6 @@ end
 # ╟─5dafdd7a-419d-44dd-866d-c3df8b74cf72
 # ╟─d770b92c-bcf6-4e2f-9b7a-80cbfcd03544
 # ╟─1e63fe6d-be8c-43b6-847f-0dc73f3d5657
-# ╟─3f2a0adf-2ae0-4c60-803a-3f085f9dbd2f
 # ╟─c281779b-1576-43cd-9610-bd0aac85f3dc
 # ╟─87ae5c59-cd8e-42d0-8956-6a29efd7678f
 # ╟─1f999199-70c6-4922-a231-0a260d6cc672

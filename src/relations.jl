@@ -58,8 +58,9 @@ function parent_ids(familyid::S, g::Genealogy) where S <: AbstractString
     end
 end
 
+"""Find full siblings of individual `i`."""
 function siblings(i::Individual, g::Genealogy)
-    []
+    nuclearfamily(i, g).children
 end
 
 function half_siblings(i::Individual, g::Genealogy)
