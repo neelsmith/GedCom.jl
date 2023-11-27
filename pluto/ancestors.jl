@@ -69,6 +69,9 @@ md"""### Ancestors"""
 # ╔═╡ b90dd261-5ba5-4fcc-b83f-8babdca51ff4
 md"""`GedCom.parents` returns a named tuple with mother and father:"""
 
+# ╔═╡ 598a6d08-b0a3-42a2-b915-0d7054f4d582
+md"""*Write ancestor mermaid to file:* $(@bind writeanc CheckBox())"""
+
 # ╔═╡ cef20de7-3e9c-4683-b925-73a56c5e7b09
 md"""### Marriages"""
 
@@ -171,6 +174,15 @@ else
 
 end
 
+# ╔═╡ ee309bd4-22e7-420f-8cfb-b283b2facbfc
+if writeanc
+	ancmermout = GedCom.ancestors_mermaid(person, gen, ; flow = ancflow)
+	open("ancestortree.md", "w") do io
+		write(io, ancmermout)
+	end
+end
+
+
 # ╔═╡ 4b91b668-e568-4c23-ac2b-049812851e1a
 if isnothing(gen) 
 	md""
@@ -209,18 +221,20 @@ end
 # ╠═c281779b-1576-43cd-9610-bd0aac85f3dc
 # ╟─1f999199-70c6-4922-a231-0a260d6cc672
 # ╟─6ea487fe-dc46-4d52-93a9-43cae36ace53
-# ╟─4416e0cc-918b-4f44-824f-272565cf0ce2
+# ╠═4416e0cc-918b-4f44-824f-272565cf0ce2
+# ╟─598a6d08-b0a3-42a2-b915-0d7054f4d582
+# ╟─ee309bd4-22e7-420f-8cfb-b283b2facbfc
 # ╟─cef20de7-3e9c-4683-b925-73a56c5e7b09
 # ╟─4b91b668-e568-4c23-ac2b-049812851e1a
 # ╟─46004ab9-ac76-4817-a4af-54c63c404626
 # ╟─eedb9128-4719-4213-9c91-81871494a0de
 # ╟─e9cc00c9-c058-43a7-988b-4d17e976aae0
 # ╟─e45d9aae-edd3-4604-87ed-9a63a5e94f45
-# ╠═5672e14f-17e0-491a-81c1-ba041da42a8b
+# ╟─5672e14f-17e0-491a-81c1-ba041da42a8b
 # ╟─1e7d7661-44aa-468a-af3d-c25864bfd9c1
 # ╟─47e70316-05b9-42c2-a865-bdef21899116
 # ╟─6fe93cfa-747a-4142-9891-6b75ee0d2db2
-# ╠═479bca88-a413-43b3-b552-edbea4b1c40b
+# ╟─479bca88-a413-43b3-b552-edbea4b1c40b
 # ╟─baa3fdf4-b780-406e-bfd5-e5c7e4dc3552
 # ╟─be67734a-90a6-4220-926c-39c1d0e89030
 # ╠═f9aeeb3a-bfc2-4a15-8f8d-3dae415a4f11
