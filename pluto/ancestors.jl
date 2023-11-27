@@ -39,21 +39,12 @@ The organization of this notebook's environment in this cell is a hack until `Ge
 """)
 end
 
-# ╔═╡ bde8a9a3-71b1-4d0e-8e54-c0616fbe7c3e
-tip(md"""
-**TBD**
-
-- add type-ahead filtering of names
-
-""")
-
 # ╔═╡ d5a79c00-1d0b-4df0-98c2-fa0c4d385475
 md"""# GED tree"""
 
 # ╔═╡ eb702a7e-6a96-47b9-aeb2-46eac03dc561
 md"""
-> Explore GEDCOM data with `GedCom.jl`
-"""
+> Explore family relations recorded in a GEDCOM data source"""
 
 # ╔═╡ 83eea2e4-9437-4cc4-acd1-25b4ea335036
 md"""## Data set
@@ -109,9 +100,6 @@ sortedpeople = isnothing(gen) ? [] : sort(gen.individuals, by = i -> GedCom.last
 # ╔═╡ 2272b18a-c033-4779-a1fa-1920a48cf9b9
 md"""*Data set with* **$(length(sortedpeople)) individuals**"""
 
-# ╔═╡ 189a2e33-c58b-49d3-8442-4dcb29c963c3
-
-
 # ╔═╡ ca2f6e6e-094f-4a98-a568-2dc858d3fda0
 namelist = isnothing(gen) ? ["--No file selected--"] : map(sortedpeople) do i	
 	(i => GedCom.lastname(i) * ": " * label(i))
@@ -153,7 +141,18 @@ isnothing(gen) ? nothing : GedCom.siblings(person, gen)
 isnothing(gen) ? md"" : md"""**Ancestor tree** for *$(GedCom.label(person))*"""
 
 # ╔═╡ 4416e0cc-918b-4f44-824f-272565cf0ce2
-isnothing(gen) ? nothing : mermaid"""$(GedCom.ancestors_mermaid(person, gen))"""
+if isnothing(gen) 
+	nothing 
+else
+	mermout = GedCom.ancestors_mermaid(person, gen, ; flow = "LR")
+
+end
+
+# ╔═╡ 5fa8a77a-1fcc-48ba-a2a6-41b5a9b4466e
+md"""$(mermout)"""
+
+# ╔═╡ bb1c7281-6175-468a-a154-b8ca268fe497
+	mermaid"""$(mermout)"""
 
 # ╔═╡ 4b91b668-e568-4c23-ac2b-049812851e1a
 if isnothing(gen) 
@@ -170,7 +169,6 @@ isnothing(gen) ? md"" : md"""**Descendant tree** for *$(GedCom.label(person))*""
 isnothing(gen) ? md"" : GedCom.descendant_tree_md(person, gen) |> Markdown.parse
 
 # ╔═╡ Cell order:
-# ╟─bde8a9a3-71b1-4d0e-8e54-c0616fbe7c3e
 # ╟─bd080239-bf0e-4cfd-8126-aec87a29b908
 # ╟─d5a79c00-1d0b-4df0-98c2-fa0c4d385475
 # ╟─eb702a7e-6a96-47b9-aeb2-46eac03dc561
@@ -185,7 +183,9 @@ isnothing(gen) ? md"" : GedCom.descendant_tree_md(person, gen) |> Markdown.parse
 # ╟─1e63fe6d-be8c-43b6-847f-0dc73f3d5657
 # ╠═c281779b-1576-43cd-9610-bd0aac85f3dc
 # ╟─1f999199-70c6-4922-a231-0a260d6cc672
-# ╟─4416e0cc-918b-4f44-824f-272565cf0ce2
+# ╠═4416e0cc-918b-4f44-824f-272565cf0ce2
+# ╠═5fa8a77a-1fcc-48ba-a2a6-41b5a9b4466e
+# ╠═bb1c7281-6175-468a-a154-b8ca268fe497
 # ╟─cef20de7-3e9c-4683-b925-73a56c5e7b09
 # ╟─4b91b668-e568-4c23-ac2b-049812851e1a
 # ╟─46004ab9-ac76-4817-a4af-54c63c404626
@@ -195,5 +195,4 @@ isnothing(gen) ? md"" : GedCom.descendant_tree_md(person, gen) |> Markdown.parse
 # ╟─baa3fdf4-b780-406e-bfd5-e5c7e4dc3552
 # ╟─be67734a-90a6-4220-926c-39c1d0e89030
 # ╠═f9aeeb3a-bfc2-4a15-8f8d-3dae415a4f11
-# ╠═189a2e33-c58b-49d3-8442-4dcb29c963c3
 # ╠═ca2f6e6e-094f-4a98-a568-2dc858d3fda0

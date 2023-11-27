@@ -1,4 +1,54 @@
 
+
+mermaid_flows = [
+    "TB", "BT", "RL", "LR"
+]
+
+
+"""Recursively add to a Vector of lines with Mermaid
+diagram data starting from individual `indi`.
+For an ancestor tree, we plot directly from child -> parent (no intermediate family unit).
+"""
+function ancestors_mermaid(indi::Individual, g::Genealogy, lines)
+    #indiid = replace(indi.id, "@" => "")
+    rents = parents(indi,g)
+    if isnothing(rents[:father])
+    else
+        dadid = replace(rents[:father].id, "@" => "")
+        push!(lines, string(label(indi), " --> ", dadid, "(\"", label(rents[:father]), "\")"))
+        ancestors_mermaid(rents[:father], g, lines)
+    end
+    if isnothing(rents[:mother])
+    else
+        momid = replace(rents[:mother].id, "@" => "")
+        push!(lines, string(label(indi), " --> ", momid, "(\"", label(rents[:mother]), "\")"))
+        ancestors_mermaid(rents[:mother], g, lines)
+    end
+    join(lines,"\n")
+end
+
+"""Create a Mermaid plot of an ancestor tree for individual `indi`.
+Default orientation is bottom-to-top.
+"""
+function ancestors_mermaid(indi::Individual, g::Genealogy; flow = "BT")
+    graph_flow = in(uppercase(flow), mermaid_flows) ? uppercase(flow)  : "BT"
+    lines = ancestors_mermaid(indi, g, [])
+   "graph $(graph_flow)\n" * lines
+end
+
+
+"""Create a Mermaid plot of a descendant tree for individual `indi`.
+Default orientation is top-to-bottom.
+"""
+function descendants_mermaid(indi::Individual, g::Genealogy; flow = "BT")
+    graph_flow = in(uppercase(flow), mermaid_flows) ? uppercase(flow)  : "BT"
+    lines = ancestors_mermaid(indi, g, [])
+   "graph $(graph_flow)\n" * lines
+end
+
+function descendants_mermaid(indi::Individual, g::Genealogy; flow = :tb)
+    #=
+
 """Recursively add to a Vector of lines with Mermaid
 diagram data starting from individual `indi`.
 """
@@ -31,8 +81,5 @@ function ancestors_mermaid(indi::Individual, g::Genealogy, lines)
 end
 
 
-"""Create a Mermaid plot of an ancestor tree ofr individual `indi`."""
-function ancestors_mermaid(indi::Individual, g::Genealogy)
-    lines = ancestors_mermaid(indi, g, [])
-   "graph BT\n" * lines
+    =#
 end

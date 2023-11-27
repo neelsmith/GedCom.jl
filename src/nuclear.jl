@@ -14,7 +14,7 @@ end
 function label(f::NuclearFamily)
     hlabel = isnothing(f.husband) ? "unknown" : replace(f.husband.name, "/" => " ")
     wlabel = isnothing(f.wife) ? "unknown" : replace(f.wife.name, "/" => " ")
-    string(hlabel, "--",  wlabel)
+    string(hlabel, " -- ",  wlabel)
 end
 
 
