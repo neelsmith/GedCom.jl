@@ -1,6 +1,6 @@
 
 @testset "Test parsing Genealogy object and lookup by id" begin
-    gen = genealogy(presfile)
+    gen = genealogy_g5(presfile)
     @test isa(gen, Genealogy)
 
     abe = GedCom.individual("@I317@", gen)

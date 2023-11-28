@@ -9,7 +9,7 @@ end
 
 """Build a `Genealogy` from a GEDCOM file source.
 """
-function genealogy(f)
+function genealogy_g5(f)
     folks = individuals(f)
     fams = families(f)
     srcs = sources(f)

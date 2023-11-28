@@ -126,7 +126,7 @@ elseif isa(f, Dict)
 	Genealogy(GedCom.parseIndividuals(gcomrecords), GedCom.parseFamilies(gcomrecords), GedCom.parseSources(gcomrecords))
 	
 else
-	genealogy(f)
+	genealogy_g5(f)
 end
 
 # ╔═╡ f9aeeb3a-bfc2-4a15-8f8d-3dae415a4f11

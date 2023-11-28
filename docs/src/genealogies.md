@@ -2,7 +2,7 @@
 root = pwd() |> dirname |> dirname
 f = joinpath(root, "test", "data", "pres2020.ged")
 using GedCom
-gen = genealogy(f)
+gen = genealogy_g5(f)
 ```
 
 # Genealogies

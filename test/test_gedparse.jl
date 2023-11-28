@@ -9,7 +9,7 @@
     srcs = sources(presfile)
     @test length(srcs) == 91
 
-    gen = genealogy(presfile)
+    gen = genealogy_g5(presfile)
     @test length(gen.individuals) == length(folks)
     @test length(gen.families) == length(fams)
     @test length(gen.sources) == length(srcs)
@@ -21,7 +21,7 @@ end
     recc = gedRecords(gedlines)
     @test length(recc) == 25
 
-    gen = genealogy(gedlines)
+    gen = genealogy_g5(gedlines)
     @test length(gen.individuals) == 1
     @test length(gen.families) == 1
     @test isempty(gen.sources)

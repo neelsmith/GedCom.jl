@@ -22,7 +22,7 @@ Create a `Genealogy` from a file in GEDCOM format:
 using GedCom
 # `f` is a GedCom file, downloaded from:
 # https://webtreeprint.com/tp_famous_gedcoms.php
-gen = genealogy(f)
+gen = genealogy_g5(f)
 typeof(gen)
 ```
 

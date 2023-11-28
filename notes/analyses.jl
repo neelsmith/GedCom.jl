@@ -1,7 +1,7 @@
 using GedCom
 
 f = joinpath(pwd(),"test","data","pres2020.ged")
-gen = genealogy(f)
+gen = genealogy_g5(f)
 
 recc = GedCom.gedRecords(f)
 

@@ -2,7 +2,7 @@ using SimpleValueGraphs
 using Graphs
 
 @testset "Test types of graph structure from Genealogy object" begin
-    gen = genealogy(presfile)
+    gen = genealogy_g5(presfile)
     gr = genealogyGraph(gen) 
 
     @test supertype(typeof(gr)) ==  SimpleValueGraphs.AbstractValGraph{Int32, NamedTuple{(:id, :name), Tuple{String, String}}, NamedTuple{(:relation,), Tuple{String}}, Tuple{}}
@@ -15,7 +15,7 @@ using Graphs
 end
 
 @testset "Test graph topology" begin
-    gen = genealogy(presfile)
+    gen = genealogy_g5(presfile)
     gr = genealogyGraph(gen) 
     
     @test is_directed(gr) 
@@ -24,7 +24,7 @@ end
 
 
 @testset "Test working with verticies of graph from Genealogy object" begin
-    gen = genealogy(presfile)
+    gen = genealogy_g5(presfile)
     gr = genealogyGraph(gen)
     
     @test nv(gr) == 2322
@@ -40,7 +40,7 @@ end
 end
 
 @testset "Test working with edges of graph from Genealogy object" begin
-    gr = genealogy(presfile) |> genealogyGraph
+    gr = genealogy_g5(presfile) |> genealogyGraph
     @test ne(gr) == 4470
     @test length(collect(edges(gr))) == ne(gr)
 
