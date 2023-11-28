@@ -34,8 +34,7 @@ begin
 	using Kroki
 
 
-	danger(md"""
-The organization of this notebook's environment in this cell is a hack until `GedCom.jl` is  published on juliahub.
+	danger(md"""Until `GedCom.jl` is  published on juliahub, the organization of this notebook's environment in this cell is just a hack dependent on the notebook being located in the `GedCom.jl` repository's `pluto` directory.
 """)
 end
 
