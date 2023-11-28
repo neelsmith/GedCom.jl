@@ -51,6 +51,7 @@ end
 
 """Find spouse of `indi` in family group `f`."""
 function spouse(indi::Individual, f::NuclearFamily)
+    @info(f)
     if isnothing(f.husband) || isnothing(f.wife)
         nothing
     else
@@ -64,7 +65,6 @@ For a descendant tree, wef plot from spouse -> family unit -> child.
 """
 function descendants_mermaid_lines(indi::Individual, g::Genealogy, lines = [])
     indiid = replace(indi.id, "@" => "")
-    famgroups = nuclearfamilies(indi,g)
     for familygroup in nuclearfamilies(indi,g)
         famid = replace(familygroup.id, "@" => "")
 
