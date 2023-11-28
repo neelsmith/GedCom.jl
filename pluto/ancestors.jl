@@ -144,6 +144,7 @@ md"""
 isnothing(gen) ? nothing : md"ID: **$(person.id)**"
 
 # ╔═╡ 1e63fe6d-be8c-43b6-847f-0dc73f3d5657
+# ╠═╡ show_logs = false
 if isnothing(gen)
 	md""
 
@@ -166,12 +167,6 @@ else
 	end
 end
 
-# ╔═╡ b94be0d4-1969-4f79-98df-917e5ade3a4e
-GedCom.nuclearfamily(person,gen)
-
-# ╔═╡ 7b9cd966-426d-4072-9515-66c53d19ea38
-person
-
 # ╔═╡ c281779b-1576-43cd-9610-bd0aac85f3dc
 if isnothing(gen)  
 	nothing
@@ -187,6 +182,7 @@ end
 isnothing(gen) ? md"" : md"""**Ancestor tree** for *$(GedCom.label(person))*"""
 
 # ╔═╡ 4416e0cc-918b-4f44-824f-272565cf0ce2
+# ╠═╡ show_logs = false
 if ! anctree || isnothing(gen)  
 	nothing 
 else
@@ -209,15 +205,6 @@ else
 	mermaid"""$(GedCom.descendants_mermaid(person, gen ; flow = descflow))"""
 
 end
-
-# ╔═╡ ff96aeeb-6c21-4b6b-9af3-7a5955530799
-person
-
-# ╔═╡ 8821ec23-685d-46c3-ae20-21a46a08ca63
-fg = GedCom.nuclearfamilies(person,gen)[1]
-
-# ╔═╡ 52a95ee4-785a-450a-810e-9e832fc44db4
-GedCom.descendants_mermaid(person, gen ; flow = descflow)
 
 # ╔═╡ eedb9128-4719-4213-9c91-81871494a0de
 isnothing(gen) ? md"" : md"""**Descendant tree** for *$(GedCom.label(person))*"""
@@ -246,8 +233,6 @@ end
 # ╟─5dafdd7a-419d-44dd-866d-c3df8b74cf72
 # ╟─d770b92c-bcf6-4e2f-9b7a-80cbfcd03544
 # ╟─1e63fe6d-be8c-43b6-847f-0dc73f3d5657
-# ╠═b94be0d4-1969-4f79-98df-917e5ade3a4e
-# ╠═7b9cd966-426d-4072-9515-66c53d19ea38
 # ╟─c281779b-1576-43cd-9610-bd0aac85f3dc
 # ╟─87ae5c59-cd8e-42d0-8956-6a29efd7678f
 # ╟─1f999199-70c6-4922-a231-0a260d6cc672
@@ -258,9 +243,6 @@ end
 # ╟─4b91b668-e568-4c23-ac2b-049812851e1a
 # ╟─e45d9aae-edd3-4604-87ed-9a63a5e94f45
 # ╟─5672e14f-17e0-491a-81c1-ba041da42a8b
-# ╠═ff96aeeb-6c21-4b6b-9af3-7a5955530799
-# ╠═8821ec23-685d-46c3-ae20-21a46a08ca63
-# ╠═52a95ee4-785a-450a-810e-9e832fc44db4
 # ╟─eedb9128-4719-4213-9c91-81871494a0de
 # ╟─e9cc00c9-c058-43a7-988b-4d17e976aae0
 # ╟─1e7d7661-44aa-468a-af3d-c25864bfd9c1

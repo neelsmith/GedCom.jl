@@ -28,6 +28,7 @@ function nuclearfamilies(id::S, gen::Genealogy)  where S <: AbstractString
 end
 
 function nuclearfamilies(pers::Individual, gen::Genealogy) 
+    @debug("Get all nuke families for $(pers.id)")
     map(family_ids_spouse(pers)) do famid
         @debug("Check $(famid)")
         nuclearfamily(famid, gen)
@@ -59,7 +60,12 @@ end
 """Construct nuclear family where `person` is a child.
 """
 function nuclearfamily(person::Individual, gen::Genealogy)
+    @debug("Get nuke fam for indi")
     famid = family_id_child(person)
-    fam = familyunit(famid, gen)
-    nuclearfamily(fam, gen)
+    if isnothing(famid)
+        nothing
+    else
+        fam = familyunit(famid, gen)
+        nuclearfamily(fam, gen)
+    end
 end

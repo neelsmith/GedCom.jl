@@ -36,7 +36,7 @@ end
 """
 function family_id_child(indi::Individual)
     records = filter(rec -> rec.code == "FAMC", indi.records)
-    length(records) == 1 ? records[1].message : "Unrecorded"
+    length(records) == 1 ? records[1].message : nothing
 end
 
 

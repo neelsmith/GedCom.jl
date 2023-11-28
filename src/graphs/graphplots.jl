@@ -51,8 +51,9 @@ end
 
 """Find spouse of `indi` in family group `f`."""
 function spouse(indi::Individual, f::NuclearFamily)
-    @info(f)
+    @debug("Nuclear fam: ", f.id)
     if isnothing(f.husband) || isnothing(f.wife)
+        @debug("No spouse")
         nothing
     else
         f.husband.id == indi.id ? f.wife : f.husband
@@ -71,8 +72,7 @@ function descendants_mermaid_lines(indi::Individual, g::Genealogy, lines = [])
         push!(lines, string(indiid,"(\" ", mermaid_tidy(label(indi)), "\") --> ", famid, "( )"))
 
 
-        family_spouse = spouse(indi,familygroup)
-        spouseid = replace(family_spouse.id, "@" => "")
+        family_spouse = spouse(indi,familygroup)    
         if isnothing(family_spouse)
         else
             spouseid = replace(family_spouse.id, "@" => "")

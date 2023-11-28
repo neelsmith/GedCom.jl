@@ -27,29 +27,36 @@ an `Individual`.  Tuple subelement is `nothing` if mother
 or father is missing.
 """
 function parents(i::Individual, g::Genealogy)
+    @info("Get parents for $(i)")
     familyid = family_id_child(i)
-    individuals = parent_ids(familyid, g)
-    @debug(individuals, length(individuals))
-    if length(individuals) == 2
-        if sex(individuals[1]) == "M"
-            (father = individuals[1], mother = individuals[2])
-        else
-            (father = individuals[2], mother = individuals[1])
-        end
-    elseif length(individuals) == 1
-        if sex(individuals[1]) == "M"
-            (father = individuals[1], mother = nothing)
-        else
-            (father = nothing, mother = individuals[1])
-        end
-    else
+    @info("His child fam is $(familyid)")
+    if isnothing(familyid)
         (father = nothing, mother = nothing)
+    else
+        individuals = parent_ids(familyid, g)
+        @debug(individuals, length(individuals))
+        if length(individuals) == 2
+            if sex(individuals[1]) == "M"
+                (father = individuals[1], mother = individuals[2])
+            else
+                (father = individuals[2], mother = individuals[1])
+            end
+        elseif length(individuals) == 1
+            if sex(individuals[1]) == "M"
+                (father = individuals[1], mother = nothing)
+            else
+                (father = nothing, mother = individuals[1])
+            end
+        else
+            (father = nothing, mother = nothing)
+        end
     end
 end
 
 
 """Find IDs for parents in a family unit."""
 function parent_ids(familyid::S, g::Genealogy) where S <: AbstractString
+    @debug("Get parents from family $(familyid)")
     parents = filter(g.individuals) do candidate
         kidmatch = filter(candidate.records) do r
             r.code == "FAMS" && r.message == familyid
@@ -60,7 +67,9 @@ end
 
 """Find full siblings of individual `i`."""
 function siblings(i::Individual, g::Genealogy)
-    nuclearfamily(i, g).children
+    @debug("Get siblings for $(i)")
+    fam = nuclearfamily(i, g)
+    isnothing(fam) ? [] : fam.children
 end
 
 function half_siblings(i::Individual, g::Genealogy)
