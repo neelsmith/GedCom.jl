@@ -25,7 +25,7 @@ include("graphs/graphs.jl")
 include("graphs/valuegraph.jl")
 include("graphs/graphplots.jl")
 
-export Genealogy, genealogy
+export Genealogy, genealogy_g5
 export Individual, individuals 
 export FamilyUnit, families
 export NuclearFamily, nuclearfamily

@@ -22,7 +22,6 @@ begin
 	using Revise
 	Pkg.activate(dirname(pwd()))
 	using GedCom
-	#Pkg.develop("GedCom")
 	
 	Pkg.add("PlutoUI")
 	using PlutoUI
@@ -70,9 +69,6 @@ md"""### Ancestors"""
 
 # ╔═╡ 46004ab9-ac76-4817-a4af-54c63c404626
 md"""### Descendants"""
-
-# ╔═╡ a4b61f2a-4cb0-4f04-bf56-98a79cb1df70
-md"""**Marriages**:"""
 
 # ╔═╡ 1e7d7661-44aa-468a-af3d-c25864bfd9c1
 html"""<br/><br/><br/><br/><br/>"""
@@ -196,6 +192,9 @@ else
 
 end
 
+# ╔═╡ a4b61f2a-4cb0-4f04-bf56-98a79cb1df70
+isnothing(gen) || isempty(GedCom.nuclearfamilies(person, gen)) ? nothing : md"""**Marriages**:"""
+
 # ╔═╡ 4b91b668-e568-4c23-ac2b-049812851e1a
 if isnothing(gen) 
 	md""
@@ -208,7 +207,11 @@ end
 if ! desctree || isnothing(gen)  
 	nothing 
 else
-	mermaid"""$(GedCom.descendants_mermaid(person, gen ; flow = descflow))"""
+	try
+		mermaid"""$(GedCom.descendants_mermaid(person, gen ; flow = descflow))"""
+	catch e
+		md"Mermaid request failed. Maybe you're plotting a bigger graph than Kroki can handle!"
+	end
 
 end
 
