@@ -25,7 +25,7 @@ include("graphs/graphs.jl")
 include("graphs/valuegraph.jl")
 include("graphs/graphplots.jl")
 
-export Genealogy, genealogy_g5
+export Genealogy, genealogy_g5, individual, family
 export Individual, individuals 
 export FamilyUnit, families
 export NuclearFamily, nuclearfamily
@@ -35,7 +35,6 @@ export Location, location
 export GEDRecord, gedRecords
 export label
 export genealogyGraph
-#export GenealogyGraph, genealogyGraph
 
 end # module
 
