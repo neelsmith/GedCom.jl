@@ -34,5 +34,14 @@ end
 
 
 
+"""Look up a family in a genealogy by ID.
+Returns a `FamilyUnit` or `nothing`.
+"""
+function family(id::S, gen::Genealogy )::Union{FamilyUnit, Nothing} where S <: AbstractString
+    matches = filter(f -> f.xrefId == id, gen.families)
+    length(matches) == 1 ? matches[1] : nothing  
+end
+
+
 
 
