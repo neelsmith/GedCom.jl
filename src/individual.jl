@@ -6,6 +6,11 @@ struct Individual
     records::Vector{GEDRecord}
 end
 
+
+function name(indi::Individual)
+    replace(indi.name, "/" => "")
+end
+
 """Extracts any last name marked by GEDCOM's traditional slash convention;
 alternatively, returns unaltered value of name property.
 """

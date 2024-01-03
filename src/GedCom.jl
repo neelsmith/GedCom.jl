@@ -4,6 +4,9 @@ import Base: ==
 using Graphs
 using SimpleValueGraphs
 
+
+using CairoMakie
+
 using Documenter
 using DocStringExtensions
 

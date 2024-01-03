@@ -118,7 +118,7 @@ end
 """Compute a dictionary giving numbers of individuals at each generation.
 $(SIGNATURES)
 """
-function descendant_dimensions(fam::FamilyUnit, gen::Genealogy, count = 0, widths = Dict(0 => 1))
+function descendants_dimensions(fam::FamilyUnit, gen::Genealogy, count = 0, widths = Dict(0 => 1))
     pads = repeat("\t", count)
     @debug("$(pads)AT GENERATOIN $(count)")
     @debug("husband id " * husbandid(fam))
@@ -148,7 +148,7 @@ function descendant_dimensions(fam::FamilyUnit, gen::Genealogy, count = 0, width
 
         for mrg in nextmarriages 
             nextfam = family(mrg, gen)
-            widths = descendant_dimensions(nextfam, gen,  count, widths)
+            widths = descendants_dimensions(nextfam, gen,  count, widths)
         end
     end
     return widths
