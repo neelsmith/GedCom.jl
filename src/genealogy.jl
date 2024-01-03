@@ -51,7 +51,7 @@ end
 a given family unit.
 $(SIGNATURES)
 """
-function descendant_generations(gen::Genealogy, fam::FamilyUnit, count = 0)
+function descendant_generations(fam::FamilyUnit, gen::Genealogy,  count = 0)
     @debug("AT GENERATOIN $(count)")
     @debug("husband id " * husbandid(fam))
     husband = individual( husbandid(fam), gen)
@@ -72,7 +72,7 @@ function descendant_generations(gen::Genealogy, fam::FamilyUnit, count = 0)
 
         for mrg in nextmarriages 
             nextfam = family(mrg, gen)
-            count = descendant_generations(gen, nextfam, count)
+            count = descendant_generations( nextfam, gen, count)
         end
     end
     return count
@@ -84,7 +84,7 @@ end
 """Count number of ancestor generations in a genealogy from a given family unit.
 $(SIGNATURES)
 """
-function ancestor_generations(gen::Genealogy, indi::Individual, count = 0)
+function ancestor_generations(indi::Individual, gen::Genealogy, count = 0)
     @debug("AT GENERATOIN $(count)")
     @debug("individual " * label(indi))
     parenttuple = parents(indi, gen)
@@ -101,15 +101,55 @@ function ancestor_generations(gen::Genealogy, indi::Individual, count = 0)
         @debug("Buit parenttuple.father is nothing!")
         count
     else
-        newfather = ancestor_generations(gen, parenttuple.father, count)
+        newfather = ancestor_generations(parenttuple.father, gen,  count)
         @debug("Got new father count $(newfather)")
         newfather
     end
-    mothercount = isnothing(parenttuple.mother) ? count : ancestor_generations(gen, parenttuple.mother, count)
     @debug("Get max of $(fathercount), $(mothercount)")
+    mothercount = isnothing(parenttuple.mother) ? count : ancestor_generations(parenttuple.mother, gen, count)
     count = maximum([fathercount, mothercount])
     @debug("Returning $(count)")
 
     return count
 
+end
+
+
+"""Compute a dictionary giving numbers of individuals at each generation.
+$(SIGNATURES)
+"""
+function descendant_dimensions(fam::FamilyUnit, gen::Genealogy, count = 0, widths = Dict(0 => 1))
+    pads = repeat("\t", count)
+    @debug("$(pads)AT GENERATOIN $(count)")
+    @debug("husband id " * husbandid(fam))
+    husband = individual( husbandid(fam), gen)
+    @debug(pads * "husband: " * label(husband))
+    @debug("wife id " * wifeid(fam))
+    wife = individual( wifeid(fam), gen)
+    @debug(pads * "wife: " *label(wife))
+    kids = childrenids(fam)
+    @debug("$(length(kids)) children ")
+    if ! isempty(kids)
+        count = count + 1
+    end
+    @debug("So now counting at $(count)")
+
+    if haskey(widths, count)
+        widths[count] = widths[count] + length(kids)
+    else
+        widths[count] = length(kids)
+    end
+    @debug("THey have $(length(kids)) children")
+    @debug("Added $(length(kids)), so width of gen. $(count) is now $(widths[count])")
+    for kid_id in kids
+        kid = individual(kid_id, gen)
+        nextmarriages =  family_ids_spouse(kid)
+        @debug("Kid $(label(kid)): $(length(nextmarriages)) marriage(s)")
+
+        for mrg in nextmarriages 
+            nextfam = family(mrg, gen)
+            widths = descendant_dimensions(nextfam, gen,  count, widths)
+        end
+    end
+    return widths
 end
