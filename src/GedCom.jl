@@ -4,6 +4,9 @@ import Base: ==
 using Graphs
 using SimpleValueGraphs
 
+using Documenter
+using DocStringExtensions
+
 include("gedrecords.jl")
 
 include("individual.jl")

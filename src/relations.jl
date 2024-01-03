@@ -27,9 +27,9 @@ an `Individual`.  Tuple subelement is `nothing` if mother
 or father is missing.
 """
 function parents(i::Individual, g::Genealogy)
-    @info("Get parents for $(i)")
+    @debug("Get parents for $(i)")
     familyid = family_id_child(i)
-    @info("His child fam is $(familyid)")
+    @debug("His child fam is $(familyid)")
     if isnothing(familyid)
         (father = nothing, mother = nothing)
     else

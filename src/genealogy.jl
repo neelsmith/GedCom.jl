@@ -45,3 +45,72 @@ end
 
 
 
+
+
+"""Count number of generations in a genealogy descending from 
+a given family unit.
+$(SIGNATURES)
+"""
+function descendant_generations(gen::Genealogy, fam::FamilyUnit, count = 0)
+    @info("AT GENERATOIN $(count)")
+    @info("husband id " * husbandid(fam))
+    husband = individual( husbandid(fam), gen)
+    @info(label(husband))
+    @info("wife id " * wifeid(fam))
+    wife = individual( wifeid(fam), gen)
+    @info(label(wife))
+    kids = childrenids(fam)
+    @info("$(length(kids)) children ")
+    if ! isempty(kids)
+        count = count + 1
+    end
+    @info("So now counting at $(count)")
+    for kid_id in kids
+        kid = individual(kid_id, gen)
+        nextmarriages =  family_ids_spouse(kid)
+        @info("Kid $(label(kid)): $(length(nextmarriages)) marriage(s)")
+
+        for mrg in nextmarriages 
+            nextfam = family(mrg, gen)
+            count = descendant_generations(gen, nextfam, count)
+        end
+        #count = descendant_generations(gen, )
+    end
+    return count
+end
+
+
+
+
+"""Count number of ancestor generations in a genealogy from a given family unit.
+$(SIGNATURES)
+"""
+function ancestor_generations(gen::Genealogy, indi::Individual, count = 0)
+    @info("AT GENERATOIN $(count)")
+    @info("individual " * label(indi))
+    parenttuple = parents(indi, gen)
+    rents = filter([parenttuple.father, parenttuple.mother]) do parent
+        ! isnothing(parent)
+    end
+    if ! isempty(rents)
+        @info("Bumping gneeration count becase $(label(indi)) has parents $(label.(rents))")
+        count = count + 1
+    end
+
+
+    fathercount = if isnothing(parenttuple.father) 
+        @info("Buit parenttuple.father is nothing!")
+        count
+    else
+        newfather = ancestor_generations(gen, parenttuple.father, count)
+        @info("Got new father count $(newfather)")
+        newfather
+    end
+    mothercount = isnothing(parenttuple.mother) ? count : ancestor_generations(gen, parenttuple.mother, count)
+    @info("Get max of $(fathercount), $(mothercount)")
+    count = maximum([fathercount, mothercount])
+    @info("Returning $(count)")
+
+    return count
+
+end
