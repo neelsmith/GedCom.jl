@@ -51,7 +51,7 @@ end
 a given family unit.
 $(SIGNATURES)
 """
-function descendant_generations(fam::FamilyUnit, gen::Genealogy,  count = 0)
+function descendant_generations(fam::FamilyUnit, gen::Genealogy,  count = 1)
     @debug("AT GENERATOIN $(count)")
     @debug("husband id " * husbandid(fam))
     husband = individual( husbandid(fam), gen)
@@ -84,7 +84,7 @@ end
 """Count number of ancestor generations in a genealogy from a given family unit.
 $(SIGNATURES)
 """
-function ancestor_generations(indi::Individual, gen::Genealogy, count = 0)
+function ancestor_generations(indi::Individual, gen::Genealogy, count = 1)
     @debug("AT GENERATOIN $(count)")
     @debug("individual " * label(indi))
     parenttuple = parents(indi, gen)
@@ -118,7 +118,7 @@ end
 """Compute a dictionary giving numbers of individuals at each generation.
 $(SIGNATURES)
 """
-function descendants_dimensions(fam::FamilyUnit, gen::Genealogy, count = 0, widths = Dict(0 => 1))
+function descendants_dimensions(fam::FamilyUnit, gen::Genealogy, count = 1, widths = Dict(1 => 1))
     pads = repeat("\t", count)
     @debug("$(pads)AT GENERATOIN $(count)")
     @debug("husband id " * husbandid(fam))
@@ -152,4 +152,20 @@ function descendants_dimensions(fam::FamilyUnit, gen::Genealogy, count = 0, widt
         end
     end
     return widths
+end
+
+
+"""
+"""
+function descendants_plot_size(fam::FamilyUnit, gen::Genealogy)
+    dimensionsdict = descendants_dimensions(fam, gen)
+
+    ys = values(dimensionsdict) |> collect 
+    breadth = ys |> maximum 
+    
+    xs = keys(dimensionsdict) |>  collect |> sort
+    depth = xs |> maximum
+    
+    (depth, breadth)
+
 end
