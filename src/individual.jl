@@ -74,9 +74,7 @@ function individuals(f)
     gedRecords(f) |> parseIndividuals
 end
 
-function individuals(g::Genealogy)
-    g.individuals
-end
+
 
 """Given an ID number and its GEDCOM records,
 create an `Individual`.

@@ -38,6 +38,7 @@ website:
         - genealogy/genealogies.qmd
         - genealogy/individuals.qmd
         - genealogy/families.qmd
+        - genealogy/graphs.qmd
         
     - title: "The GEDCOM standard"
       contents: 

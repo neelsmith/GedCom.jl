@@ -1,0 +1,18 @@
+---
+engine: julia
+---
+
+# Graphs (networks) of relations
+
+
+- get a representation of the individuals in a `Genealogy` as a Julia `SimpleValueGraph`:
+
+```{julia}
+using GedCom
+root = pwd() |> dirname |> dirname
+f = joinpath(root, "test", "data", "pres2020.ged")
+gen = genealogy_g5(f)
+gengraph = genealogyGraph(gen)
+```
+
+

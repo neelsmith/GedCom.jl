@@ -10,10 +10,11 @@ gengraph = genealogyGraph(gen)
 using Graphs
 using SimpleValueGraphs
 
+#=
 nameidx = map(vlist) do i
-    (v = i, name = get_vertexval(gr, i, :name))
+    (v = i, name = get_vertexval(gengraph, i, :name))
 end
-
+=#
 
 using CairoMakie
 using GraphMakie
