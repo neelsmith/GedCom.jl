@@ -1,0 +1,11 @@
+---
+engine: julia
+---
+
+
+# Working with genealogical data
+
+
+- [individuals](./individuals.qmd)
+- [families](./families.qmd)
+- [genealogies](./genealogies.qmd)

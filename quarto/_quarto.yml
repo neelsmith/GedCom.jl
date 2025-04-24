@@ -18,8 +18,12 @@ website:
     left:
       - text: "Home"
         file: index.qmd
+      - text: "Genealogical information"
+        file: "genealogy/index.qmd"
+      - text: "The GEDCOM standard"
+        file: technical/index.qmd
       - text: "API documentation"
-        file: api.qmd               
+        file: technical/api.qmd               
 
       
     right:   
@@ -27,6 +31,14 @@ website:
         href: https://github.com/neelsmith/GedCom.jl
         aria-label: GitHub
 
+  sidebar:
+    - title: "Genealogical information"
+      contents: 
+        - genealogy/index.qmd
+        - genealogy/genealogies.qmd
+        - genealogy/individuals.qmd
+        - genealogy/families.qmd
+        
              
  
 

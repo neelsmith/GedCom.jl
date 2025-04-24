@@ -3,9 +3,9 @@ engine: julia
 ---
 
 
-```@setup datawork
+```{julia}
 
-root = pwd() |> dirname |> dirname
+root = pwd() |> dirname  |> dirname
 f = joinpath(root, "test", "data", "pres2020.ged")
 
 ```
@@ -19,7 +19,7 @@ You can extract named content directly from vectors of `GEDRecords`, such as the
 You can also use the `gedRecords` function to parse a file in GEDCOM format directly into a sequence of `GEDRecord` objects.  
 
 
-```@example datawork
+```{julia}
 using GedCom
 records = gedRecords(f)
 typeof(records)
@@ -36,7 +36,7 @@ The structure of the `GEDRecord` directly mimics the components of a record in t
 
 Here's what a few records look like:
 
-```@example datawork
+```{julia}
 records[101:115]
 ```
 
@@ -45,16 +45,16 @@ records[101:115]
 
 GEDCOM records are organized in a hierarchy.  
 
-Extract groups records with the `GedCom.blocks` function.  A "block" is just a vector of `GEDRecord`s, so the result of this function is a vector of vectors of `GEDRecord`s.
+Extract groups of records with the `GedCom.blocks` function.  A "block" is just a vector of `GEDRecord`s, so the result of this function is a vector of vectors of `GEDRecord`s.
 
-```@example datawork
+```{julia}
 burials = GedCom.blocks(records, "BURI")
 typeof(burials)
 ```
 
 Each individual block in this vector is the group of records hierarchically subordinated to the top element of the given type (here, burials indicated by the type tag "BURI").
 
-```@example datawork
+```{julia}
 lastburial = burials[end]
 ```
 
@@ -62,7 +62,7 @@ lastburial = burials[end]
 
 Use the `GedCom.data` function to extract the text content for a record.  Here, we can extract the label for the place of the previous burial from the "PLAC" record.
 
-```@example datawork
+```{julia}
 GedCom.data(lastburial, "PLAC")
 ```
 
@@ -72,7 +72,7 @@ You can use the `GedCom.blocks` and `GedCom.data` functions to work directly wit
 
 In the presidential data set, the eighteenth individual in the data set, Simpson Green Ayers, has a single block documenting his residence.  We could extract it like this:
 
-```@example datawork
+```{julia}
 people = individuals(f)
 simpson = people[18]
 residence = GedCom.blocks(simpson.records, "RESI")[1]
@@ -80,7 +80,7 @@ residence = GedCom.blocks(simpson.records, "RESI")[1]
 
 We could extract the text content of the record tagged "RESI"  directly from the records associated with the Ayers. Note that content from the following "CONC" block is included.
 
-```@example datawork
+```{julia}
 GedCom.data(simpson.records, "RESI")
 ```
 
@@ -88,6 +88,6 @@ GedCom.data(simpson.records, "RESI")
 
 The `GedCom.lonlat` function extracts a single pair of geographic coordinates from a vector of blocks.  We can use it to get the geographic location for his residence record.
 
-```@example datawork
+```{julia}
 GedCom.lonlat(residence)
 ```

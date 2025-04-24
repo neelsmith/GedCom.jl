@@ -1,0 +1,8 @@
+---
+engine: julia
+---
+
+# Technical information
+
+- reading data from GEDCOM sources
+- API documentation

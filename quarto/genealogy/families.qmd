@@ -3,7 +3,7 @@ engine: julia
 ---
 
 
-```@setup fams
+```{julia}
 using GedCom
 root = pwd() |> dirname |> dirname
 f = joinpath(root, "test", "data", "pres2020.ged")
@@ -18,19 +18,19 @@ lincolnfamily = filter(f -> f.xrefId == "@F174@", fams)[1]
 `Individual`s and `FamilyUnit`s associate an identifier with its related block of `GEDRecord`s.  Data in the associated records are accessible from a bunch of functions.
 
 
-```@example fams
+```{julia}
 GedCom.husbandid(lincolnfamily)
 ```
-```@example fams
+```{julia}
 GedCom.wifeid(lincolnfamily)
 ```
-```@example fams
+```{julia}
 GedCom.childrenids(lincolnfamily)
 ```
-```@example fams
+```{julia}
 GedCom.marriagedate(lincolnfamily)
 ```
-```@example fams
+```{julia}
 GedCom.marriageplace(lincolnfamily)
 ```
 ```@example fams
