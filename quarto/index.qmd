@@ -1,0 +1,58 @@
+---
+engine: julia
+---
+
+
+```{julia}
+root = pwd() |> dirname
+f = joinpath(root, "test", "data", "pres2020.ged")
+```
+
+```{julia}
+isfile(f)
+```
+
+```{julia}
+using GedCom
+```
+
+# `GedCom.jl`
+
+> *Parse genealogical data following the Lineage-Linked Grammar of the GedCom 5.5.1 specification.*
+
+
+## Quick start
+
+In the examples throughout these pages, `f` is a file with more than 49,000 GEDCOM "records" documenting the genealogy of U.S. Presidents.
+
+> This widely circulated GEDCOM data set was downloaded from [https://webtreeprint.com/tp_famous_gedcoms.php](https://webtreeprint.com/tp_famous_gedcoms.php).
+
+
+Create a `Genealogy` from a file in GEDCOM format: 
+
+
+```
+using GedCom
+# `f` is a GedCom file, downloaded from:
+# https://webtreeprint.com/tp_famous_gedcoms.php
+gen = genealogy_g5(f)
+typeof(gen)
+```
+
+
+A `Genealogy` object has three vectors of genealogical content modelling individuals, family units, and sources of information.
+
+```
+gen.individuals |> typeof
+```
+
+
+```
+gen.families |> typeof
+```
+```
+gen.sources |> typeof
+```
+
+The following pages illustrate functions for working with each of these three types of data, and for relating them to each other.
+

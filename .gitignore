@@ -5,3 +5,6 @@ docs/build/
 private/
 settings.json
 scratch/
+_freeze/
+_site/
+.quarto/
