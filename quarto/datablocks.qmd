@@ -1,3 +1,8 @@
+---
+engine: julia
+---
+
+
 ```@setup datawork
 
 root = pwd() |> dirname |> dirname

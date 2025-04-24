@@ -1,6 +1,11 @@
-```@setup indis
+---
+engine: julia
+---
+
+
+```{julia}
 using GedCom
-root = pwd() |> dirname |> dirname
+root = pwd() |> dirname 
 f = joinpath(root, "test", "data", "pres2020.ged")
 gen = genealogy_g5(f)
 abe = GedCom.individual("@I317@", gen)
@@ -17,26 +22,26 @@ Most of the data in a GEDCOM source is organized in the records for an individua
 
 The `label` function is exported:
 
-```@example indis
+```{julia}
 label(abe)
 ```
 
 Other functions must be qualified with the package name.
 
 
-```@example indis
+```{julia}
 GedCom.lastname(abe)
 ```
-```@example indis
+```{julia}
 GedCom.dateslabel(abe)
 ```
-```@example indis
+```{julia}
 GedCom.sex(abe)
 ```
-```@example indis
+```{julia}
 GedCom.deathdate(abe)
 ```
-```@example indis
+```{julia}
 GedCom.birthdate(abe)
 ```
 
@@ -53,12 +58,12 @@ GEDCOM's lineage-linked grammar models the relation of individuals to two biolog
 From a single `Individual` object, you can find family identifiers for families an individual belongs to as a child or as a spouse.
 
 
-```@example indis
+```{julia}
 GedCom.family_id_child(abe)
 ```
 
 
-```@example indis
+```{julia}
 GedCom.family_ids_spouse(abe)
 ```
 
@@ -66,18 +71,18 @@ GedCom.family_ids_spouse(abe)
 
 Other functions let you find fully instantiated `Individual` objects for a person in a genealogy. `GedCom.parents` returns a named tuple:
 
-```@example indis
+```{julia}
 abe_parents = GedCom.parents(abe, gen)
 abe_parents[:father]
 ```
-```@example indis
+```{julia}
 abe_parents[:mother]
 ```
 
 
 `GedCom.siblings` returns a list:
 
-```@example indis
+```{julia}
 sibs = GedCom.siblings(abe, gen)
 ```
 

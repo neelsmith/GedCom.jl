@@ -12,9 +12,8 @@ f = joinpath(root, "test", "data", "pres2020.ged")
 isfile(f)
 ```
 
-```{julia}
-using GedCom
-```
+
+
 
 # `GedCom.jl`
 
@@ -31,7 +30,7 @@ In the examples throughout these pages, `f` is a file with more than 49,000 GEDC
 Create a `Genealogy` from a file in GEDCOM format: 
 
 
-```
+```{julia}
 using GedCom
 # `f` is a GedCom file, downloaded from:
 # https://webtreeprint.com/tp_famous_gedcoms.php
@@ -42,15 +41,15 @@ typeof(gen)
 
 A `Genealogy` object has three vectors of genealogical content modelling individuals, family units, and sources of information.
 
-```
+```{julia}
 gen.individuals |> typeof
 ```
 
 
-```
+```{julia}
 gen.families |> typeof
 ```
-```
+```{julia}
 gen.sources |> typeof
 ```
 
