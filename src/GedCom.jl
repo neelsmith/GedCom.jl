@@ -1,6 +1,7 @@
 module GedCom
 
 import Base: ==
+import Base: show
 using Graphs
 using SimpleValueGraphs
 

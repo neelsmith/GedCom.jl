@@ -5,7 +5,9 @@ engine: julia
 
 # Working with genealogical data
 
+`GedCom.jl` implements the genealogical concepts found in the GEDCOM lineage-linked grammar. The most important organizational structures in GEDCOM are the *individual* and the *family*.
 
-- [individuals](./individuals.qmd)
-- [families](./families.qmd)
-- [genealogies](./genealogies.qmd)
+
+- [genealogies](./genealogies.qmd): the `Genealogy` object is an entire GEDCOM data set.
+- [individuals](./individuals.qmd): individuals in a `Genealogy`.
+- [families](./families.qmd): family units in a `Genealogy`.

@@ -4,5 +4,5 @@ engine: julia
 
 # Technical information
 
-- reading data from GEDCOM sources
-- API documentation
+- [reading data from GEDCOM sources](./datablocks.qmd)
+

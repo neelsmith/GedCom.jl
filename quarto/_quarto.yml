@@ -39,7 +39,10 @@ website:
         - genealogy/individuals.qmd
         - genealogy/families.qmd
         
-             
+    - title: "The GEDCOM standard"
+      contents: 
+        - technical/index.qmd
+        - technical/datablocks.qmd             
  
 
 

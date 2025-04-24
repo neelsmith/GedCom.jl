@@ -11,6 +11,10 @@ function families(f)
     gedRecords(f) |> parseFamilies
 end
 
+function families(g::Genealogy)
+    g.families
+end
+
 """Parse a Vector of `FamilyUnit`s from a Vector of `GEDRecord`s.
 """
 function parseFamilies(records)

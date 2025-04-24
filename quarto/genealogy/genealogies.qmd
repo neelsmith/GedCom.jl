@@ -2,17 +2,26 @@
 engine: julia
 ---
 
-
 ```{julia}
-root = pwd() |> dirname  |> dirname
-f = joinpath(root, "test", "data", "pres2020.ged")
-using GedCom
-gen = genealogy_g5(f)
+#| output: false
+#| echo: false
+#| warning: false
+repo = pwd() |> dirname  |> dirname
 ```
+
+
+
 
 # Genealogies
 
 A `Genealogy` object lets you look up individuals, families and sources by ID value, and find family relations among individuals. (Following pages document many things you can do with `Individual` and `FamilyUnit` objects by themselves.)
+
+
+```{julia}
+f = joinpath(repo, "test", "data", "pres2020.ged")
+using GedCom
+gen = genealogy_g5(f)
+```
 
 
 ## Look up basic objects by ID values
