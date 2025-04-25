@@ -16,7 +16,10 @@ gengraph = genealogyGraph(gen)
 ```
 
 
-Cycle through the vertices, and collect the name value together with the vertex index in a named tuple:
+
+## Labels for vertices
+
+Cycle through the vertices, and collect in a named tuple the verex index goether with the name value:
 
 ```{julia}
 using SimpleValueGraphs
@@ -25,6 +28,10 @@ nameidx = map(vlist) do i
     (v = i, name = get_vertexval(gengraph, i, :name))
 end
 ```
+
+
+
+## Values for edges
 
 Relations: edges pair two vertices; in our graph, they have a `relation` property.
 
