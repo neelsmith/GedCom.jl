@@ -6,6 +6,14 @@ struct Individual
     records::Vector{GEDRecord}
 end
 
+"""Override Base.show for `Individual`.
+$(SIGNATURES)
+"""
+function show(io::IO, indi::Individual)
+   show(io, label(indi))
+end
+
+
 
 function name(indi::Individual)
     replace(indi.name, "/" => "")

@@ -5,7 +5,7 @@ engine: julia
 # Graphs (networks) of relations
 
 
-- get a representation of the individuals in a `Genealogy` as a Julia `SimpleValueGraph`:
+Get a representation of the individuals in a `Genealogy` as a Julia `SimpleValueGraph`:
 
 ```{julia}
 using GedCom
@@ -16,3 +16,11 @@ gengraph = genealogyGraph(gen)
 ```
 
 
+Cycle through the vertices, and collect the name value together with the vertex index in a named tuple:
+
+```{julia}
+vlist = vertices(gengraph) |> collect
+nameidx = map(vlist) do i
+    (v = i, name = get_vertexval(gengraph, i, :name))
+end
+```
