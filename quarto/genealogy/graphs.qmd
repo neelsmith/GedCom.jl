@@ -19,8 +19,23 @@ gengraph = genealogyGraph(gen)
 Cycle through the vertices, and collect the name value together with the vertex index in a named tuple:
 
 ```{julia}
+using SimpleValueGraphs
 vlist = vertices(gengraph) |> collect
 nameidx = map(vlist) do i
     (v = i, name = get_vertexval(gengraph, i, :name))
 end
+```
+
+Relations: edges pair two vertices; in our graph, they have a `relation` property.
+
+
+
+```{julia}
+elist = collect(edges(gengraph))
+sourcev = elist[1].src
+targetv = elist[1].dst
+rel = get_edgeval(gengraph,sourcev,targetv)
+sourcename = filter(t -> t.v == sourcev, nameidx)[1].name
+targetname = filter(t -> t.v == targetv, nameidx)[1].name
+string("Relation of ", sourcename, " to ", targetname, ": ", rel)
 ```

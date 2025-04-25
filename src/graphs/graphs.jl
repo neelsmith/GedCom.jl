@@ -45,6 +45,10 @@ function genealogyGraph(gen::Genealogy)::GenealogyGraph
     GenealogyGraph(nodelist, edgelist)
 end
 =#
+
+
+
+
 function personindex(id, people)
     findfirst(p -> p == id, people)
 end
