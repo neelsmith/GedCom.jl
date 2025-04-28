@@ -5,6 +5,16 @@ struct FamilyUnit
     records::Vector{GEDRecord}
 end
 
+
+
+"""Override Base.show for `FamilyUnit`.
+$(SIGNATURES)
+"""
+function show(io::IO, fam::FamilyUnit)
+   show(io, "Family $(fam.xrefId) ($(length(fam.records)) GEDCOM records)")
+end
+
+
 """Extract `FamilyUnit`s from a GedCom file `f`.
 """
 function families(f)

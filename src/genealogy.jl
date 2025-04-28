@@ -7,6 +7,14 @@ struct Genealogy
     sources::Vector{Source}
 end
 
+
+"""Override Base.show for `Genealogy`.
+$(SIGNATURES)
+"""
+function show(io::IO, gen::Genealogy)
+   show(io, "Genealogy records for $(length(gen.individuals)) persons.")
+end
+
 """Build a `Genealogy` from a GEDCOM file source.
 """
 function genealogy_g5(f)::Genealogy

@@ -17,7 +17,7 @@ end
 """Extract a `GenealogyGraph` from a `Genealogy`.
 Currently includes only individuals with two known parents.
 """
-function genealogyGraph(gen::Genealogy)::GenealogyGraph
+(gen::Genealogy)::GenealogyGraph
     nodelist = map(i -> i.id, gen.individuals)
     edgelist = RelationTriple[]
     for f in gen.families
@@ -117,3 +117,5 @@ function ancestor_tree_mdlines(indi::Individual, gen::Genealogy, cumulation = []
  
 	return lines
 end
+
+

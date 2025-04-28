@@ -6,6 +6,24 @@ end
 
 
 
+"""Override Base.show for a `Source`.
+$(SIGNATURES)
+"""
+function show(io::IO, src::Source)
+   show(io, "$(title(src)) ($(length(src.records)) records, ID $(src.sourceId)) ")
+end
+
+function title(src::Source)
+    matches = filter(src.records) do r
+        r.code == "TITL"
+    end
+    if isempty(matches) 
+        ""
+    else
+        matches[1].message
+    end
+end
+
 """Extract `Source`s from a GedCom file `f`.
 """
 function sources(f)

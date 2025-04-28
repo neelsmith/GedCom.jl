@@ -10,6 +10,15 @@ struct GEDRecord
     message::AbstractString
 end
 
+
+"""Override Base.show for `GEDRecord`.
+$(SIGNATURES)
+"""
+function show(io::IO, gen::Genealogy)
+   show(io, "GEDCOM record")
+end
+
+
 """Override `==` for `GEDRecord` type.
 """
 function ==(r1::GEDRecord, r2::GEDRecord)

@@ -55,3 +55,48 @@ function genealogyGraph(gen::Genealogy)
     end
     g
 end
+
+
+
+
+
+"""Find list of unique values for edges in a graph.
+$(SIGNATURES)
+"""
+function edgevals(gr::ValDiGraph)
+    vallist = []
+    for e in edges(gr)
+       edgval = get_edgeval(gr, e.src, e.dst)
+       push!(vallist, edgval)
+    end
+    unique(vallist)
+end
+
+
+"""Find all `ValDiEdge`s in graph for a given node `n`
+$(SIGNATURES)
+"""
+function edgesfornode(gr::ValDiGraph, n)
+    edgesfornode(collect(edges(gr)), n)
+end
+
+
+"""Find all edges in a list of edges including a given node `n`
+$(SIGNATURES)
+"""
+function edgesfornode(elist, n)
+    filter(elist) do e
+        e.src == n || e.dst == n
+    end
+end
+
+"""Find all vertices in a graph that have
+no connections.
+$(SIGNATURES)
+"""
+function singletons(gr::ValDiGraph)
+    edgelist = collect(edges(gr))
+    filter(collect(vertices(gr))) do nd
+        isempty(edgesfornode(edgelist, nd))
+    end
+end
