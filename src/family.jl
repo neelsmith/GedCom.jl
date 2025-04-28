@@ -21,6 +21,50 @@ function families(f)
     gedRecords(f) |> parseFamilies
 end
 
+function hoh(id::AbstractString, gen)
+    idmatches = filter(gen.families) do fam
+        fam.xrefId == id
+    end
+    isempty(idmatches) ? nothing : hoh(idmatches[1], gen)
+end
+function hoh(fam::FamilyUnit, gen)
+    wifematches = filter(fam.records) do r
+        r.code == "WIFE"
+    end
+
+    wifeid = if isempty(wifematches) 
+        ""
+    else
+        wifematches[1].message
+    end
+    wife = filter(gen.individuals) do indi
+        indi.id == wifeid
+    end
+
+    husbandmatches = filter(fam.records) do r
+        r.code == "HUSB"
+    end
+    husbandid = if isempty(husbandmatches) 
+        ""
+    else
+        husbandmatches[1].message
+    end
+
+    husband = filter(gen.individuals) do indi
+        indi.id == husbandid
+    end
+    wife = filter(gen.individuals) do indi
+        indi.id == wifeid
+    end
+    if ! isempty(wife) &&
+        ! isempty(husband)
+        string(label(husband[1]), " + ", label(wife[1]))
+    elseif isempty(wife)
+        string("Mother: $(label(wife[1]))")
+    else
+        string("Father: $(label(husband[1]))")
+    end
+end
 
 """Parse a Vector of `FamilyUnit`s from a Vector of `GEDRecord`s.
 """
