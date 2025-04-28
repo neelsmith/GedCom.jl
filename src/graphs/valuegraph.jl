@@ -90,13 +90,32 @@ function edgesfornode(elist, n)
     end
 end
 
-"""Find all vertices in a graph that have
-no connections.
+"""Find all individuals in a graph with no connections.
 $(SIGNATURES)
 """
-function singletons(gr::ValDiGraph)
+function singletons(gr::ValDiGraph) 
     edgelist = collect(edges(gr))
-    filter(collect(vertices(gr))) do nd
-        isempty(edgesfornode(edgelist, nd))
+    filter(individualindex(gr)) do indi
+        isempty(edgesfornode(edgelist, indi.v))
     end
+end
+
+#=
+function singletons(gr::ValDiGraph, gen::Genealogy)
+
+   map(singletons(gr)) do id
+   end
+end
+=#
+
+
+function individualindex(gr::ValDiGraph)
+    nameidx = []
+    for i in vertices(gr)
+        push!(nameidx, (v = i, 
+        id = get_vertexval(gr, i, :id), 
+        name = get_vertexval(gr, i, :name))
+        )
+    end
+    nameidx
 end
