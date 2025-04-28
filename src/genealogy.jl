@@ -49,6 +49,14 @@ function individual(id::S, gen::Genealogy )::Union{Individual, Nothing} where S 
     length(matches) == 1 ? matches[1] : nothing  
 end
 
+"""Look up a source in a genealogy by ID.
+Returns a `Source` or `nothing`.
+"""
+function source(id::S, gen::Genealogy )::Union{Source, Nothing} where S <: AbstractString
+    matches = filter(i -> i.id == id, gen.sources)
+    length(matches) == 1 ? matches[1] : nothing  
+end
+
 
 
 """Look up a family in a genealogy by ID.

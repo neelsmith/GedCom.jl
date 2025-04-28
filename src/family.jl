@@ -5,8 +5,6 @@ struct FamilyUnit
     records::Vector{GEDRecord}
 end
 
-
-
 """Override Base.show for `FamilyUnit`.
 $(SIGNATURES)
 """

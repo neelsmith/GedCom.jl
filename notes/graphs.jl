@@ -14,7 +14,10 @@ using SimpleValueGraphs
 # Pair up (in a named tuple) the ID and a readable label for every node in the graph:
 nameidx = []
 for i in vertices(gengraph)
-    push!(nameidx, (v = i, name = get_vertexval(gengraph, i, :name)))
+    push!(nameidx, (v = i, 
+    id = get_vertexval(gengraph, i, :id), 
+    name = get_vertexval(gengraph, i, :name))
+    )
 end
 
 

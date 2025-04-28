@@ -37,10 +37,10 @@ include("plots/makieplots.jl")
 
 export Genealogy, genealogy_g5, individual, family
 export Individual, individuals 
-export FamilyUnit, families
+export FamilyUnit, families, family
 export NuclearFamily, nuclearfamily
 #export Event, events
-export Source, sources
+export Source, sources, source
 export Location, location
 export GEDRecord, gedRecords
 export label
