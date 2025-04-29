@@ -13,7 +13,7 @@ end
 """Compose a label for a `FamilyUnit`.
 """
 function label(fam::FamilyUnit, gen::Genealogy)
-    nuclearfamily(fam, gen ) |> label
+    nuclearfamily(fam, gen) |> label
 end
 
 #=

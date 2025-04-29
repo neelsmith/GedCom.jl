@@ -42,7 +42,7 @@ GedCom.marriagedate(lincolnfamily)
 ```{julia}
 GedCom.marriageplace(lincolnfamily)
 ```
-```@example fams
+```{julia}
 GedCom.marriagelonlat(lincolnfamily)
 ```
 
@@ -51,6 +51,17 @@ GedCom.marriagelonlat(lincolnfamily)
 
 The `NuclearFamily` groups together a husband, wife and list of children, each of which is an `Individual`.
 
+
+Get all families an individual belongs to:
+
+```{julia}
+abe = individual("@I317@", gen)
+abefamilies = GedCom.nuclearfamilies(abe, gen)
+```
+
+```{julia}
+abefamily = abefamilies[1]
+```
 
 parents
 parentage
