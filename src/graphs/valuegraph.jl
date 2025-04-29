@@ -13,7 +13,7 @@ edges have a string with one of three relationship types:
 """
 function genealogyGraph(gen::Genealogy)
     folks = map(gen.individuals) do i
-        (id = i.id, name = label(i))
+        (id = i.personid, name = label(i))
     end
     g = ValDiGraph(length(folks);
     vertexval_types=(id = String, name = String),

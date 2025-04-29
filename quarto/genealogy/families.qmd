@@ -4,14 +4,23 @@ engine: julia
 
 
 ```{julia}
-using GedCom
+#| echo: false
+#| output: false
 root = pwd() |> dirname |> dirname
+```
+
+
+# Families
+
+
+```{julia}
+using GedCom
+
 f = joinpath(root, "test", "data", "pres2020.ged")
 fams = families(f)
 lincolnfamily = filter(f -> f.xrefId == "@F174@", fams)[1]
 ```
 
-# Families
 
 ## The `FamilyUnit`
 

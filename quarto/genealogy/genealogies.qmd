@@ -10,12 +10,10 @@ repo = pwd() |> dirname  |> dirname
 ```
 
 
-
-
 # Genealogies
 
-A `Genealogy` object lets you look up individuals, families and sources by ID value, and find family relations among individuals. (Following pages document many things you can do with `Individual` and `FamilyUnit` objects by themselves.)
 
+A `Genealogy` object is a digital model of the information encoded in a GEDCOM data source. If you have a file following the GEDCOM 5 specification, you can read it with the `genealogy_g5` function.
 
 ```{julia}
 f = joinpath(repo, "test", "data", "pres2020.ged")
@@ -24,19 +22,28 @@ gen = genealogy_g5(f)
 ```
 
 
+
 ## Look up basic objects by ID values
 
+
+You can look up individuals, families and sources in a  `Genealogy` object by their ID value, and can find family relations among individuals.
+
+
 ```{julia}
-lincoln = GedCom.individual("@I317@", gen)
+lincoln = individual("@I317@", gen)
 typeof(lincoln)
 ```
 
 ```{julia}
-fam = GedCom.familyunit("@F173@", gen)
+fam = family("@F173@", gen)
 typeof(fam)
 ```
 
 ```{julia}
-src = GedCom.source("@S1@", gen)
+src = source("@S2@", gen)
 typeof(src)
 ```
+
+## Learn more
+
+Further pages document many things you can do with the `Individual` and `FamilyUnit` objects you retrieve in this way.

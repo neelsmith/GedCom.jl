@@ -143,7 +143,7 @@ md"""
 
 
 # ╔═╡ 5dafdd7a-419d-44dd-866d-c3df8b74cf72
-isnothing(gen) ? nothing : md"ID: **$(person.id)**"
+isnothing(gen) ? nothing : md"ID: **$(person.personid)**"
 
 # ╔═╡ 1e63fe6d-be8c-43b6-847f-0dc73f3d5657
 # ╠═╡ show_logs = false

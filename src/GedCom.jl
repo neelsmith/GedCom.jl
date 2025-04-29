@@ -6,7 +6,7 @@ using Graphs
 using SimpleValueGraphs
 
 
-using CairoMakie
+#using CairoMakie
 
 using Documenter
 using DocStringExtensions
@@ -33,7 +33,7 @@ include("graphs/valuegraph.jl")
 include("graphs/graphplots.jl")
 
 
-include("plots/makieplots.jl")
+#include("plots/makieplots.jl")
 
 export Genealogy, genealogy_g5, individual, family
 export Individual, individuals 

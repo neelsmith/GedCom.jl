@@ -12,7 +12,7 @@ end
 $(SIGNATURES)
 """
 function show(io::IO, gen::Genealogy)
-   show(io, "Genealogy records for $(length(gen.individuals)) persons.")
+   write(io, "Genealogy records for $(length(gen.individuals)) persons.")
 end
 
 """Build a `Genealogy` from a GEDCOM file source.
@@ -45,16 +45,18 @@ end
 Returns an `Individual` or `nothing`.
 """
 function individual(id::S, gen::Genealogy )::Union{Individual, Nothing} where S <: AbstractString
-    matches = filter(i -> i.id == id, gen.individuals)
+    matches = filter(i -> i.personid == id, gen.individuals)
     length(matches) == 1 ? matches[1] : nothing  
 end
 
 """Look up a source in a genealogy by ID.
 Returns a `Source` or `nothing`.
 """
-function source(id::S, gen::Genealogy )::Union{Source, Nothing} where S <: AbstractString
-    matches = filter(i -> i.id == id, gen.sources)
+function source(srcId::S, gen::Genealogy )::Union{Source, Nothing} where S <: AbstractString
+    matches = filter(i -> srcId == i.sourceId, gen.sources)
     length(matches) == 1 ? matches[1] : nothing  
+    #@warn("Looking up $(srcId) in genealogy.")
+    #nothing
 end
 
 

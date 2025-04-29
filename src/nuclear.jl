@@ -28,7 +28,7 @@ function nuclearfamilies(id::S, gen::Genealogy)  where S <: AbstractString
 end
 
 function nuclearfamilies(pers::Individual, gen::Genealogy) 
-    @debug("Get all nuke families for $(pers.id)")
+    @debug("Get all nuke families for $(pers.personid)")
     map(family_ids_spouse(pers)) do famid
         @debug("Check $(famid)")
         nuclearfamily(famid, gen)
@@ -39,7 +39,7 @@ end
 idenfied by `id`. Return a triple with `Individual` husband, `Individual` wife and Vector of `Individual` children.
 """
 function nuclearfamily(id::S, gen::Genealogy)  where S <: AbstractString
-    nuclearfamily(familyunit(id,gen), gen)
+    nuclearfamily(family(id,gen), gen)
 end
 
 """Collect `Individual` objects for each member of a nuclear family.
@@ -47,12 +47,12 @@ Return a triple with `Individual` husband, `Individual` wife and Vector of `Indi
 """
 function nuclearfamily(fam::FamilyUnit, gen::Genealogy)
     # husband: 
-    hmatches = filter(i -> i.id == husbandid(fam), gen.individuals)
+    hmatches = filter(i -> i.personid == husbandid(fam), gen.individuals)
     h = isempty(hmatches) ? nothing : hmatches[1]
-    wmatches = filter(i -> i.id == wifeid(fam), gen.individuals)
+    wmatches = filter(i -> i.personid == wifeid(fam), gen.individuals)
     w = isempty(wmatches) ? nothing : wmatches[1]
     kids = map(childrenids(fam)) do kid
-        filter(i -> i.id == kid, gen.individuals)[1]
+        filter(i -> i.personid == kid, gen.individuals)[1]
     end
     NuclearFamily(fam.xrefId, h, w, kids)
 end
@@ -65,7 +65,7 @@ function nuclearfamily(person::Individual, gen::Genealogy)
     if isnothing(famid)
         nothing
     else
-        fam = familyunit(famid, gen)
+        fam = family(famid, gen)
         nuclearfamily(fam, gen)
     end
 end

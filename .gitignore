@@ -9,3 +9,4 @@ _freeze/
 _site/
 .quarto/
 scratch/
+.DS_Store

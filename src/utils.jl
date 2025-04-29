@@ -1,13 +1,14 @@
 
 
-
+#=
 """Look up a family unit in a genealogy by ID.
-Returns an `FamilyUnit` or `nothing`.
+Returns a `FamilyUnit` or `nothing`.
 """
-function familyunit(id::S, gen::Genealogy)::Union{FamilyUnit, Nothing} where S <: AbstractString
+function family(id::S, gen::Genealogy)::Union{FamilyUnit, Nothing} where S <: AbstractString
     matches = filter(f -> f.xrefId == id, gen.families)
     length(matches) == 1 ? matches[1] : nothing  
 end
+=#
 
 """Compose a label for a `FamilyUnit`.
 """
@@ -15,7 +16,8 @@ function label(fam::FamilyUnit, gen::Genealogy)
     nuclearfamily(fam, gen ) |> label
 end
 
-"""Extract an identified `Source` from a `Genealogy`."""
+#=
+"""Extract a `Source` identified by its ID values from a `Genealogy`."""
 function source(id, gen::Genealogy)
     srcmatches  = filter(src -> src.sourceId == id, gen.sources)
     if length(srcmatches) == 1
@@ -27,6 +29,7 @@ function source(id, gen::Genealogy)
         []
     end
 end
+=#
 
 
 """Extract all `Source`s for an individual."""

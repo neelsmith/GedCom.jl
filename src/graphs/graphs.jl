@@ -18,7 +18,7 @@ end
 Currently includes only individuals with two known parents.
 """
 (gen::Genealogy)::GenealogyGraph
-    nodelist = map(i -> i.id, gen.individuals)
+    nodelist = map(i -> i.personid, gen.individuals)
     edgelist = RelationTriple[]
     for f in gen.families
         h = husbandid(f)
@@ -79,7 +79,7 @@ function descendant_tree_mdlines(indi::Individual, gen::Genealogy, cumulation = 
 	lines = cumulation
     
     familydict = GedCom.children(indi, gen)
-    @debug("Pushed $(indi.name) ($(indi.id)) with $(length(keys(familydict))) family units at level $(level)")
+    @debug("Pushed $(indi.name) ($(indi.personid)) with $(length(keys(familydict))) family units at level $(level)")
     push!(lines, string(spacing, "- ", label(indi)))
     @debug("""Lines now $(join(lines, "++"))""")
 	for famid in keys(familydict)

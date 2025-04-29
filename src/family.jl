@@ -9,7 +9,7 @@ end
 $(SIGNATURES)
 """
 function show(io::IO, fam::FamilyUnit)
-   show(io, "Family $(fam.xrefId) ($(length(fam.records)) GEDCOM records)")
+   write(io, "Family $(fam.xrefId) ($(length(fam.records)) GEDCOM records)")
 end
 
 
@@ -36,7 +36,7 @@ function hoh(fam::FamilyUnit, gen)
         wifematches[1].message
     end
     wife = filter(gen.individuals) do indi
-        indi.id == wifeid
+        indi.personid == wifeid
     end
 
     husbandmatches = filter(fam.records) do r
@@ -49,10 +49,10 @@ function hoh(fam::FamilyUnit, gen)
     end
 
     husband = filter(gen.individuals) do indi
-        indi.id == husbandid
+        indi.personid == husbandid
     end
     wife = filter(gen.individuals) do indi
-        indi.id == wifeid
+        indi.personid == wifeid
     end
     if ! isempty(wife) &&
         ! isempty(husband)

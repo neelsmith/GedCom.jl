@@ -14,8 +14,8 @@ end
 """Override Base.show for `GEDRecord`.
 $(SIGNATURES)
 """
-function show(io::IO, gen::Genealogy)
-   show(io, "GEDCOM record")
+function show(io::IO, gen::GEDRecord)
+   write(io, "GEDCOM record")
 end
 
 

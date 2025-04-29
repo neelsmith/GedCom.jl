@@ -48,7 +48,7 @@ ayers = individuals(split(birchie,"\n"))[1]
 end
 
 @testset "Test family structure and labelling for `Individual` type" begin
-    @test ayers.id == "@I10@"
+    @test ayers.personid == "@I10@"
     @test GedCom.family_id_child(ayers) == "@F11@"
     @test GedCom.family_ids_spouse(ayers) == ["@F4@"]
 

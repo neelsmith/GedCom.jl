@@ -1,7 +1,7 @@
 """An individual person.
 """
 struct Individual
-    id::AbstractString
+    personid::AbstractString
     name::AbstractString
     records::Vector{GEDRecord}
 end
@@ -10,7 +10,7 @@ end
 $(SIGNATURES)
 """
 function show(io::IO, indi::Individual)
-   show(io, label(indi))
+   write(io, label(indi))
 end
 
 
@@ -33,8 +33,10 @@ end
 function label(indi::Individual)
     fordates = dateslabel(indi)
     @debug("For dates; $(fordates) ")
-    strippedname = replace(indi.name, "/" => " ")
-    isempty(fordates) ? strippedname  : string(strippedname,  " (", fordates, ")")
+    strippedname = replace(indi.name, "/" => " ") |> strip
+    cleaner = replace(strippedname, r"[ ]+" => " ")
+    @debug("Stripped = /$(strippedname)/")
+    isempty(fordates) ? cleaner  : string(cleaner,  " (", fordates, ")")
 end
 
 "Find string for sex value of `indi`."

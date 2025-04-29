@@ -10,18 +10,8 @@ end
 $(SIGNATURES)
 """
 function show(io::IO, src::Source)
-   show(io, "$(title(src)) ($(length(src.records)) records, ID $(src.sourceId)) ")
-end
-
-function title(src::Source)
-    matches = filter(src.records) do r
-        r.code == "TITL"
-    end
-    if isempty(matches) 
-        ""
-    else
-        matches[1].message
-    end
+    msg = "$(title(src)) ($(length(src.records)) records, ID $(src.sourceId))"
+    write(io, msg)
 end
 
 """Extract `Source`s from a GedCom file `f`.
@@ -79,6 +69,9 @@ end
 function title(src::Source)
     data(src.records, "TITL")
 end
+
+
+
 
 """Get string value for publication information of `src`.
 """
