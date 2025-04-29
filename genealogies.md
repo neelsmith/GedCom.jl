@@ -1,10 +1,15 @@
+---
+engine: julia
+---
 
+# Genealogies
 
 ## Relations
 
 Find parents for an individual. The result is a named tuple of `Individual`s.
 
-```@example gen
+```{julia}
+using GedCom
 abeparents = GedCom.parents(lincoln, gen)
 abeparents[:mother]
 ```
