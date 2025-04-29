@@ -196,3 +196,19 @@ function descendants_plot_size(fam::FamilyUnit, gen::Genealogy)
     (depth, breadth)
 
 end
+
+
+
+
+
+
+function matchname(s, gen::Genealogy; gedcomsyntax = false)::Vector{Individual}
+    if gedcomsyntax
+        filter(i -> occursin(s, i.name), gen.individuals)
+    else
+        filter(gen.individuals) do indi
+            simplename = replace(indi.name, "/" => "")
+            occursin(s, simplename)
+        end
+    end
+end

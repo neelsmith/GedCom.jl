@@ -6,6 +6,12 @@ struct Individual
     records::Vector{GEDRecord}
 end
 
+
+
+function id(indi::Individual)
+    indi.personid
+end
+
 """Override Base.show for `Individual`.
 $(SIGNATURES)
 """
@@ -125,16 +131,3 @@ function parseIndividuals(records)
     individuals
 end
 
-
-
-
-function matchname(s, gen::Genealogy; gedcomsyntax = false)::Vector{Individual}
-    if gedcomsyntax
-        filter(i -> occursin(s, i.name), gen.individuals)
-    else
-        filter(gen.individuals) do indi
-            simplename = replace(indi.name, "/" => "")
-            occursin(s, simplename)
-        end
-    end
-end

@@ -39,6 +39,8 @@ export Genealogy, genealogy_g5, individual, family
 export Individual, individuals 
 export FamilyUnit, families, family
 export NuclearFamily, nuclearfamilies, nuclearfamily
+export id, husband, wife, children
+export families_asparent, family_aschild
 #export Event, events
 export Source, sources, source
 export Location, location

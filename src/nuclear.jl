@@ -8,6 +8,34 @@ struct NuclearFamily
     children::Vector{Individual}
 end
 
+
+function ==(nf1::NuclearFamily, nf2::NuclearFamily)::Bool
+    id(nf1) == id(nf2) &&
+    husband(nf1) == husband(nf2) &&
+    wife(nf1) == wife(nf2) &&
+    children(nf1) == children(nf2) 
+end
+
+
+function id(nf::NuclearFamily)
+    nf.id
+end
+
+
+function husband(nf::NuclearFamily)
+    nf.husband
+end
+
+function wife(nf::NuclearFamily)
+    nf.wife
+end
+
+
+function children(nf::NuclearFamily)
+    nf.children
+end
+
+
 """Override Base.show for `NuclearFamily`.
 $(SIGNATURES)
 """
@@ -19,27 +47,45 @@ end
 """
 function label(f::NuclearFamily)
     hlabel = isnothing(f.husband) ? "unknown" : replace(f.husband.name, "/" => " ")
+    cleanerhusband = replace(hlabel, r"[ ]+" => " ")
     wlabel = isnothing(f.wife) ? "unknown" : replace(f.wife.name, "/" => " ")
+    cleanerwife = replace(wlabel, r"[ ]+" => " ")
     childrenlabel = length(f.children) == 1 ? string("(", length(f.children), " child)") : string("(", length(f.children), " children)")
-    string(hlabel, " -- ",  wlabel, " ", childrenlabel)
+    string(cleanerhusband, " -- ",  cleanerwife, " ", childrenlabel)
 end
 
 
 """Get all instances of `NuclearFamily` where the person identifed by `id` 
 is a parent.
 """
-function nuclearfamilies(id::S, gen::Genealogy)  where S <: AbstractString
+function families_asparent(id::S, gen::Genealogy)  where S <: AbstractString
     pers = individual(id, gen)
-    isnothing(pers) ? [] :  nuclearfamilies(pers, gen)
+    isnothing(pers) ? [] :  families_asparent(pers, gen)
 end
 
-function nuclearfamilies(pers::Individual, gen::Genealogy) 
+function families_asparent(pers::Individual, gen::Genealogy) 
     @debug("Get all nuke families for $(pers.personid)")
     map(family_ids_spouse(pers)) do famid
         @debug("Check $(famid)")
         nuclearfamily(famid, gen)
     end
 end
+
+#=
+function family_aschild(persid, gen::Genealogy) 
+    pers = individual(persid, gen)
+    filter(nuclearfamilies(gen)) do f
+        pers in children(f)
+    end
+end
+
+
+function family_aschild(pers::Individual, gen::Genealogy) 
+    filter(nuclearfamilies(gen)) do f
+        pers in children(f)
+    end
+end
+=#
 
 """Collect `Individual` objects for each member of the nuclear family
 idenfied by `id`. Return a triple with `Individual` husband, `Individual` wife and Vector of `Individual` children.
@@ -83,4 +129,18 @@ function nuclearfamilies(gen::Genealogy)
         push!(nuculars, nuclearfamily(f, gen))
     end
     nuculars
+end
+
+
+function singleton(personid, gen)::Bool
+    families_asparent(personid, gen) |> isempty
+end
+
+function singletons(gen::Genealogy)
+    empties = filter(gen.individuals[1:10]) do indi
+        @info("Look at family settings for $(id(indi))")
+        isempty(families_asparent(indi, gen)) &&
+        isempty(family_aschild(indi, gen)) 
+        #false
+    end
 end
