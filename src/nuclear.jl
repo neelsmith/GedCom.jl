@@ -71,21 +71,6 @@ function families_asparent(pers::Individual, gen::Genealogy)
     end
 end
 
-#=
-function family_aschild(persid, gen::Genealogy) 
-    pers = individual(persid, gen)
-    filter(nuclearfamilies(gen)) do f
-        pers in children(f)
-    end
-end
-
-
-function family_aschild(pers::Individual, gen::Genealogy) 
-    filter(nuclearfamilies(gen)) do f
-        pers in children(f)
-    end
-end
-=#
 
 """Collect `Individual` objects for each member of the nuclear family
 idenfied by `id`. Return a triple with `Individual` husband, `Individual` wife and Vector of `Individual` children.
@@ -122,9 +107,11 @@ function nuclearfamily(person::Individual, gen::Genealogy)::Union{NuclearFamily,
     end
 end
 
-
-function nuclearfamilies(gen::Genealogy)
-    nuculars = []
+"""Construct `NuclearFamily` objects for all families in a genealogy data set.
+$(SIGNATURES)
+"""
+function nuclearfamilies(gen::Genealogy)::Vector{NuclearFamily}
+    nuculars = NuclearFamily[]
     for f in gen.families
         push!(nuculars, nuclearfamily(f, gen))
     end
@@ -132,15 +119,28 @@ function nuclearfamilies(gen::Genealogy)
 end
 
 
-function singleton(personid, gen)::Bool
-    families_asparent(personid, gen) |> isempty
+"""True if person has no family connections in this genealogy.
+$(SIGNATURES)
+"""
+function singleton(personid, gen::Genealogy)::Bool
+    pers = individual(personid, gen)
+    singleton(pers, nuclearfamilies(gen))
 end
 
+"""True if a person is absent from the given list of nuclear families.
+$(SIGNATURES)
+"""
+function singleton(indi::Individual, famlist::Vector{NuclearFamily})
+    childfams = filter(f -> indi in children(f), famlist)
+    parentfams = filter(f -> indi == husband(f) || indi == wife(f), famlist)
+    isempty(parentfams) && isempty(childfams)
+end
+
+"""Find individuals in a genealogy with no connections to any
+family units.
+$(SIGNATURES)
+"""
 function singletons(gen::Genealogy)
-    empties = filter(gen.individuals[1:10]) do indi
-        @info("Look at family settings for $(id(indi))")
-        isempty(families_asparent(indi, gen)) &&
-        isempty(family_aschild(indi, gen)) 
-        #false
-    end
+    nfams = nuclearfamilies(gen)
+    filter(indi -> singleton(indi, nfams), individuals(gen))
 end

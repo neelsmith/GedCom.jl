@@ -8,6 +8,19 @@ struct Genealogy
 end
 
 
+function individuals(gen::Genealogy)
+    gen.individuals
+end
+
+function familes(gen::Genealogy)
+    gen.familes
+end
+
+function sources(gen::Genealogy)
+    gen.sources
+end
+
+
 """Override Base.show for `Genealogy`.
 $(SIGNATURES)
 """
