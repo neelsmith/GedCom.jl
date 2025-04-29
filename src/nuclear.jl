@@ -8,15 +8,21 @@ struct NuclearFamily
     children::Vector{Individual}
 end
 
+"""Override Base.show for `NuclearFamily`.
+$(SIGNATURES)
+"""
+function show(io::IO, fam::NuclearFamily)
+   write(io, label(fam))
+end
 
 """Compose human-readable label for `f`.
 """
 function label(f::NuclearFamily)
     hlabel = isnothing(f.husband) ? "unknown" : replace(f.husband.name, "/" => " ")
     wlabel = isnothing(f.wife) ? "unknown" : replace(f.wife.name, "/" => " ")
-    string(hlabel, " -- ",  wlabel)
+    childrenlabel = length(f.children) == 1 ? string("(", length(f.children), " child)") : string("(", length(f.children), " children)")
+    string(hlabel, " -- ",  wlabel, " ", childrenlabel)
 end
-
 
 
 """Get all instances of `NuclearFamily` where the person identifed by `id` 
@@ -59,7 +65,7 @@ end
 
 """Construct nuclear family where `person` is a child.
 """
-function nuclearfamily(person::Individual, gen::Genealogy)
+function nuclearfamily(person::Individual, gen::Genealogy)::Union{NuclearFamily, Nothing}
     @debug("Get nuke fam for indi")
     famid = family_id_child(person)
     if isnothing(famid)
@@ -68,4 +74,13 @@ function nuclearfamily(person::Individual, gen::Genealogy)
         fam = family(famid, gen)
         nuclearfamily(fam, gen)
     end
+end
+
+
+function nuclearfamilies(gen::Genealogy)
+    nuculars = []
+    for f in gen.families
+        push!(nuculars, nuclearfamily(f, gen))
+    end
+    nuculars
 end

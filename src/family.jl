@@ -25,6 +25,8 @@ function hoh(id::AbstractString, gen)
     end
     isempty(idmatches) ? nothing : hoh(idmatches[1], gen)
 end
+
+
 function hoh(fam::FamilyUnit, gen)
     wifematches = filter(fam.records) do r
         r.code == "WIFE"

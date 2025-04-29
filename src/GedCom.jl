@@ -38,7 +38,7 @@ include("graphs/graphplots.jl")
 export Genealogy, genealogy_g5, individual, family
 export Individual, individuals 
 export FamilyUnit, families, family
-export NuclearFamily, nuclearfamily
+export NuclearFamily, nuclearfamilies, nuclearfamily
 #export Event, events
 export Source, sources, source
 export Location, location
