@@ -47,13 +47,6 @@ end
 
 
 
-function individuals(g::Genealogy)
-    g.individuals
-end
-function families(g::Genealogy)
-    g.families
-end
-
 """Look up an individual in a genealogy by ID.
 Returns an `Individual` or `nothing`.
 """
