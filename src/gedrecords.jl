@@ -14,10 +14,33 @@ end
 """Override Base.show for `GEDRecord`.
 $(SIGNATURES)
 """
-function show(io::IO, gen::GEDRecord)
-   write(io, "GEDCOM record")
+function show(io::IO, gedrec::GEDRecord)
+   write(io, label(gedrec))
 end
 
+function code(gr::GEDRecord)
+    gr.code
+end
+
+function message(gr::GEDRecord)
+    gr.message
+end
+
+
+function xrefId(gr::GEDRecord)
+    gr.xrefId
+end
+
+
+
+function level(gr::GEDRecord)
+    gr.level
+end
+
+function label(gr::GEDRecord)
+    refmessage = isnothing(gr.xrefId) ? "no xref" : "xref $(gr.xrefId)"
+    string(gr.code, ": ", gr.message, " (level ", gr.level, "; ", refmessage, ")" )
+end
 
 """Override `==` for `GEDRecord` type.
 """

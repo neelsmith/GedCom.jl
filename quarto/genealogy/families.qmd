@@ -54,13 +54,14 @@ The `NuclearFamily` groups together a husband, wife and list of children, each o
 
 Get all families an individual belongs to:
 
-```{julia}
+```
+gen = genealogy_g5(f)
 abe = individual("@I317@", gen)
-abefamilies = GedCom.nuclearfamilies(abe, gen)
+abefamily = GedCom.nuclearfamily(abe, gen)
 ```
 
 ```{julia}
-abefamily = abefamilies[1]
+#abefamily = abefamilies[1]
 ```
 
 parents

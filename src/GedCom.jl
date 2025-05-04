@@ -48,5 +48,7 @@ export GEDRecord, gedRecords
 export label
 export genealogyGraph
 
+export undocumented, singletons
+
 end # module
 

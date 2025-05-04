@@ -218,3 +218,8 @@ function matchname(s, gen::Genealogy; gedcomsyntax = false)::Vector{Individual}
         end
     end
 end
+
+
+function undocumented(gen::Genealogy)
+    filter(i -> undocumented(i), gen.individuals)
+end

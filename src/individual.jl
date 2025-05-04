@@ -131,3 +131,7 @@ function parseIndividuals(records)
     individuals
 end
 
+
+function undocumented(indi::Individual)::Bool
+    GedCom.blocks(indi.records, "SOUR") |> isempty
+end
